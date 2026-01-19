@@ -1,8 +1,8 @@
 /**
- * Affiliate Partner Configuration
+ * Affiliate Partner Configuratie
  *
- * Add affiliate partners here. Set 'active: true' when you have a partner.
- * Ads are only shown when there is at least one active partner.
+ * Voeg hier affiliate partners toe. Zet 'active: true' wanneer u een partner heeft.
+ * Advertenties worden alleen getoond wanneer er minstens één actieve partner is.
  */
 
 export interface AffiliatePartner {
@@ -13,7 +13,7 @@ export interface AffiliatePartner {
   imageUrl?: string;
   buttonText: string;
   active: boolean;
-  // Optional tracking parameters
+  // Optionele tracking parameters
   utmSource?: string;
   utmMedium?: string;
   utmCampaign?: string;
@@ -21,71 +21,83 @@ export interface AffiliatePartner {
 
 export const affiliatePartners: AffiliatePartner[] = [
   {
-    id: 'treatment-insurance',
-    name: 'Compare Treatment Insurance',
-    description: 'Compare health insurance plans that cover addiction treatment and save on your recovery.',
-    url: 'https://example.com/treatment-insurance',
-    imageUrl: '/images/affiliates/treatment-insurance.png',
-    buttonText: 'Compare now',
-    active: false, // Set to true when you have a partner
-    utmSource: 'rehabnearbyme',
+    id: 'beveiligingssloten',
+    name: 'Beveiligingssloten Vergelijken',
+    description: 'Vergelijk SKG-gecertificeerde sloten van topmerken en vind de beste prijs voor uw voordeur.',
+    url: 'https://example.com/beveiligingssloten',
+    imageUrl: '/images/affiliates/beveiligingssloten.png',
+    buttonText: 'Vergelijk nu',
+    active: false, // Zet op true wanneer u een partner heeft
+    utmSource: 'vindslotenmaker',
     utmMedium: 'sidebar',
-    utmCampaign: 'treatment-insurance',
+    utmCampaign: 'beveiligingssloten',
   },
   {
-    id: 'recovery-support',
-    name: 'Recovery Support Services',
-    description: 'Find aftercare support, sober living, and ongoing recovery resources.',
-    url: 'https://example.com/recovery-support',
-    imageUrl: '/images/affiliates/recovery-support.png',
-    buttonText: 'Learn more',
+    id: 'smart-locks',
+    name: 'Slimme Sloten Shop',
+    description: 'Ontdek de nieuwste smart locks en elektronische sloten voor uw woning of bedrijf.',
+    url: 'https://example.com/smart-locks',
+    imageUrl: '/images/affiliates/smart-locks.png',
+    buttonText: 'Bekijk aanbod',
     active: false,
-    utmSource: 'rehabnearbyme',
+    utmSource: 'vindslotenmaker',
     utmMedium: 'sidebar',
-    utmCampaign: 'recovery-support',
+    utmCampaign: 'smart-locks',
   },
   {
-    id: 'mental-health',
-    name: 'Mental Health Services',
-    description: 'Connect with licensed therapists and counselors specializing in addiction.',
-    url: 'https://example.com/mental-health',
-    imageUrl: '/images/affiliates/mental-health.png',
-    buttonText: 'Get help',
+    id: 'inbraakbeveiliging',
+    name: 'Complete Woningbeveiliging',
+    description: 'Van alarmsystemen tot camera\'s: alles voor een veilig huis op één plek.',
+    url: 'https://example.com/inbraakbeveiliging',
+    imageUrl: '/images/affiliates/inbraakbeveiliging.png',
+    buttonText: 'Meer info',
     active: false,
-    utmSource: 'rehabnearbyme',
+    utmSource: 'vindslotenmaker',
     utmMedium: 'sidebar',
-    utmCampaign: 'mental-health',
+    utmCampaign: 'inbraakbeveiliging',
   },
   {
-    id: 'intervention-services',
-    name: 'Intervention Services',
-    description: 'Professional intervention specialists to help your loved one get treatment.',
-    url: 'https://example.com/intervention',
-    imageUrl: '/images/affiliates/intervention.png',
-    buttonText: 'Find specialist',
+    id: 'kluizen',
+    name: 'Kluizen Vergelijker',
+    description: 'Vind de perfecte kluis voor uw waardevolle bezittingen. Van inbouwkluizen tot brandwerende modellen.',
+    url: 'https://example.com/kluizen',
+    imageUrl: '/images/affiliates/kluizen.png',
+    buttonText: 'Vergelijk kluizen',
     active: false,
-    utmSource: 'rehabnearbyme',
+    utmSource: 'vindslotenmaker',
     utmMedium: 'sidebar',
-    utmCampaign: 'intervention-services',
+    utmCampaign: 'kluizen',
+  },
+  {
+    id: 'autosleutels',
+    name: 'Autosleutels Service',
+    description: 'Reservesleutel nodig? Vergelijk prijzen voor autosleutels van alle merken.',
+    url: 'https://example.com/autosleutels',
+    imageUrl: '/images/affiliates/autosleutels.png',
+    buttonText: 'Prijzen bekijken',
+    active: false,
+    utmSource: 'vindslotenmaker',
+    utmMedium: 'sidebar',
+    utmCampaign: 'autosleutels',
   },
 ];
 
 /**
- * Helper function to get active partners
+ * Helper functie om actieve partners op te halen
  */
 export function getActivePartners(): AffiliatePartner[] {
   return affiliatePartners.filter(partner => partner.active);
 }
 
 /**
- * Helper function to check if there are active partners
+ * Helper functie om te controleren of er actieve partners zijn
  */
 export function hasActivePartners(): boolean {
   return affiliatePartners.some(partner => partner.active);
 }
 
 /**
- * Helper function to build affiliate URL with UTM parameters
+ * Helper functie om affiliate URL met UTM parameters te bouwen
  */
 export function buildAffiliateUrl(partner: AffiliatePartner): string {
   const url = new URL(partner.url);

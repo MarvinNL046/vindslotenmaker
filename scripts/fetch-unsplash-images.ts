@@ -1,5 +1,5 @@
 /**
- * Script om Unsplash images te zoeken en downloaden met Jina.ai
+ * Script om Unsplash afbeeldingen te zoeken en downloaden met Jina.ai
  * Gebruik: npx tsx scripts/fetch-unsplash-images.ts
  */
 
@@ -11,34 +11,53 @@ const JINA_API_KEY = 'jina_87f2d697e60a4f93b5b0b7576da1a857shcct21CGvGd4dbCBSyCU
 
 // Mapping van blog posts naar zoektermen en bestandsnamen
 const blogImages: Record<string, { searchTerm: string; filename: string }> = {
-  'choosing-treatment-center-guide': {
-    searchTerm: 'peaceful nature wellness retreat',
-    filename: 'choosing-treatment-center-guide.jpg'
+  'welk-slot-kiezen': {
+    searchTerm: 'door lock security home',
+    filename: 'voordeurslot.jpg'
   },
-  'understanding-addiction-recovery': {
-    searchTerm: 'recovery support group therapy',
-    filename: 'addiction-recovery.jpg'
+  'buitengesloten': {
+    searchTerm: 'locked out door keys',
+    filename: 'buitengesloten.jpg'
+  },
+  'inbraakpreventie': {
+    searchTerm: 'home security lock protection',
+    filename: 'inbraakpreventie.jpg'
+  },
+  'autosleutel': {
+    searchTerm: 'car key automotive',
+    filename: 'autosleutel.jpg'
+  },
+  'elektronisch-slot': {
+    searchTerm: 'smart lock electronic keypad',
+    filename: 'elektronisch-slot.jpg'
+  },
+  'slotenmaker': {
+    searchTerm: 'locksmith tools professional',
+    filename: 'slotenmaker.jpg'
   }
 };
 
-// Curated Unsplash image IDs for rehab-related topics
+// Curated Unsplash image IDs voor slotenmaker-gerelateerde onderwerpen
 const curatedImages: Record<string, string[]> = {
-  rehab: [
-    'photo-1507003211169-0a1dd7228f2d', // Peaceful setting
-    'photo-1571019614242-c5c5dee9f50b', // Wellness retreat
-    'photo-1545205597-3d9d02c29597', // Meditation
-    'photo-1544367567-0f2fcb009e0b', // Yoga wellness
-    'photo-1604014237800-1c9102c219da', // Garden therapy
+  sloten: [
+    'photo-1558618666-fcd25c85cd64', // Deurslot
+    'photo-1621905252507-b35492cc74b4', // Slot en sleutel
+    'photo-1582139329536-e7284fece509', // Voordeur
+    'photo-1506905925346-21bda4d32df4', // Veilig huis
   ],
-  nature: [
-    'photo-1441974231531-c6227db76b6e', // Forest path
-    'photo-1518495973542-4542c06a5843', // Peaceful trees
-    'photo-1542273917363-3b1817f69a2d', // Garden
+  sleutels: [
+    'photo-1609770231080-e321deccc34c', // Sleutels
+    'photo-1593510987046-1f8fcfc1a02b', // Sleutelbos
+    'photo-1544636331-e26879cd4d9b', // Autosleutel
   ],
-  wellness: [
-    'photo-1571019614242-c5c5dee9f50b', // Wellness retreat
-    'photo-1582653291997-079a1c04e5a1', // Health center
-    'photo-1590362891991-f776e747a588', // Recovery space
+  beveiliging: [
+    'photo-1558002038-1055907df827', // Beveiliging
+    'photo-1563013544-824ae1b704d3', // Alarm systeem
+    'photo-1486406146926-c627a92ad1ab', // Modern gebouw
+  ],
+  noodgeval: [
+    'photo-1582139329536-e7284fece509', // Deur
+    'photo-1560518883-ce09059eeffa', // Huis
   ]
 };
 
@@ -114,25 +133,33 @@ async function downloadUnsplashImage(photoId: string, filename: string): Promise
     const stats = fs.statSync(outputPath);
 
     if (stats.size < 1000) {
-      console.log(`❌ ${filename}: File too small (${stats.size} bytes), might be invalid`);
+      console.log(`❌ ${filename}: Bestand te klein (${stats.size} bytes), mogelijk ongeldig`);
       return false;
     }
 
-    console.log(`✅ ${filename}: Downloaded (${Math.round(stats.size / 1024)} KB)`);
+    console.log(`✅ ${filename}: Gedownload (${Math.round(stats.size / 1024)} KB)`);
     return true;
   } catch (error) {
-    console.error(`❌ ${filename}: Failed to download`, error);
+    console.error(`❌ ${filename}: Download mislukt`, error);
     return false;
   }
 }
 
 async function main() {
-  console.log('🖼️  Unsplash Image Fetcher voor Blog\n');
+  console.log('🖼️  Unsplash Afbeeldingen Ophalen voor Blog\n');
 
-  // Download curated images for blog posts
+  // Download curated images voor blog posts
   const downloads = [
-    { photoId: 'photo-1507003211169-0a1dd7228f2d', filename: 'choosing-treatment-center-guide.jpg' },
-    { photoId: 'photo-1571019614242-c5c5dee9f50b', filename: 'addiction-recovery.jpg' },
+    { photoId: 'photo-1558618666-fcd25c85cd64', filename: 'voordeurslot.jpg' },
+    { photoId: 'photo-1609770231080-e321deccc34c', filename: 'buitengesloten.jpg' },
+    { photoId: 'photo-1558002038-1055907df827', filename: 'inbraakpreventie.jpg' },
+    { photoId: 'photo-1544636331-e26879cd4d9b', filename: 'autosleutel.jpg' },
+    { photoId: 'photo-1621905252507-b35492cc74b4', filename: 'elektronisch-slot.jpg' },
+    { photoId: 'photo-1582139329536-e7284fece509', filename: 'na-inbraak.jpg' },
+    { photoId: 'photo-1563013544-824ae1b704d3', filename: 'betrouwbare-slotenmaker.jpg' },
+    { photoId: 'photo-1593510987046-1f8fcfc1a02b', filename: 'kosten-slotenmaker.jpg' },
+    { photoId: 'photo-1506905925346-21bda4d32df4', filename: 'skg-keurmerk.jpg' },
+    { photoId: 'photo-1560518883-ce09059eeffa', filename: 'meerpuntsluiting.jpg' },
   ];
 
   for (const { photoId, filename } of downloads) {
@@ -140,12 +167,12 @@ async function main() {
   }
 
   console.log('\n📝 Unsplash Attributie (verplicht bij gebruik):');
-  console.log('   Foto\'s van Unsplash - https://unsplash.com');
+  console.log("   Foto's van Unsplash - https://unsplash.com");
   console.log('   Gratis te gebruiken met vermelding van de fotograaf\n');
 }
 
-// Export functions for use in other scripts
+// Export functies voor gebruik in andere scripts
 export { downloadUnsplashImage, searchUnsplashWithJina, curatedImages };
 
-// Run if called directly
+// Run indien direct aangeroepen
 main().catch(console.error);
