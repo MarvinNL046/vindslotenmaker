@@ -1,14 +1,14 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 
-interface Facility {
+interface Slotenmaker {
   name: string;
   city: string;
-  state: string;
-  state_abbr: string;
-  county: string;
-  facility_types: string[];
-  treatment_types: string[];
+  province: string;
+  province_abbr: string;
+  municipality: string;
+  bedrijfs_types: string[];
+  service_types: string[];
   address: string;
   phone?: string;
   website?: string;
@@ -18,14 +18,14 @@ interface Facility {
   review_count?: number;
   photo?: string;
   slug: string;
-  insurance_accepted?: string[];
-  amenities?: string[];
+  betaalmethoden?: string[];
+  certificeringen?: string[];
   description?: string;
 }
 
 async function buildData() {
   try {
-    console.log('Building facility data for production...');
+    console.log('Building slotenmaker data for production...');
 
     // Check if we already have the public data (useful for Vercel if source is not available)
     const publicDataPath = path.join(process.cwd(), 'public', 'data', 'facilities.json');
@@ -37,8 +37,8 @@ async function buildData() {
     }
 
     // Read the processed JSON file
-    const processedJsonPath = path.join(process.cwd(), 'data', 'facilities-processed.json');
-    let processedRecords: Facility[];
+    const processedJsonPath = path.join(process.cwd(), 'data', 'slotenmakers-processed.json');
+    let processedRecords: Slotenmaker[];
 
     try {
       const jsonContent = await fs.readFile(processedJsonPath, 'utf-8');
@@ -51,8 +51,8 @@ async function buildData() {
         return;
       } catch {
         console.error('No data source available. Please ensure either:');
-        console.error('1. Run: npx tsx scripts/process-all-data.ts facility data/facilities.csv');
-        console.error('2. /public/data/facilities.json is already built');
+        console.error('1. Run: npx tsx scripts/process-all-data.ts slotenmaker data/slotenmakers.csv');
+        console.error('2. /public/data/slotenmakers.json is already built');
         process.exit(1);
       }
     }
@@ -62,23 +62,23 @@ async function buildData() {
     await fs.mkdir(publicDataDir, { recursive: true });
 
     // Save the processed data
-    const outputPath = path.join(publicDataDir, 'facilities.json');
+    const outputPath = path.join(publicDataDir, 'slotenmakers.json');
     await fs.writeFile(
       outputPath,
       JSON.stringify(processedRecords, null, 2),
       'utf-8'
     );
 
-    console.log(`✓ Processed ${processedRecords.length} facilities`);
+    console.log(`✓ Processed ${processedRecords.length} slotenmakers`);
     console.log(`✓ Saved to ${outputPath}`);
 
     // Create a summary file for quick stats
     const summary = {
       total: processedRecords.length,
-      states: [...new Set(processedRecords.map(f => f.state).filter(Boolean))].sort(),
+      provinces: [...new Set(processedRecords.map(f => f.province).filter(Boolean))].sort(),
       cities: [...new Set(processedRecords.map(f => f.city).filter(Boolean))].sort(),
-      facility_types: [...new Set(processedRecords.flatMap(f => f.facility_types || []).filter(Boolean))].sort(),
-      treatment_types: [...new Set(processedRecords.flatMap(f => f.treatment_types || []).filter(Boolean))].sort(),
+      bedrijfs_types: [...new Set(processedRecords.flatMap(f => f.bedrijfs_types || []).filter(Boolean))].sort(),
+      service_types: [...new Set(processedRecords.flatMap(f => f.service_types || []).filter(Boolean))].sort(),
       lastUpdated: new Date().toISOString(),
     };
 

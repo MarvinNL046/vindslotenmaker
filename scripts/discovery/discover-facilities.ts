@@ -163,9 +163,9 @@ async function insertFacilityToDatabase(facility: DiscoveredFacility): Promise<b
       ? facility.opening_hours
       : JSON.stringify(facility.opening_hours) || null,
     amenities: facility.amenities || null,
-    facilityTypes: null,
-    treatmentTypes: null,
-    insuranceAccepted: null,
+    bedrijfsTypes: null,
+    serviceTypes: null,
+    betaalmethoden: null,
     yearEstablished: null,
     description: null,
     seoTitle: null,
