@@ -59,20 +59,8 @@ const config: Config = {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))'
   			},
-  			// Extended color palettes for design flexibility - Teal/Coral Healing Theme
-  			teal: {
-  				50: '#f0fdfa',
-  				100: '#ccfbf1',
-  				200: '#99f6e4',
-  				300: '#5eead4',
-  				400: '#2dd4bf',
-  				500: '#14b8a6',
-  				600: '#0d9488',
-  				700: '#0f766e',
-  				800: '#115e59',
-  				900: '#134e4a',
-  			},
-  			coral: {
+  			// Extended color palettes for design flexibility - Orange/Gray Emergency Theme
+  			orange: {
   				50: '#fff7ed',
   				100: '#ffedd5',
   				200: '#fed7aa',
@@ -84,6 +72,18 @@ const config: Config = {
   				800: '#9a3412',
   				900: '#7c2d12',
   			},
+  			gray: {
+  				50: '#f9fafb',
+  				100: '#f3f4f6',
+  				200: '#e5e7eb',
+  				300: '#d1d5db',
+  				400: '#9ca3af',
+  				500: '#6b7280',
+  				600: '#4b5563',
+  				700: '#374151',
+  				800: '#1f2937',
+  				900: '#111827',
+  			},
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
@@ -91,9 +91,9 @@ const config: Config = {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		boxShadow: {
-  			'soft': '0 4px 20px rgba(13, 148, 136, 0.08)',
-  			'hover': '0 8px 30px rgba(13, 148, 136, 0.12)',
-  			'card': '0 2px 12px rgba(13, 148, 136, 0.06)',
+  			'soft': '0 4px 20px rgba(249, 115, 22, 0.08)',
+  			'hover': '0 8px 30px rgba(249, 115, 22, 0.12)',
+  			'card': '0 2px 12px rgba(249, 115, 22, 0.06)',
   		},
   		keyframes: {
   			'accordion-down': {

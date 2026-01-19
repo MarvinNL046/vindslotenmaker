@@ -198,7 +198,7 @@ export default async function CountyPage({ params }: PageProps) {
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-8">
               {/* Tips Section */}
-              <Card className="p-6 bg-gradient-to-r from-teal-50 to-coral-50/30 dark:from-teal-900/20 dark:to-coral-900/10 border-teal-100 dark:border-teal-800">
+              <Card className="p-6 bg-gradient-to-r from-orange-50 to-coral-50/30 dark:from-orange-900/20 dark:to-coral-900/10 border-orange-100 dark:border-orange-800">
                 <h2 className="font-serif text-xl font-semibold mb-4 flex items-center gap-2">
                   <Lightbulb className="w-5 h-5 text-accent" />
                   Tips for Choosing a Treatment Center
@@ -228,8 +228,8 @@ export default async function CountyPage({ params }: PageProps) {
                 <h2 className="font-serif text-2xl font-semibold mb-6">Types of Treatment Centers</h2>
                 <div className="grid md:grid-cols-3 gap-4">
                   <Card className="p-5 hover:shadow-hover transition-all duration-300 border-2 border-transparent hover:border-accent/30">
-                    <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center mb-3">
-                      <Building2 className="w-5 h-5 text-teal-700" />
+                    <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mb-3">
+                      <Building2 className="w-5 h-5 text-orange-700" />
                     </div>
                     <h3 className="font-semibold mb-2">Inpatient Rehab</h3>
                     <p className="text-sm text-muted-foreground">
@@ -237,8 +237,8 @@ export default async function CountyPage({ params }: PageProps) {
                     </p>
                   </Card>
                   <Card className="p-5 hover:shadow-hover transition-all duration-300 border-2 border-transparent hover:border-accent/30">
-                    <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center mb-3">
-                      <Trees className="w-5 h-5 text-teal-700" />
+                    <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mb-3">
+                      <Trees className="w-5 h-5 text-orange-700" />
                     </div>
                     <h3 className="font-semibold mb-2">Outpatient Treatment</h3>
                     <p className="text-sm text-muted-foreground">
@@ -246,8 +246,8 @@ export default async function CountyPage({ params }: PageProps) {
                     </p>
                   </Card>
                   <Card className="p-5 hover:shadow-hover transition-all duration-300 border-2 border-transparent hover:border-accent/30">
-                    <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center mb-3">
-                      <Users className="w-5 h-5 text-teal-700" />
+                    <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mb-3">
+                      <Users className="w-5 h-5 text-orange-700" />
                     </div>
                     <h3 className="font-semibold mb-2">Detox Centers</h3>
                     <p className="text-sm text-muted-foreground">
@@ -289,8 +289,8 @@ export default async function CountyPage({ params }: PageProps) {
                         >
                           <Card className="h-full p-4 border-2 border-transparent hover:border-accent/30 transition-all duration-300">
                             <div className="flex items-center gap-3">
-                              <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center group-hover:bg-accent transition-colors">
-                                <MapPin className="w-5 h-5 text-teal-700 group-hover:text-white transition-colors" />
+                              <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center group-hover:bg-accent transition-colors">
+                                <MapPin className="w-5 h-5 text-orange-700 group-hover:text-white transition-colors" />
                               </div>
                               <div>
                                 <h3 className="font-semibold group-hover:text-accent transition-colors">
@@ -394,7 +394,7 @@ export default async function CountyPage({ params }: PageProps) {
               </Card>
 
               {/* Contact Info */}
-              <Card className="p-6 shadow-soft bg-gradient-to-br from-teal-50 to-coral-50/50 dark:from-teal-900/20 dark:to-coral-900/10 border-teal-200 dark:border-teal-800">
+              <Card className="p-6 shadow-soft bg-gradient-to-br from-orange-50 to-coral-50/50 dark:from-orange-900/20 dark:to-coral-900/10 border-orange-200 dark:border-orange-800">
                 <h3 className="font-serif text-lg font-semibold mb-3">Need Help?</h3>
                 <p className="text-sm text-muted-foreground mb-4">
                   We can help you find the right treatment center in {matchedCounty} County.

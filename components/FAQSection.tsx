@@ -11,28 +11,28 @@ interface FAQItem {
 
 const faqItems: FAQItem[] = [
   {
-    question: "What is inpatient rehab?",
-    answer: "Inpatient rehab, also known as residential treatment, is a program where patients live at the treatment facility 24/7 while receiving intensive care. This includes medical supervision, individual and group therapy, medication management, and structured daily activities. Inpatient programs typically last 30, 60, or 90 days and are ideal for severe addictions or those who need a safe, substance-free environment."
+    question: "Wat kost een slotenmaker?",
+    answer: "De kosten van een slotenmaker variëren afhankelijk van de dienst en het tijdstip. Een standaard deuropening kost gemiddeld tussen de €75 en €150. Bij spoedwerk buiten kantooruren kunnen de kosten oplopen tot €150-€250. Het vervangen van een cilinder kost ongeveer €80-€200 inclusief montage. Vraag altijd vooraf om een prijsopgave om verrassingen te voorkomen."
   },
   {
-    question: "How long does addiction treatment take?",
-    answer: "Treatment duration varies based on individual needs, substance type, and addiction severity. Short-term programs typically last 28-30 days, while standard programs run 60-90 days. Long-term residential treatment can last 6-12 months. Research shows longer treatment periods often lead to better outcomes. Many people also continue with outpatient care and support groups after completing initial treatment."
+    question: "Hoe snel kan een slotenmaker ter plaatse zijn?",
+    answer: "De meeste slotenmakers bieden een spoedservice met een responstijd van 15 tot 45 minuten, afhankelijk van uw locatie en het tijdstip. Bij 24-uurs services zijn slotenmakers ook 's nachts en in het weekend beschikbaar. Bij het zoeken op onze website kunt u filteren op slotenmakers met snelle responstijden."
   },
   {
-    question: "Does insurance cover rehab?",
-    answer: "Yes, most health insurance plans cover addiction treatment thanks to the Affordable Care Act and Mental Health Parity Act. Coverage typically includes detox, inpatient rehab, outpatient treatment, and medications. The extent of coverage varies by plan, so it's important to verify benefits with your insurance provider. Many treatment centers also offer payment plans or sliding scale fees for those without insurance."
+    question: "Wat moet ik doen als ik buitengesloten ben?",
+    answer: "Als u buitengesloten bent, blijf kalm en controleer eerst of er andere toegangsmogelijkheden zijn (open raam, achterdeur). Bel vervolgens een gecertificeerde slotenmaker bij u in de buurt. Houd uw legitimatie bij de hand, want een betrouwbare slotenmaker zal hierom vragen. Forceer nooit zelf de deur of het slot, dit kan leiden tot meer schade en hogere kosten."
   },
   {
-    question: "What's the difference between inpatient and outpatient treatment?",
-    answer: "Inpatient treatment requires living at the facility full-time with 24/7 medical supervision and structured programming. Outpatient treatment allows patients to live at home while attending scheduled therapy sessions. Intensive Outpatient Programs (IOP) typically involve 9-20 hours of treatment per week. Inpatient is recommended for severe addictions, while outpatient suits those with milder addictions, strong support systems, or work/family obligations."
+    question: "Hoe herken ik een betrouwbare slotenmaker?",
+    answer: "Een betrouwbare slotenmaker heeft een KvK-inschrijving, vraagt om legitimatie voordat hij begint, geeft vooraf een duidelijke prijsopgave, en heeft positieve reviews. Let ook op certificeringen zoals VEB, SKG of politiekeurmerk. Wantrouw slotenmakers die geen factuur geven of alleen contant willen worden betaald."
   },
   {
-    question: "What happens during detox?",
-    answer: "Detox is the process of safely removing substances from your body under medical supervision. It typically lasts 3-10 days depending on the substance. Medical staff monitor vital signs, manage withdrawal symptoms, and may administer medications to ease discomfort and prevent complications. Symptoms can include nausea, anxiety, tremors, and insomnia. Detox alone is not treatment; it's the first step before comprehensive addiction therapy begins."
+    question: "Welke betaalmethoden accepteren slotenmakers?",
+    answer: "De meeste slotenmakers accepteren diverse betaalmethoden: PIN/contactloos, contant, en soms ook creditcard of achteraf betalen. Veel slotenmakers bieden ook de mogelijkheid om via iDEAL of bankoverschrijving te betalen na ontvangst van de factuur. Vraag vooraf naar de betaalmogelijkheden."
   },
   {
-    question: "How do I choose the right treatment center?",
-    answer: "Consider these factors when choosing a rehab: accreditation and licensing, treatment approaches offered (evidence-based therapies like CBT, DBT), staff credentials, specialized programs for your specific addiction, location preferences, insurance acceptance, aftercare planning, and amenities. Visit facilities if possible, read reviews, and ask about success rates. The right center should address your physical, mental, and emotional needs while fitting your personal circumstances."
+    question: "Kan een slotenmaker elk slot openen?",
+    answer: "Een ervaren slotenmaker kan vrijwel elk slot openen, van standaard cilindersloten tot hoogwaardige veiligheidssloten. De methode verschilt per slot: sommige kunnen non-destructief worden geopend, terwijl andere moeten worden geboord. Bij moderne elektronische sloten is vaak specialistische kennis vereist. Een goede slotenmaker bespreekt vooraf de opties en mogelijke gevolgen."
   }
 ];
 
@@ -68,7 +68,7 @@ export default function FAQSection() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <div className="container mx-auto px-4">
-        <h2 className="text-2xl font-bold text-center mb-8">Frequently Asked Questions</h2>
+        <h2 className="text-2xl font-bold text-center mb-8">Veelgestelde Vragen</h2>
         <div className="max-w-3xl mx-auto space-y-4">
           {faqItems.map((item, index) => (
             <Card key={index} className="overflow-hidden">

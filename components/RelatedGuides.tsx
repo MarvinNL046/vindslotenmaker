@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { BookOpen, Heart, Shield, Brain, Users, Stethoscope } from 'lucide-react';
+import { BookOpen, KeyRound, Shield, Wrench, Users, Clock } from 'lucide-react';
 
 interface GuideLink {
   href: string;
@@ -12,87 +12,78 @@ interface GuideLink {
 // All available guides/pillar pages with their metadata
 const allGuides: GuideLink[] = [
   {
-    href: '/guide/types',
-    label: 'Types of Treatment Centers',
-    description: 'Learn about different treatment options, from inpatient to outpatient programs.',
+    href: '/guide/diensten',
+    label: 'Soorten Slotenmakersdiensten',
+    description: 'Ontdek de verschillende diensten die slotenmakers aanbieden, van noodopeningen tot beveiligingsadvies.',
     icon: BookOpen,
-    keywords: ['type', 'types', 'category', 'kind', 'inpatient', 'outpatient']
+    keywords: ['dienst', 'diensten', 'soort', 'type', 'noodopening', 'beveiliging']
   },
   {
-    href: '/guide/addiction-treatment',
-    label: 'Addiction Treatment Guide',
-    description: 'Comprehensive guide to understanding addiction and treatment approaches.',
-    icon: Heart,
-    keywords: ['addiction', 'treatment', 'recovery', 'substance', 'abuse']
+    href: '/guide/kosten',
+    label: 'Kosten & Prijzen',
+    description: 'Wat kost een slotenmaker? Overzicht van gemiddelde prijzen en waar u op moet letten.',
+    icon: KeyRound,
+    keywords: ['kosten', 'prijs', 'prijzen', 'tarief', 'betalen', 'geld']
   },
   {
-    href: '/guide/insurance',
-    label: 'Insurance & Payment Options',
-    description: 'Understanding insurance coverage and payment options for treatment.',
+    href: '/guide/betaalmethodes',
+    label: 'Betaalmethodes',
+    description: 'Welke betaalmethodes accepteren slotenmakers? PIN, contant, achteraf betalen en meer.',
     icon: Shield,
-    keywords: ['insurance', 'payment', 'cost', 'coverage', 'medicaid', 'medicare']
+    keywords: ['betalen', 'betaalmethode', 'pin', 'contant', 'ideal', 'factuur']
   },
   {
-    href: '/guide/mental-health',
-    label: 'Mental Health & Dual Diagnosis',
-    description: 'Information about co-occurring mental health and addiction treatment.',
-    icon: Brain,
-    keywords: ['mental', 'health', 'dual', 'diagnosis', 'depression', 'anxiety']
+    href: '/guide/beveiliging',
+    label: 'Woningbeveiliging Tips',
+    description: 'Praktische tips om uw woning beter te beveiligen tegen inbraak.',
+    icon: Wrench,
+    keywords: ['beveiliging', 'inbraak', 'preventie', 'slot', 'cilinder', 'veilig']
   },
   {
-    href: '/guide/family-support',
-    label: 'Family Support Resources',
-    description: 'How families can support their loved ones through recovery.',
+    href: '/guide/noodgevallen',
+    label: 'Buitengesloten - Wat Nu?',
+    description: 'Stap-voor-stap handleiding als u buitengesloten bent of uw sleutel kwijt bent.',
     icon: Users,
-    keywords: ['family', 'support', 'loved', 'ones', 'intervention']
+    keywords: ['nood', 'spoed', 'buitengesloten', 'sleutel', 'kwijt', 'hulp']
   }
 ];
 
-// Sub-pillar content for specific treatment types
+// Sub-pillar content for specific service types
 const typeSubGuides: Record<string, GuideLink[]> = {
-  'inpatient': [
+  '24-uurs-service': [
     {
-      href: '/guide/types#inpatient',
-      label: 'Understanding Inpatient Treatment',
-      description: 'What to expect from residential treatment programs.',
-      icon: BookOpen,
-      keywords: ['inpatient', 'residential']
+      href: '/guide/diensten#spoed',
+      label: '24-uurs Spoedservice',
+      description: 'Alles over de 24/7 spoedservice van slotenmakers.',
+      icon: Clock,
+      keywords: ['24-uurs', 'spoed', 'nacht', 'weekend']
     }
   ],
-  'outpatient': [
+  'woningbeveiliging': [
     {
-      href: '/guide/types#outpatient',
-      label: 'Outpatient Treatment Options',
-      description: 'Flexible treatment while maintaining daily responsibilities.',
-      icon: Stethoscope,
-      keywords: ['outpatient', 'iop', 'php']
-    }
-  ],
-  'detox': [
-    {
-      href: '/guide/types#detox',
-      label: 'Medical Detox Programs',
-      description: 'Safe, medically supervised detoxification services.',
+      href: '/guide/beveiliging',
+      label: 'Woningbeveiliging',
+      description: 'Complete gids voor het beveiligen van uw woning.',
       icon: Shield,
-      keywords: ['detox', 'withdrawal', 'medical']
+      keywords: ['woning', 'beveiliging', 'huis', 'inbraak']
     }
   ],
-  'sober-living': [
+  'autosloten': [
     {
-      href: '/guide/types#sober-living',
-      label: 'Sober Living Homes',
-      description: 'Transitional housing for continued recovery support.',
-      icon: Users,
-      keywords: ['sober', 'living', 'transitional', 'housing']
+      href: '/guide/diensten#auto',
+      label: 'Autosloten Service',
+      description: 'Hulp bij autosloten, sleutels bijmaken en noodopeningen.',
+      icon: KeyRound,
+      keywords: ['auto', 'sleutel', 'bijmaken', 'noodopening']
     }
   ],
-  'dual-diagnosis': [
+  'kluizen': [
     {
-      href: '/guide/mental-health',
-      label: 'Dual Diagnosis Treatment',
-      description: 'Treatment for co-occurring mental health and substance use disorders.',
-      icon: Brain,
-      keywords: ['dual', 'diagnosis', 'mental', 'health']
+      href: '/guide/diensten#kluizen',
+      label: 'Kluizen Openen',
+      description: 'Professionele hulp bij het openen van kluizen.',
+      icon: Shield,
+      keywords: ['kluis', 'openen', 'code', 'vergeten']
     }
   ]
 };
@@ -131,13 +122,13 @@ export default function RelatedGuides({
       }
     }
 
-    // Boost insurance guide for all pages (always relevant)
-    if (guide.href === '/guide/insurance') {
+    // Boost payment guide for all pages (always relevant)
+    if (guide.href === '/guide/betaalmethodes') {
       score = Math.max(score, 2);
     }
 
-    // Always include the types guide at minimum score
-    if (guide.href === '/guide/types') {
+    // Always include the services guide at minimum score
+    if (guide.href === '/guide/diensten') {
       score = Math.max(score, 1);
     }
 
@@ -163,14 +154,14 @@ export default function RelatedGuides({
     return (
       <div className={`${className}`}>
         <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">
-          Helpful Resources
+          Handige Informatie
         </h3>
         <ul className="space-y-2">
           {guidesToShow.map((guide) => (
             <li key={guide.href}>
               <Link
                 href={guide.href}
-                className="text-sm text-primary hover:underline flex items-center gap-2"
+                className="text-sm text-orange-600 hover:text-orange-700 hover:underline flex items-center gap-2"
               >
                 <guide.icon className="w-4 h-4 flex-shrink-0" />
                 {guide.label}
@@ -185,19 +176,19 @@ export default function RelatedGuides({
   if (variant === 'card') {
     return (
       <div className={`bg-muted/50 rounded-lg p-6 ${className}`}>
-        <h3 className="font-semibold text-lg mb-4">Related Guides</h3>
+        <h3 className="font-semibold text-lg mb-4">Gerelateerde Gidsen</h3>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {guidesToShow.map((guide) => (
             <Link
               key={guide.href}
               href={guide.href}
-              className="group bg-background rounded-lg p-4 border hover:border-primary transition-colors"
+              className="group bg-background rounded-lg p-4 border hover:border-orange-400 transition-colors"
             >
               <div className="flex items-center gap-3 mb-2">
-                <div className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
-                  <guide.icon className="w-5 h-5 text-primary" />
+                <div className="p-2 bg-orange-100 rounded-lg group-hover:bg-orange-200 transition-colors">
+                  <guide.icon className="w-5 h-5 text-orange-600" />
                 </div>
-                <h4 className="font-medium text-sm group-hover:text-primary transition-colors">
+                <h4 className="font-medium text-sm group-hover:text-orange-600 transition-colors">
                   {guide.label}
                 </h4>
               </div>
@@ -216,19 +207,19 @@ export default function RelatedGuides({
   // Default variant
   return (
     <div className={`${className}`}>
-      <h3 className="font-semibold text-lg mb-4">Related Guides</h3>
+      <h3 className="font-semibold text-lg mb-4">Gerelateerde Gidsen</h3>
       <div className="space-y-4">
         {guidesToShow.map((guide) => (
           <Link
             key={guide.href}
             href={guide.href}
-            className="group flex items-start gap-4 p-4 rounded-lg border hover:border-primary hover:bg-muted/50 transition-all"
+            className="group flex items-start gap-4 p-4 rounded-lg border hover:border-orange-400 hover:bg-muted/50 transition-all"
           >
-            <div className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors flex-shrink-0">
-              <guide.icon className="w-5 h-5 text-primary" />
+            <div className="p-2 bg-orange-100 rounded-lg group-hover:bg-orange-200 transition-colors flex-shrink-0">
+              <guide.icon className="w-5 h-5 text-orange-600" />
             </div>
             <div>
-              <h4 className="font-medium group-hover:text-primary transition-colors">
+              <h4 className="font-medium group-hover:text-orange-600 transition-colors">
                 {guide.label}
               </h4>
               {showDescription && (

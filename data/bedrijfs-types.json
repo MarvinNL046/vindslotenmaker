@@ -1,0 +1,70 @@
+{
+  "types": [
+    {
+      "slug": "slotenmaker",
+      "name": "Slotenmaker",
+      "description": "Algemene slotenmaker voor particulieren en bedrijven. Levert diensten zoals sloten vervangen, sleutels bijmaken en noodopeningen.",
+      "search_terms": ["slotenmaker", "sleutelmaker", "slotenmakerbedrijf", "slotenservice"]
+    },
+    {
+      "slug": "24-uurs-slotenmaker",
+      "name": "24-uurs Slotenmaker",
+      "description": "Slotenmaker met 24/7 bereikbaarheid voor noodgevallen. Spoedservice bij buitensluitingen, dag en nacht.",
+      "search_terms": ["24 uur slotenmaker", "nacht slotenmaker", "spoed slotenmaker", "noodslotenmaker"]
+    },
+    {
+      "slug": "beveiligingsbedrijf",
+      "name": "Beveiligingsbedrijf",
+      "description": "Gespecialiseerd in beveiligingsoplossingen voor woningen en bedrijven, inclusief alarmsystemen en toegangscontrole.",
+      "search_terms": ["beveiliging", "beveiligingsbedrijf", "alarminstallatie", "beveiligingsspecialist"]
+    },
+    {
+      "slug": "autoslotenmaker",
+      "name": "Autoslotenmaker",
+      "description": "Specialist in autosloten, autosleutels en auto noodopeningen. Programmeren van transpondersleutels.",
+      "search_terms": ["auto slotenmaker", "autosleutel specialist", "autobeveiliging", "autosleuteldienst"]
+    },
+    {
+      "slug": "kluizenspecialist",
+      "name": "Kluizenspecialist",
+      "description": "Expert in kluizen openen, repareren en installeren. Van woningkluizen tot professionele brandkasten.",
+      "search_terms": ["kluizen specialist", "kluis expert", "brandkast specialist", "kluizenservice"]
+    },
+    {
+      "slug": "hang-en-sluitwerk-specialist",
+      "name": "Hang- en Sluitwerk Specialist",
+      "description": "Gespecialiseerd in alle hang- en sluitwerk voor deuren en ramen. Montage en onderhoud.",
+      "search_terms": ["hang en sluitwerk", "deurbeslag specialist", "sluitwerk expert", "deurenmontage"]
+    },
+    {
+      "slug": "sleutelservice",
+      "name": "Sleutelservice",
+      "description": "Service voor het bijmaken van sleutels, van standaard tot beveiligde sleutels en patentsleutels.",
+      "search_terms": ["sleutelservice", "sleutel bijmaken", "sleuteldienst", "sleutelkopie"]
+    },
+    {
+      "slug": "elektronische-beveiliging",
+      "name": "Elektronische Beveiliging",
+      "description": "Specialist in elektronische toegangscontrole, smart locks en digitale beveiligingssystemen.",
+      "search_terms": ["elektronische beveiliging", "smart lock specialist", "digitale beveiliging", "toegangscontrole"]
+    },
+    {
+      "slug": "zakelijke-slotenmaker",
+      "name": "Zakelijke Slotenmaker",
+      "description": "Slotenmaker gericht op bedrijven en organisaties. Gelijksluitende systemen en toegangscontroleplanning.",
+      "search_terms": ["zakelijke slotenmaker", "bedrijfsslotenmaker", "kantoorbeveiliging", "gelijksluitend systeem"]
+    },
+    {
+      "slug": "inbraakpreventie-specialist",
+      "name": "Inbraakpreventie Specialist",
+      "description": "Expert in inbraakpreventie en woningbeveiliging. Advies over SKG-gecertificeerde sloten en beslag.",
+      "search_terms": ["inbraakpreventie", "inbraakbeveiliging", "woningcheck", "preventie specialist"]
+    },
+    {
+      "slug": "slot-en-sleutelmaker",
+      "name": "Slot- en Sleutelmaker",
+      "description": "Traditionele ambachtelijke slotenmaker die sloten repareert, aanpast en sleutels vervaardigt.",
+      "search_terms": ["slot en sleutelmaker", "ambachtelijk slotenmaker", "sleutelmaker", "slotreparatie"]
+    }
+  ]
+}

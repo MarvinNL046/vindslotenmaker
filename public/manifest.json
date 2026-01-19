@@ -1,14 +1,14 @@
 {
-  "name": "Rehab Near Me",
-  "short_name": "Rehab",
-  "description": "Find rehabilitation and addiction treatment centers near you. Search for rehab facilities across the United States with ratings, reviews, and directions.",
+  "name": "VindSlotenmaker.nl",
+  "short_name": "Slotenmaker",
+  "description": "Vind een slotenmaker bij jou in de buurt. Zoek en vergelijk slotenmakers voor noodopeningen, sloten vervangen en inbraakbeveiliging in heel Nederland.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#1a1a2e",
-  "theme_color": "#1a1a2e",
+  "background_color": "#1F2937",
+  "theme_color": "#F97316",
   "orientation": "portrait-primary",
   "scope": "/",
-  "lang": "en",
+  "lang": "nl",
   "categories": ["lifestyle", "utilities"],
   "icons": [
     {
@@ -66,28 +66,28 @@
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "Homepage"
+      "label": "Homepagina"
     },
     {
       "src": "/screenshots/search.png",
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "Search"
+      "label": "Zoeken"
     }
   ],
   "shortcuts": [
     {
-      "name": "Search",
-      "short_name": "Search",
-      "description": "Search for a rehab facility",
+      "name": "Zoeken",
+      "short_name": "Zoeken",
+      "description": "Zoek een slotenmaker",
       "url": "/search",
       "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
     },
     {
-      "name": "Near Me",
-      "short_name": "Nearby",
-      "description": "Find rehab facilities near me",
+      "name": "In de Buurt",
+      "short_name": "Dichtbij",
+      "description": "Vind slotenmakers dichtbij",
       "url": "/search?nearby=true",
       "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
     }

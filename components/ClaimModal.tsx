@@ -93,13 +93,13 @@ export default function ClaimModal({ isOpen, onClose, facilityName, facilitySlug
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Something went wrong');
+        throw new Error(data.error || 'Er ging iets mis');
       }
 
       setClaimId(data.claimId);
       setStep('verify-code');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong');
+      setError(err instanceof Error ? err.message : 'Er ging iets mis');
     } finally {
       setLoading(false);
     }
@@ -120,12 +120,12 @@ export default function ClaimModal({ isOpen, onClose, facilityName, facilitySlug
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Something went wrong');
+        throw new Error(data.error || 'Er ging iets mis');
       }
 
       setStep('success');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong');
+      setError(err instanceof Error ? err.message : 'Er ging iets mis');
     } finally {
       setLoading(false);
     }
@@ -166,8 +166,8 @@ export default function ClaimModal({ isOpen, onClose, facilityName, facilitySlug
         {/* Loading state */}
         {step === 'check-auth' && (
           <div className="p-12 text-center">
-            <Loader2 className="w-8 h-8 animate-spin text-teal-600 mx-auto" />
-            <p className="mt-4 text-gray-600">Please wait...</p>
+            <Loader2 className="w-8 h-8 animate-spin text-orange-500 mx-auto" />
+            <p className="mt-4 text-gray-600">Even geduld...</p>
           </div>
         )}
 
@@ -179,25 +179,25 @@ export default function ClaimModal({ isOpen, onClose, facilityName, facilitySlug
                 <AlertCircle className="w-8 h-8 text-yellow-600" />
               </div>
               <h2 className="text-xl font-bold text-gray-900 mb-2">
-                Account Required
+                Account Vereist
               </h2>
               <p className="text-gray-600">
-                To claim a listing, you must first log in or create an account.
+                Om een vermelding te claimen, moet u eerst inloggen of een account aanmaken.
               </p>
             </div>
 
             <div className="space-y-3">
               <button
                 onClick={() => router.push('/login')}
-                className="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors"
+                className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-4 rounded-lg transition-colors"
               >
-                Log In
+                Inloggen
               </button>
               <button
                 onClick={() => router.push('/register')}
                 className="w-full bg-gray-100 hover:bg-gray-200 text-gray-900 font-semibold py-3 px-4 rounded-lg transition-colors"
               >
-                Create Account
+                Account Aanmaken
               </button>
             </div>
           </div>
@@ -208,7 +208,7 @@ export default function ClaimModal({ isOpen, onClose, facilityName, facilitySlug
           <div className="p-8">
             <div className="mb-6">
               <h2 className="text-xl font-bold text-gray-900 mb-2">
-                Claim This Listing
+                Claim Deze Vermelding
               </h2>
               <p className="text-gray-600 text-sm">
                 <strong>{facilityName}</strong>
@@ -224,7 +224,7 @@ export default function ClaimModal({ isOpen, onClose, facilityName, facilitySlug
             <form onSubmit={handleSubmitClaim} className="space-y-5">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Your Role *
+                  Uw Rol *
                 </label>
                 <div className="relative">
                   <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -232,21 +232,20 @@ export default function ClaimModal({ isOpen, onClose, facilityName, facilitySlug
                     value={businessRole}
                     onChange={(e) => setBusinessRole(e.target.value)}
                     required
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition-all appearance-none bg-white"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all appearance-none bg-white"
                   >
-                    <option value="">Select your role</option>
-                    <option value="owner">Owner</option>
+                    <option value="">Selecteer uw rol</option>
+                    <option value="owner">Eigenaar</option>
                     <option value="manager">Manager</option>
-                    <option value="employee">Employee</option>
-                    <option value="municipality">Municipality</option>
-                    <option value="other">Other</option>
+                    <option value="employee">Medewerker</option>
+                    <option value="other">Anders</option>
                   </select>
                 </div>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Your Name *
+                  Uw Naam *
                 </label>
                 <div className="relative">
                   <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -255,14 +254,14 @@ export default function ClaimModal({ isOpen, onClose, facilityName, facilitySlug
                     value={claimantName}
                     onChange={(e) => setClaimantName(e.target.value)}
                     required
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition-all"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all"
                   />
                 </div>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Phone Number
+                  Telefoonnummer
                 </label>
                 <div className="relative">
                   <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -270,15 +269,15 @@ export default function ClaimModal({ isOpen, onClose, facilityName, facilitySlug
                     type="tel"
                     value={claimantPhone}
                     onChange={(e) => setClaimantPhone(e.target.value)}
-                    placeholder="(555) 123-4567"
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition-all"
+                    placeholder="06 12345678"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all"
                   />
                 </div>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Verification Email *
+                  Verificatie E-mail *
                 </label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -287,37 +286,37 @@ export default function ClaimModal({ isOpen, onClose, facilityName, facilitySlug
                     value={verificationEmail}
                     onChange={(e) => setVerificationEmail(e.target.value)}
                     required
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition-all"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all"
                   />
                 </div>
                 <p className="mt-1 text-xs text-gray-500">
-                  We will send a verification code to this address
+                  We sturen een verificatiecode naar dit adres
                 </p>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Notes (optional)
+                  Opmerkingen (optioneel)
                 </label>
                 <textarea
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   rows={3}
-                  placeholder="Any additional notes about your claim..."
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition-all resize-none"
+                  placeholder="Eventuele aanvullende opmerkingen over uw claim..."
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all resize-none"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? (
                   <Loader2 className="w-5 h-5 animate-spin" />
                 ) : (
                   <>
-                    Submit Claim
+                    Claim Indienen
                     <ArrowRight className="w-5 h-5" />
                   </>
                 )}
@@ -330,14 +329,14 @@ export default function ClaimModal({ isOpen, onClose, facilityName, facilitySlug
         {step === 'verify-code' && (
           <div className="p-8">
             <div className="text-center mb-6">
-              <div className="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Mail className="w-8 h-8 text-teal-600" />
+              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Mail className="w-8 h-8 text-orange-600" />
               </div>
               <h2 className="text-xl font-bold text-gray-900 mb-2">
-                Verify Your Email
+                Verifieer Uw E-mail
               </h2>
               <p className="text-gray-600">
-                We&apos;ve sent a 6-digit code to{' '}
+                We hebben een 6-cijferige code gestuurd naar{' '}
                 <strong>{verificationEmail || user?.email}</strong>
               </p>
             </div>
@@ -351,7 +350,7 @@ export default function ClaimModal({ isOpen, onClose, facilityName, facilitySlug
             <form onSubmit={handleVerifyCode} className="space-y-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Verification Code
+                  Verificatiecode
                 </label>
                 <div className="relative">
                   <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -362,7 +361,7 @@ export default function ClaimModal({ isOpen, onClose, facilityName, facilitySlug
                     placeholder="123456"
                     required
                     maxLength={6}
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition-all text-center text-2xl tracking-widest font-mono"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all text-center text-2xl tracking-widest font-mono"
                   />
                 </div>
               </div>
@@ -370,13 +369,13 @@ export default function ClaimModal({ isOpen, onClose, facilityName, facilitySlug
               <button
                 type="submit"
                 disabled={loading || verificationCode.length !== 6}
-                className="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? (
                   <Loader2 className="w-5 h-5 animate-spin" />
                 ) : (
                   <>
-                    Verify
+                    Verifiëren
                     <ArrowRight className="w-5 h-5" />
                   </>
                 )}
@@ -388,20 +387,20 @@ export default function ClaimModal({ isOpen, onClose, facilityName, facilitySlug
         {/* Success */}
         {step === 'success' && (
           <div className="p-8 text-center">
-            <div className="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <CheckCircle className="w-8 h-8 text-teal-600" />
+            <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <CheckCircle className="w-8 h-8 text-orange-600" />
             </div>
             <h2 className="text-xl font-bold text-gray-900 mb-2">
-              Claim Submitted!
+              Claim Ingediend!
             </h2>
             <p className="text-gray-600 mb-6">
-              Your claim for <strong>{facilityName}</strong> has been successfully submitted and will be reviewed shortly.
+              Uw claim voor <strong>{facilityName}</strong> is succesvol ingediend en wordt binnenkort beoordeeld.
             </p>
             <button
               onClick={handleGoToDashboard}
-              className="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors"
+              className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-4 rounded-lg transition-colors"
             >
-              Go to Dashboard
+              Ga naar Dashboard
             </button>
           </div>
         )}

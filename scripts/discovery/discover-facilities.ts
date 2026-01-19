@@ -1,17 +1,17 @@
 #!/usr/bin/env npx tsx
 /**
- * US Facility Discovery Script with Bright Data SERP API
+ * Netherlands Locksmith Discovery Script with Bright Data SERP API
  *
- * Searches for rehabilitation and treatment facilities across all US states via Google Maps.
- * Covers all 50 states + DC with comprehensive search queries.
+ * Searches for locksmiths (slotenmakers) across all Dutch provinces via Google Maps.
+ * Covers all 12 provinces with comprehensive search queries.
  *
  * REAL-TIME DATABASE WRITES:
- * Each discovered facility is immediately written to Neon PostgreSQL
+ * Each discovered locksmith is immediately written to Neon PostgreSQL
  * to prevent data loss on PC crash. JSON files serve as backup.
  *
  * Usage:
  *   npx tsx scripts/discovery/discover-facilities.ts                    # All pending locations
- *   npx tsx scripts/discovery/discover-facilities.ts --state California
+ *   npx tsx scripts/discovery/discover-facilities.ts --province Noord-Holland
  *   npx tsx scripts/discovery/discover-facilities.ts --batch 50
  *   npx tsx scripts/discovery/discover-facilities.ts --dry-run
  *   npx tsx scripts/discovery/discover-facilities.ts --resume
@@ -55,24 +55,22 @@ const RATE_LIMIT = {
   delayBetweenLocations: 2000,
 };
 
-// US-specific search queries for comprehensive coverage
+// Dutch locksmith search queries for comprehensive coverage
 const SEARCH_QUERIES = [
-  'rehab center',
-  'rehabilitation center',
-  'addiction treatment center',
-  'drug rehab',
-  'alcohol rehab',
-  'detox center',
-  'substance abuse treatment',
-  'inpatient rehab',
-  'outpatient treatment center',
-  'sober living',
-  'recovery center',
-  'mental health treatment',
-  'dual diagnosis treatment',
-  'methadone clinic',
-  'suboxone clinic',
-  'residential treatment',
+  'slotenmaker',
+  'slotspecialist',
+  'sleutelservice',
+  '24 uur slotenmaker',
+  'noodslotenmaker',
+  'slot openen',
+  'cilinder vervangen',
+  'inbraakbeveiliging',
+  'hang en sluitwerk',
+  'auto slotenmaker',
+  'sleutel bijmaken',
+  'slot reparatie',
+  'deur openen',
+  'slot vervangen',
 ];
 
 // ============================================================================
@@ -102,8 +100,8 @@ function initDatabase(): boolean {
   }
 }
 
-function createSlug(name: string, city: string, stateAbbr: string): string {
-  const base = `${name}-${city}-${stateAbbr}`;
+function createSlug(name: string, city: string, provinceAbbr: string): string {
+  const base = `${name}-${city}-${provinceAbbr}`;
   return base
     .toLowerCase()
     .normalize('NFD')
@@ -119,43 +117,39 @@ function createTypeSlug(type: string): string {
 function determineType(businessType: string, categories: string[]): string {
   const allTerms = [businessType, ...(categories || [])].map(t => t?.toLowerCase() || '');
 
-  if (allTerms.some(t => t.includes('inpatient') || t.includes('residential'))) return 'inpatient-rehab';
-  if (allTerms.some(t => t.includes('outpatient'))) return 'outpatient-treatment';
-  if (allTerms.some(t => t.includes('detox'))) return 'detox-center';
-  if (allTerms.some(t => t.includes('sober living') || t.includes('halfway house'))) return 'sober-living';
-  if (allTerms.some(t => t.includes('dual diagnosis') || t.includes('co-occurring'))) return 'dual-diagnosis';
-  if (allTerms.some(t => t.includes('luxury') || t.includes('executive'))) return 'luxury-rehab';
-  if (allTerms.some(t => t.includes('veteran') || t.includes('military'))) return 'veterans-program';
-  if (allTerms.some(t => t.includes('adolescent') || t.includes('teen') || t.includes('youth'))) return 'adolescent-program';
-  if (allTerms.some(t => t.includes('methadone'))) return 'methadone-clinic';
-  if (allTerms.some(t => t.includes('suboxone') || t.includes('medication-assisted'))) return 'mat-clinic';
-  if (allTerms.some(t => t.includes('mental health'))) return 'mental-health-treatment';
+  if (allTerms.some(t => t.includes('24 uur') || t.includes('nood') || t.includes('spoed'))) return '24-uur-slotenmaker';
+  if (allTerms.some(t => t.includes('auto') || t.includes('voertuig'))) return 'auto-slotenmaker';
+  if (allTerms.some(t => t.includes('kluis') || t.includes('brandkast') || t.includes('safe'))) return 'kluis-slotenmaker';
+  if (allTerms.some(t => t.includes('inbraak') || t.includes('beveiliging'))) return 'inbraakbeveiliging-specialist';
+  if (allTerms.some(t => t.includes('elektronisch') || t.includes('smart lock') || t.includes('code'))) return 'elektronische-sloten-specialist';
+  if (allTerms.some(t => t.includes('hang en sluitwerk') || t.includes('deurbeslag'))) return 'hang-en-sluitwerk-specialist';
+  if (allTerms.some(t => t.includes('sleutel'))) return 'sleutel-service';
 
-  return 'treatment-center';
+  return 'slotenmaker';
 }
 
 /**
- * Insert a single facility to database in real-time
+ * Insert a single locksmith to database in real-time
  * Returns true if successful, false if failed
  */
 async function insertFacilityToDatabase(facility: DiscoveredFacility): Promise<boolean> {
   if (!db || !dbEnabled) return false;
 
-  const stateAbbr = facility.state_abbr || facility.state?.slice(0, 2).toUpperCase() || 'XX';
+  const provinceAbbr = facility.province_abbr || facility.province?.slice(0, 2).toUpperCase() || 'NL';
   const type = determineType(facility.business_type || '', facility.categories || []);
 
   const record = {
-    slug: createSlug(facility.name, facility.city || '', stateAbbr),
+    slug: createSlug(facility.name, facility.city || '', provinceAbbr),
     name: facility.name,
     type: type,
     typeSlug: createTypeSlug(type),
     address: facility.address || null,
     city: facility.city || '',
-    county: facility.county || null,
-    state: facility.state || '',
-    stateAbbr: stateAbbr,
-    zipCode: facility.zip_code || null,
-    country: facility.country || 'United States',
+    county: facility.gemeente || null,
+    state: facility.province || '',
+    stateAbbr: provinceAbbr,
+    zipCode: facility.postal_code || null,
+    country: facility.country || 'Nederland',
     latitude: facility.latitude?.toString() || null,
     longitude: facility.longitude?.toString() || null,
     phone: facility.phone || null,
@@ -224,10 +218,10 @@ async function insertFacilityToDatabase(facility: DiscoveredFacility): Promise<b
 interface DiscoveryLocation {
   id: string;
   city: string;
-  county?: string;
-  state: string;
-  state_abbr: string;
-  country: 'USA';
+  gemeente?: string;
+  province: string;
+  province_abbr: string;
+  country: 'NLD';
   population?: number;
   priority: number;
   status: 'pending' | 'in_progress' | 'completed' | 'failed';
@@ -255,11 +249,11 @@ interface DiscoveredFacility {
   latitude?: number;
   longitude?: number;
   city?: string;
-  county?: string;
-  state?: string;
-  state_abbr?: string;
-  country: 'USA';
-  zip_code?: string;
+  gemeente?: string;
+  province?: string;
+  province_abbr?: string;
+  country: 'NLD';
+  postal_code?: string;
 
   // Google Maps data
   rating?: number;
@@ -273,7 +267,7 @@ interface DiscoveredFacility {
   // Photo URL
   photo_url?: string;
 
-  // Amenities
+  // Amenities/Services
   amenities?: string[];
 
   // Reviews
@@ -303,50 +297,31 @@ interface RateLimitState {
 }
 
 // ============================================================================
-// US Address Parsing
+// Dutch Address Parsing
 // ============================================================================
 
 /**
- * Extract US ZIP code from address
- * US ZIP codes: 5 digits or 5+4 format (12345 or 12345-6789)
+ * Extract Dutch postal code from address
+ * Dutch postal codes: 4 digits + 2 letters (1234 AB)
  */
-function extractZipCode(address: string): string | null {
-  const patterns = [
-    /\b(\d{5})-?\d{4}\b/,  // ZIP+4
-    /\b(\d{5})\b/,         // 5-digit ZIP
-  ];
-
-  for (const pattern of patterns) {
-    const match = address.match(pattern);
-    if (match) {
-      return match[1];
-    }
+function extractPostalCode(address: string): string | null {
+  const pattern = /\b(\d{4}\s?[A-Z]{2})\b/i;
+  const match = address.match(pattern);
+  if (match) {
+    return match[1].replace(/\s/g, '').toUpperCase();
   }
-
   return null;
 }
 
 /**
- * Extract city from US address
+ * Extract city from Dutch address
  */
 function extractCityFromAddress(address: string): string | null {
-  // US format: "123 Main St, City, ST 12345"
-  const pattern = /,\s*([A-Za-z\s'-]+?),\s*[A-Z]{2}\s*\d{5}/;
+  // Dutch format: "Straatnaam 123, 1234 AB Stadsnaam"
+  const pattern = /\d{4}\s?[A-Z]{2}\s+([A-Za-z\s'-]+?)(?:,|$)/i;
   const match = address.match(pattern);
   if (match) {
     return match[1].trim();
-  }
-  return null;
-}
-
-/**
- * Extract state abbreviation from address
- */
-function extractStateFromAddress(address: string): string | null {
-  const pattern = /,\s*([A-Z]{2})\s*\d{5}/;
-  const match = address.match(pattern);
-  if (match) {
-    return match[1];
   }
   return null;
 }
@@ -404,17 +379,17 @@ function saveRateLimits(state: RateLimitState): void {
 // ============================================================================
 
 /**
- * Search Google Maps via SERP API for US locations
+ * Search Google Maps via SERP API for Dutch locations
  */
 async function searchGoogleMapsSERP(
   query: string,
   location: string,
-  state: string,
+  province: string,
   retryCount = 0
 ): Promise<any> {
-  // Build search query with US context
-  const searchQuery = `${query} ${location} ${state} USA`;
-  const googleUrl = `https://www.google.com/maps/search/${encodeURIComponent(searchQuery)}?hl=en&brd_json=1`;
+  // Build search query with Dutch context
+  const searchQuery = `${query} ${location} ${province} Nederland`;
+  const googleUrl = `https://www.google.nl/maps/search/${encodeURIComponent(searchQuery)}?hl=nl&brd_json=1`;
 
   try {
     const response = await fetch(SERP_API_URL, {
@@ -427,7 +402,7 @@ async function searchGoogleMapsSERP(
         zone: SERP_ZONE,
         url: googleUrl,
         format: 'json',
-        country: 'us',  // US country code
+        country: 'nl',  // Netherlands country code
       }),
     });
 
@@ -449,7 +424,7 @@ async function searchGoogleMapsSERP(
       const delay = RATE_LIMIT.retryDelayMs * Math.pow(2, retryCount);
       console.log(`   ⟳ Retry ${retryCount + 1}/${RATE_LIMIT.maxRetries} in ${delay / 1000}s...`);
       await sleep(delay);
-      return searchGoogleMapsSERP(query, location, state, retryCount + 1);
+      return searchGoogleMapsSERP(query, location, province, retryCount + 1);
     }
 
     throw error;
@@ -461,14 +436,14 @@ async function searchGoogleMapsSERP(
 // ============================================================================
 
 /**
- * Process SERP JSON response and extract facility data for US
+ * Process SERP JSON response and extract locksmith data for Netherlands
  */
 async function processSerpResponse(
   response: { data: any; searchQuery: string },
   location: DiscoveryLocation,
   query: string
 ): Promise<DiscoveredFacility[]> {
-  const facilities: DiscoveredFacility[] = [];
+  const locksmiths: DiscoveredFacility[] = [];
   let data = response.data;
   const seenCids = new Set<string>();
 
@@ -478,7 +453,7 @@ async function processSerpResponse(
       data = JSON.parse(data.body);
     } catch {
       console.error('   ⚠️ Failed to parse body JSON');
-      return facilities;
+      return locksmiths;
     }
   }
 
@@ -503,7 +478,7 @@ async function processSerpResponse(
     if (!cid || seenCids.has(String(cid))) continue;
     seenCids.add(String(cid));
 
-    // Check if this looks like a rehab/treatment facility
+    // Check if this looks like a locksmith
     const name = place.title || place.name || '';
     const nameLower = name.toLowerCase();
 
@@ -517,45 +492,36 @@ async function processSerpResponse(
       return typeof title === 'string' ? title.toLowerCase() : '';
     }).filter(Boolean);
 
-    // Facility detection for US rehab/treatment centers
-    const isFacility =
-      nameLower.includes('rehab') ||
-      nameLower.includes('rehabilitation') ||
-      nameLower.includes('treatment') ||
-      nameLower.includes('recovery') ||
-      nameLower.includes('detox') ||
-      nameLower.includes('addiction') ||
-      nameLower.includes('substance abuse') ||
-      nameLower.includes('sober living') ||
-      nameLower.includes('mental health') ||
-      categoryIds.includes('rehabilitation') ||
-      categoryIds.includes('treatment') ||
-      categoryIds.includes('addiction') ||
-      categoryIds.includes('mental health') ||
-      categoryTitles.includes('rehabilitation center') ||
-      categoryTitles.includes('addiction treatment center') ||
-      categoryTitles.includes('substance abuse treatment');
+    // Locksmith detection for Dutch slotenmakers
+    const isLocksmith =
+      nameLower.includes('slotenmaker') ||
+      nameLower.includes('slotspecialist') ||
+      nameLower.includes('sleutelservice') ||
+      nameLower.includes('sleutel') ||
+      nameLower.includes('slot') ||
+      nameLower.includes('locksmith') ||
+      nameLower.includes('beveiliging') ||
+      categoryIds.includes('locksmith') ||
+      categoryIds.includes('slotenmaker') ||
+      categoryTitles.includes('slotenmaker') ||
+      categoryTitles.includes('locksmith');
 
-    // For rehab/treatment searches, be more lenient
-    const isRelevantQuery = query.toLowerCase().includes('rehab') ||
-                           query.toLowerCase().includes('treatment') ||
-                           query.toLowerCase().includes('recovery') ||
-                           query.toLowerCase().includes('detox') ||
-                           query.toLowerCase().includes('addiction');
-    if (!isFacility && !isRelevantQuery) continue;
+    // For locksmith searches, be more lenient
+    const isRelevantQuery = query.toLowerCase().includes('slotenmaker') ||
+                           query.toLowerCase().includes('slot') ||
+                           query.toLowerCase().includes('sleutel');
+    if (!isLocksmith && !isRelevantQuery) continue;
 
     // Get primary category
-    const primaryCategory = categories[0]?.title || categories[0]?.id || 'treatment center';
+    const primaryCategory = categories[0]?.title || categories[0]?.id || 'slotenmaker';
 
     // Extract address info
     const address = place.address || place.formatted_address || '';
-    const zipCode = extractZipCode(address);
+    const postalCode = extractPostalCode(address);
     const cityFromAddress = extractCityFromAddress(address);
-    const stateFromAddress = extractStateFromAddress(address);
 
     // Use search location as fallback
     const city = cityFromAddress || location.city;
-    const state = stateFromAddress || location.state_abbr;
 
     // Extract photo URL
     const photoUrl = place.original_image ||
@@ -570,7 +536,7 @@ async function processSerpResponse(
       return typeof val === 'string' ? val : null;
     }).filter(Boolean) as string[];
 
-    // Extract amenities
+    // Extract amenities/services
     const tags = place.tags || [];
     const amenities = tags
       .map((t: any) => t.value_title_short || t.key_title || t.value_title)
@@ -587,11 +553,11 @@ async function processSerpResponse(
       latitude: place.latitude || place.lat,
       longitude: place.longitude || place.lng,
       city: city,
-      county: location.county,
-      state: location.state,
-      state_abbr: state,
-      country: 'USA',
-      zip_code: zipCode || undefined,
+      gemeente: location.gemeente,
+      province: location.province,
+      province_abbr: location.province_abbr,
+      country: 'NLD',
+      postal_code: postalCode || undefined,
       rating: place.rating ? parseFloat(String(place.rating)) : undefined,
       review_count: place.reviews_cnt || place.reviews_count || place.review_count,
       business_type: primaryCategory,
@@ -609,10 +575,10 @@ async function processSerpResponse(
       facility.reviews = parseReviews(place);
     }
 
-    facilities.push(facility);
+    locksmiths.push(facility);
   }
 
-  return facilities;
+  return locksmiths;
 }
 
 /**
@@ -642,7 +608,7 @@ function parseReviews(place: any): DiscoveredFacility['reviews'] {
 
   for (const review of rawReviews.slice(0, 10)) {
     reviews.push({
-      reviewer_name: review.author || review.reviewer_name || 'Anonymous',
+      reviewer_name: review.author || review.reviewer_name || 'Anoniem',
       rating: review.rating || 0,
       review_text: review.text || review.content || review.snippet || '',
       review_date: review.date || review.review_date,
@@ -686,22 +652,22 @@ function saveDiscoveredFacilities(facilities: DiscoveredFacility[]): void {
 }
 
 function updateProgress(locations: DiscoveryLocation[], facilities: DiscoveredFacility[]): void {
-  // Group by state
-  const stateStats: Record<string, { total: number; completed: number; facilities: number }> = {};
+  // Group by province
+  const provinceStats: Record<string, { total: number; completed: number; facilities: number }> = {};
 
   for (const loc of locations) {
-    if (!stateStats[loc.state]) {
-      stateStats[loc.state] = { total: 0, completed: 0, facilities: 0 };
+    if (!provinceStats[loc.province]) {
+      provinceStats[loc.province] = { total: 0, completed: 0, facilities: 0 };
     }
-    stateStats[loc.state].total++;
+    provinceStats[loc.province].total++;
     if (loc.status === 'completed') {
-      stateStats[loc.state].completed++;
+      provinceStats[loc.province].completed++;
     }
   }
 
   for (const fac of facilities) {
-    if (fac.state && stateStats[fac.state]) {
-      stateStats[fac.state].facilities++;
+    if (fac.province && provinceStats[fac.province]) {
+      provinceStats[fac.province].facilities++;
     }
   }
 
@@ -713,7 +679,7 @@ function updateProgress(locations: DiscoveryLocation[], facilities: DiscoveredFa
     failed: locations.filter(l => l.status === 'failed').length,
     total_facilities_found: facilities.length,
     unique_cids: new Set(facilities.map(c => c.google_cid)).size,
-    per_state: stateStats,
+    per_province: provinceStats,
     last_run_at: new Date().toISOString(),
   };
   fs.writeFileSync(PROGRESS_FILE, JSON.stringify(progress, null, 2));
@@ -730,7 +696,7 @@ function sleep(ms: number): Promise<void> {
 function parseArgs() {
   const args = process.argv.slice(2);
   const options = {
-    state: null as string | null,
+    province: null as string | null,
     batch: 0,
     dryRun: false,
     resume: false,
@@ -739,8 +705,8 @@ function parseArgs() {
   };
 
   for (let i = 0; i < args.length; i++) {
-    if (args[i] === '--state' && args[i + 1]) {
-      options.state = args[i + 1];
+    if (args[i] === '--province' && args[i + 1]) {
+      options.province = args[i + 1];
       i++;
     } else if (args[i] === '--batch' && args[i + 1]) {
       options.batch = parseInt(args[i + 1]);
@@ -767,7 +733,7 @@ function parseArgs() {
 async function main() {
   const options = parseArgs();
 
-  console.log('🏥 Facility Discovery Script - USA\n');
+  console.log('🔐 Slotenmaker Discovery Script - Nederland\n');
   console.log('━'.repeat(50));
 
   // Check API key
@@ -787,7 +753,7 @@ async function main() {
   // Check if locations file exists
   if (!fs.existsSync(LOCATIONS_FILE)) {
     console.log('⚠️ Locations file not found.');
-    console.log('   Create data/discovery/locations.json with US cities first.');
+    console.log('   Create data/discovery/locations.json with Dutch cities first.');
     process.exit(1);
   }
 
@@ -807,11 +773,11 @@ async function main() {
     return false;
   });
 
-  // Filter by state
-  if (options.state) {
+  // Filter by province
+  if (options.province) {
     toProcess = toProcess.filter(l =>
-      l.state.toLowerCase() === options.state!.toLowerCase() ||
-      l.state_abbr.toLowerCase() === options.state!.toLowerCase()
+      l.province.toLowerCase() === options.province!.toLowerCase() ||
+      l.province_abbr.toLowerCase() === options.province!.toLowerCase()
     );
   }
 
@@ -826,20 +792,20 @@ async function main() {
   console.log(`📊 Status:`);
   console.log(`   Total locations: ${locations.length}`);
   console.log(`   To process: ${toProcess.length}`);
-  console.log(`   Already found: ${discoveredFacilities.length} facilities`);
+  console.log(`   Already found: ${discoveredFacilities.length} slotenmakers`);
   console.log(`   Unique CIDs: ${existingCids.size}`);
   console.log('');
 
-  // Show state breakdown
-  const stateBreakdown = toProcess.reduce((acc, l) => {
-    acc[l.state_abbr] = (acc[l.state_abbr] || 0) + 1;
+  // Show province breakdown
+  const provinceBreakdown = toProcess.reduce((acc, l) => {
+    acc[l.province_abbr] = (acc[l.province_abbr] || 0) + 1;
     return acc;
   }, {} as Record<string, number>);
 
-  if (Object.keys(stateBreakdown).length > 0 && Object.keys(stateBreakdown).length <= 10) {
-    console.log('   Per state:');
-    for (const [state, count] of Object.entries(stateBreakdown)) {
-      console.log(`   - ${state}: ${count} cities`);
+  if (Object.keys(provinceBreakdown).length > 0 && Object.keys(provinceBreakdown).length <= 12) {
+    console.log('   Per provincie:');
+    for (const [province, count] of Object.entries(provinceBreakdown)) {
+      console.log(`   - ${province}: ${count} steden`);
     }
     console.log('');
   }
@@ -853,7 +819,7 @@ async function main() {
     console.log('🧪 DRY RUN - No API calls will be made\n');
     console.log('Locations to process:');
     toProcess.slice(0, 10).forEach((loc, i) => {
-      console.log(`   ${i + 1}. ${loc.city}, ${loc.state_abbr}`);
+      console.log(`   ${i + 1}. ${loc.city}, ${loc.province_abbr}`);
     });
     if (toProcess.length > 10) {
       console.log(`   ... and ${toProcess.length - 10} more`);
@@ -875,7 +841,7 @@ async function main() {
   let dbFailures = 0;
 
   for (const location of toProcess) {
-    console.log(`\n🏥 ${location.city}, ${location.state_abbr}`);
+    console.log(`\n🔐 ${location.city}, ${location.province_abbr}`);
 
     // Update status
     location.status = 'in_progress';
@@ -888,7 +854,7 @@ async function main() {
       for (const query of SEARCH_QUERIES) {
         console.log(`   🔎 Searching: "${query} ${location.city}"...`);
 
-        const response = await searchGoogleMapsSERP(query, location.city, location.state);
+        const response = await searchGoogleMapsSERP(query, location.city, location.province);
         const foundFacilities = await processSerpResponse(response, location, query);
 
         // Filter duplicates and insert each to database in real-time
@@ -931,7 +897,7 @@ async function main() {
 
       processed++;
       const dbStatus = dbEnabled ? ` | DB: ${dbInserts}/${newFacilities}` : '';
-      console.log(`   💾 Saved (${processed}/${toProcess.length}) - Total: ${newFacilities} new facilities${dbStatus}`);
+      console.log(`   💾 Saved (${processed}/${toProcess.length}) - Total: ${newFacilities} new slotenmakers${dbStatus}`);
 
     } catch (error: any) {
       console.error(`   ❌ Error: ${error.message}`);
@@ -953,8 +919,8 @@ async function main() {
   console.log('\n' + '━'.repeat(50));
   console.log('📊 Discovery Complete!');
   console.log(`   Locations processed: ${processed}`);
-  console.log(`   New facilities found: ${newFacilities}`);
-  console.log(`   Total facilities: ${discoveredFacilities.length}`);
+  console.log(`   New slotenmakers found: ${newFacilities}`);
+  console.log(`   Total slotenmakers: ${discoveredFacilities.length}`);
   console.log(`   Unique CIDs: ${new Set(discoveredFacilities.map(c => c.google_cid)).size}`);
   if (dbEnabled) {
     console.log('');

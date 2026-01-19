@@ -4,79 +4,79 @@
 
 @layer base {
   :root {
-    /* Design Theme: Healing, Trust & Hope */
+    /* Design Theme: Emergency, Trust & Reliability - Locksmith */
 
     /* Backgrounds */
     --background: 210 20% 98%;           /* Clean white #F8FAFC */
-    --foreground: 215 25% 27%;           /* Dark slate gray #334155 */
+    --foreground: 220 13% 18%;           /* Dark gray #1F2937 */
 
     /* Cards & Popovers */
     --card: 0 0% 100%;                   /* White */
-    --card-foreground: 215 25% 27%;
+    --card-foreground: 220 13% 18%;
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 27%;
+    --popover-foreground: 220 13% 18%;
 
-    /* Primary: Teal - healing, trust, calm */
-    --primary: 168 84% 32%;              /* Teal #0D9488 */
+    /* Primary: Orange - emergency, urgency, action */
+    --primary: 25 95% 53%;               /* Orange #F97316 */
     --primary-foreground: 0 0% 100%;     /* White */
 
-    /* Secondary: Light blue-gray */
-    --secondary: 210 20% 94%;            /* #EEF2F6 */
-    --secondary-foreground: 215 25% 30%;
+    /* Secondary: Dark gray - professional, trustworthy */
+    --secondary: 220 13% 18%;            /* Dark Gray #1F2937 */
+    --secondary-foreground: 0 0% 100%;   /* White */
 
-    /* Accent: Warm coral/orange - hope, warmth, energy */
-    --accent: 25 95% 53%;                /* Coral/Orange #F97316 */
+    /* Accent: Lighter orange for hover states */
+    --accent: 25 95% 60%;                /* Lighter Orange */
     --accent-foreground: 0 0% 100%;      /* White */
 
     /* Muted */
-    --muted: 210 20% 94%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
 
     /* Destructive */
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
     /* Borders & Inputs */
-    --border: 214 20% 88%;               /* #E2E8F0 */
-    --input: 214 20% 88%;
-    --ring: 168 84% 32%;                 /* Teal focus ring */
+    --border: 220 13% 87%;               /* Light gray border */
+    --input: 220 13% 87%;
+    --ring: 25 95% 53%;                  /* Orange focus ring */
 
     /* Radius */
-    --radius: 1rem;
+    --radius: 0.75rem;
 
-    /* Custom Shadows */
-    --shadow-soft: 0 4px 20px rgba(13, 148, 136, 0.08);
-    --shadow-hover: 0 8px 30px rgba(13, 148, 136, 0.12);
+    /* Custom Shadows - Orange tint for emergency feel */
+    --shadow-soft: 0 4px 20px rgba(249, 115, 22, 0.08);
+    --shadow-hover: 0 8px 30px rgba(249, 115, 22, 0.15);
   }
 
-  /* Dark mode - teal/coral theme */
+  /* Dark mode - Orange/Dark Gray theme */
   .dark {
-    --background: 215 28% 10%;           /* Dark slate #141B24 */
-    --foreground: 210 20% 92%;           /* Light gray #E8EDF2 */
+    --background: 220 13% 10%;           /* Very dark gray */
+    --foreground: 210 20% 92%;           /* Light gray */
 
-    --card: 215 25% 14%;
+    --card: 220 13% 14%;
     --card-foreground: 210 20% 92%;
-    --popover: 215 25% 14%;
+    --popover: 220 13% 14%;
     --popover-foreground: 210 20% 92%;
 
-    --primary: 168 76% 42%;              /* Lighter teal for dark mode #14B8A6 */
-    --primary-foreground: 215 28% 10%;
+    --primary: 25 95% 55%;               /* Orange for dark mode */
+    --primary-foreground: 220 13% 10%;
 
-    --secondary: 215 20% 18%;
+    --secondary: 220 13% 25%;
     --secondary-foreground: 210 20% 90%;
 
-    --accent: 25 95% 58%;                /* Slightly lighter coral */
-    --accent-foreground: 215 28% 10%;
+    --accent: 25 95% 60%;                /* Lighter orange */
+    --accent-foreground: 220 13% 10%;
 
-    --muted: 215 20% 18%;
-    --muted-foreground: 210 15% 60%;
+    --muted: 220 13% 20%;
+    --muted-foreground: 210 15% 55%;
 
     --destructive: 0 62.8% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 215 20% 22%;
-    --input: 215 20% 22%;
-    --ring: 168 76% 42%;
+    --border: 220 13% 22%;
+    --input: 220 13% 22%;
+    --ring: 25 95% 55%;
   }
 }
 
@@ -92,4 +92,18 @@
 @keyframes blink {
   0%, 50% { opacity: 1; }
   51%, 100% { opacity: 0; }
+}
+
+/* Emergency pulse animation for urgent elements */
+@keyframes emergency-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(249, 115, 22, 0);
+  }
+}
+
+.emergency-pulse {
+  animation: emergency-pulse 2s infinite;
 }

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, Heart } from 'lucide-react';
+import { Menu, X, Key } from 'lucide-react';
 // MVP: Login temporarily disabled
 // import { User, LogOut, LayoutDashboard, ChevronDown, Shield } from 'lucide-react';
 import Logo from '@/components/Logo';
@@ -10,10 +10,10 @@ import { Button } from '@/components/ui/button';
 
 const navLinks = [
   { href: '/', label: 'Home' },
-  { href: '/search', label: 'Search' },
-  { href: '/type', label: 'Treatment Types' },
-  { href: '/guide', label: 'Guide' },
-  { href: '/about', label: 'About' },
+  { href: '/search', label: 'Zoeken' },
+  { href: '/type', label: 'Diensten' },
+  { href: '/guide', label: 'Gids' },
+  { href: '/about', label: 'Over Ons' },
   { href: '/contact', label: 'Contact', highlight: true },
 ];
 
@@ -90,7 +90,7 @@ export default function Header() {
                   href={link.href}
                   className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                     link.highlight
-                      ? 'text-teal-600 hover:text-teal-700 hover:bg-teal-50'
+                      ? 'text-orange-500 hover:text-orange-600 hover:bg-orange-50'
                       : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
                   }`}
                 >
@@ -153,7 +153,7 @@ export default function Header() {
                         className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-secondary/50 transition-colors"
                       >
                         <LogOut className="w-4 h-4" />
-                        Sign Out
+                        Uitloggen
                       </button>
                     </div>
                   </>
@@ -163,14 +163,14 @@ export default function Header() {
               <Link href="/login">
                 <Button variant="ghost" size="sm">
                   <User className="w-4 h-4" />
-                  Sign In
+                  Inloggen
                 </Button>
               </Link>
             )} */}
             <Link href="/search">
-              <Button variant="default" size="sm" className="bg-teal-600 hover:bg-teal-700 text-white">
-                <Heart className="w-4 h-4 mr-2" />
-                Find Treatment
+              <Button variant="default" size="sm" className="bg-orange-500 hover:bg-orange-600 text-white">
+                <Key className="w-4 h-4 mr-2" />
+                Vind Slotenmaker
               </Button>
             </Link>
           </div>
@@ -179,7 +179,7 @@ export default function Header() {
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="lg:hidden p-3 -m-1 rounded-lg hover:bg-secondary/50 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
-            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-label={isMenuOpen ? 'Menu sluiten' : 'Menu openen'}
             aria-expanded={isMenuOpen}
           >
             {isMenuOpen ? (
@@ -201,7 +201,7 @@ export default function Header() {
                     onClick={() => setIsMenuOpen(false)}
                     className={`block px-4 py-3 rounded-lg transition-colors ${
                       link.highlight
-                        ? 'text-teal-600 font-medium hover:bg-teal-50'
+                        ? 'text-orange-500 font-medium hover:bg-orange-50'
                         : 'text-foreground hover:bg-secondary/50'
                     }`}
                   >
@@ -214,9 +214,9 @@ export default function Header() {
             {/* Mobile Search CTA */}
             <div className="mt-4 pt-4 border-t">
               <Link href="/search" onClick={() => setIsMenuOpen(false)}>
-                <Button variant="default" className="w-full bg-teal-600 hover:bg-teal-700 text-white" size="lg">
-                  <Heart className="w-5 h-5 mr-2" />
-                  Find Treatment
+                <Button variant="default" className="w-full bg-orange-500 hover:bg-orange-600 text-white" size="lg">
+                  <Key className="w-5 h-5 mr-2" />
+                  Vind Slotenmaker
                 </Button>
               </Link>
             </div>
@@ -262,7 +262,7 @@ export default function Header() {
                     className="flex items-center gap-3 px-4 py-3 text-foreground hover:bg-secondary/50 rounded-lg transition-colors w-full"
                   >
                     <LogOut className="w-5 h-5" />
-                    Sign Out
+                    Uitloggen
                   </button>
                 </div>
               ) : (
@@ -270,12 +270,12 @@ export default function Header() {
                   <Link href="/login" onClick={() => setIsMenuOpen(false)} className="flex-1">
                     <Button variant="default" className="w-full" size="lg">
                       <User className="w-5 h-5" />
-                      Sign In
+                      Inloggen
                     </Button>
                   </Link>
                   <Link href="/register" onClick={() => setIsMenuOpen(false)} className="flex-1">
                     <Button variant="outline" className="w-full" size="lg">
-                      Register
+                      Registreren
                     </Button>
                   </Link>
                 </div>

@@ -99,7 +99,7 @@ export default async function StateGuidesPage() {
       />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-teal-900 to-teal-800 text-white py-16 md:py-24">
+      <section className="bg-gradient-to-b from-orange-900 to-orange-800 text-white py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-white/90 text-sm font-medium mb-6">
@@ -172,8 +172,8 @@ export default async function StateGuidesPage() {
                 <Card className="p-6 h-full hover:shadow-hover transition-all duration-300 hover:-translate-y-1 bg-white">
                   <div className="flex items-start justify-between">
                     <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-teal-100 group-hover:bg-teal-200 flex items-center justify-center transition-colors">
-                        <MapPin className="w-6 h-6 text-teal-700" />
+                      <div className="w-12 h-12 rounded-xl bg-orange-100 group-hover:bg-orange-200 flex items-center justify-center transition-colors">
+                        <MapPin className="w-6 h-6 text-orange-700" />
                       </div>
                       <div>
                         <h3 className="font-serif text-xl font-semibold mb-1 group-hover:text-accent transition-colors">

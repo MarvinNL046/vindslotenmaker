@@ -2,12 +2,13 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { getAllCities, getFacilitiesByCity, createCitySlug, createCountySlug, createStateSlug, type Facility } from '@/lib/data';
 import { notFound } from 'next/navigation';
-import { Building, Info } from 'lucide-react';
+import { Building, Info, Key, MapPin } from 'lucide-react';
 import FacilityCard from '@/components/FacilityCard';
 import LeaderboardAd from '@/components/ads/LeaderboardAd';
 import SidebarAd from '@/components/ads/SidebarAd';
 import InlineAd from '@/components/ads/InlineAd';
 import { AD_SLOTS } from '@/lib/ad-config';
+import { Card } from '@/components/ui/card';
 
 interface PageProps {
   params: Promise<{
@@ -37,7 +38,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!city) {
     return {
-      title: 'City not found',
+      title: 'Stad niet gevonden',
     };
   }
 
@@ -46,11 +47,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const state = facilities[0]?.state || '';
 
   return {
-    title: `Rehab & Treatment Centers in ${city} | Rehab Near By Me`,
-    description: `Find all ${facilities.length} addiction treatment centers and rehab facilities in ${city}, ${county ? `${county} County, ` : ''}${state}. View locations, services, and contact information for local treatment centers.`,
+    title: `Slotenmakers in ${city} | Vind Slotenmaker`,
+    description: `Vind alle ${facilities.length} slotenmakers in ${city}${county ? `, ${county}` : ''}, ${state}. Bekijk locaties, diensten en contactgegevens van lokale slotenmakers.`,
     openGraph: {
-      title: `Treatment Centers in ${city}`,
-      description: `All rehab facilities in ${city}${county ? `, ${county} County` : ''}`,
+      title: `Slotenmakers in ${city}`,
+      description: `Alle slotenmakers in ${city}${county ? `, ${county}` : ''}`,
       type: 'website',
     },
   };
@@ -77,7 +78,7 @@ export default async function CityPage({ params }: PageProps) {
 
   // Count facility types
   const typeCount = facilities.reduce((acc: Record<string, number>, facility: Facility) => {
-    const typeName = facility.type || 'Treatment Center';
+    const typeName = facility.type || 'Slotenmaker';
     acc[typeName] = (acc[typeName] || 0) + 1;
     return acc;
   }, {} as Record<string, number>);
@@ -85,8 +86,8 @@ export default async function CityPage({ params }: PageProps) {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: `Treatment Centers in ${city}`,
-    description: `Directory of all addiction treatment centers and rehab facilities in ${city}${county ? `, ${county} County` : ''}`,
+    name: `Slotenmakers in ${city}`,
+    description: `Overzicht van alle slotenmakers in ${city}${county ? `, ${county}` : ''}`,
     breadcrumb: {
       '@type': 'BreadcrumbList',
       itemListElement: [
@@ -94,25 +95,25 @@ export default async function CityPage({ params }: PageProps) {
           '@type': 'ListItem',
           position: 1,
           name: 'Home',
-          item: 'https://www.rehabnearbyme.com'
+          item: 'https://www.vindslotenmaker.nl'
         },
         {
           '@type': 'ListItem',
           position: 2,
           name: state,
-          item: `https://www.rehabnearbyme.com/state/${createStateSlug(state)}`
+          item: `https://www.vindslotenmaker.nl/state/${createStateSlug(state)}`
         },
         ...(county ? [{
           '@type': 'ListItem',
           position: 3,
-          name: `${county} County`,
-          item: `https://www.rehabnearbyme.com/county/${createCountySlug(county)}`
+          name: county,
+          item: `https://www.vindslotenmaker.nl/county/${createCountySlug(county)}`
         }] : []),
         {
           '@type': 'ListItem',
           position: county ? 4 : 3,
           name: city,
-          item: `https://www.rehabnearbyme.com/city/${slug}`
+          item: `https://www.vindslotenmaker.nl/city/${slug}`
         }
       ]
     },
@@ -122,7 +123,7 @@ export default async function CityPage({ params }: PageProps) {
       itemListElement: facilities.map((facility, index) => ({
         '@type': 'ListItem',
         position: index + 1,
-        url: `https://www.rehabnearbyme.com/facility/${facility.slug}`
+        url: `https://www.vindslotenmaker.nl/facility/${facility.slug}`
       }))
     }
   };
@@ -134,72 +135,84 @@ export default async function CityPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Leaderboard Ad at top */}
-      <LeaderboardAd slot={AD_SLOTS.city.topLeaderboard} />
+      {/* Hero Section */}
+      <div className="bg-gradient-to-br from-orange-600 via-orange-700 to-orange-800 text-white py-12">
+        <div className="container mx-auto px-4">
+          {/* Breadcrumb Navigation */}
+          <nav className="mb-6">
+            <ol className="flex flex-wrap items-center gap-2 text-sm text-white/70">
+              <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
+              <li>/</li>
+              <li>
+                <Link
+                  href={`/state/${createStateSlug(state)}`}
+                  className="hover:text-white transition-colors"
+                >
+                  {state}
+                </Link>
+              </li>
+              {county && (
+                <>
+                  <li>/</li>
+                  <li>
+                    <Link
+                      href={`/county/${createCountySlug(county)}`}
+                      className="hover:text-white transition-colors"
+                    >
+                      {county}
+                    </Link>
+                  </li>
+                </>
+              )}
+              <li>/</li>
+              <li className="text-white">{city}</li>
+            </ol>
+          </nav>
 
-      <div className="container mx-auto px-4 py-8">
-        {/* Breadcrumb Navigation */}
-        <nav className="mb-8">
-          <ol className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
-            <li><Link href="/" className="hover:text-foreground">Home</Link></li>
-            <li>/</li>
-            <li>
-              <Link
-                href={`/state/${createStateSlug(state)}`}
-                className="hover:text-foreground"
-              >
-                {state}
-              </Link>
-            </li>
-            {county && (
-              <>
-                <li>/</li>
-                <li>
-                  <Link
-                    href={`/county/${createCountySlug(county)}`}
-                    className="hover:text-foreground"
-                  >
-                    {county} County
-                  </Link>
-                </li>
-              </>
-            )}
-            <li>/</li>
-            <li className="text-foreground">{city}</li>
-          </ol>
-        </nav>
-
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-4">
-            Treatment Centers in {city}
-          </h1>
-          <p className="text-lg text-muted-foreground">
-            There {facilities.length === 1 ? 'is' : 'are'} {facilities.length} {facilities.length === 1 ? 'treatment center' : 'treatment centers'} in {city}{county ? `, ${county} County` : ''}, {state}.
+          {/* Header */}
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
+              <MapPin className="w-6 h-6" />
+            </div>
+            <h1 className="font-serif text-3xl md:text-4xl font-bold">
+              Slotenmakers in {city}
+            </h1>
+          </div>
+          <p className="text-white/80 text-lg max-w-2xl">
+            Er {facilities.length === 1 ? 'is' : 'zijn'} {facilities.length} {facilities.length === 1 ? 'slotenmaker' : 'slotenmakers'} in {city}{county ? `, ${county}` : ''}, {state}.
           </p>
         </div>
+      </div>
 
+      {/* Leaderboard Ad at top */}
+      <LeaderboardAd slot={AD_SLOTS.city.topLeaderboard} className="mt-4" />
+
+      <div className="container mx-auto px-4 py-8">
         {/* Statistics */}
         <div className="grid gap-4 md:grid-cols-4 mb-8">
-          <div className="bg-card rounded-lg p-6 shadow-sm border">
+          <Card className="p-6">
             <div className="flex items-center gap-3">
-              <Building className="w-5 h-5 text-muted-foreground" />
+              <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                <Key className="w-5 h-5 text-orange-700" />
+              </div>
               <div>
                 <p className="text-2xl font-bold">{facilities.length}</p>
-                <p className="text-sm text-muted-foreground">Total</p>
+                <p className="text-sm text-muted-foreground">Totaal</p>
               </div>
             </div>
-          </div>
+          </Card>
           {Object.entries(typeCount).slice(0, 3).map(([type, count]) => (
-            <div key={type} className="bg-card rounded-lg p-6 shadow-sm border">
+            <Card key={type} className="p-6">
               <div className="flex items-center gap-3">
-                <Info className="w-5 h-5 text-muted-foreground" />
+                <div className="w-10 h-10 bg-orange-50 rounded-lg flex items-center justify-center">
+                  <Info className="w-5 h-5 text-orange-600" />
+                </div>
                 <div>
                   <p className="text-2xl font-bold">{count}</p>
                   <p className="text-sm text-muted-foreground capitalize">{type}</p>
                 </div>
               </div>
-            </div>
+            </Card>
           ))}
         </div>
 
@@ -231,74 +244,74 @@ export default async function CityPage({ params }: PageProps) {
               <SidebarAd slot={AD_SLOTS.city.sidebar} sticky={false} />
 
               {/* Related Links */}
-              <div className="bg-card rounded-lg p-6 shadow-sm border">
-                <h3 className="text-lg font-semibold mb-4">Related Pages</h3>
+              <Card className="p-6">
+                <h3 className="text-lg font-semibold mb-4">Gerelateerde Paginas</h3>
                 <ul className="space-y-2">
                   {county && (
                     <li>
                       <Link
                         href={`/county/${createCountySlug(county)}`}
-                        className="text-sm text-muted-foreground hover:text-foreground"
+                        className="text-sm text-muted-foreground hover:text-orange-600 transition-colors"
                       >
-                        All treatment centers in {county} County
+                        Alle slotenmakers in {county}
                       </Link>
                     </li>
                   )}
                   <li>
                     <Link
                       href={`/state/${createStateSlug(state)}`}
-                      className="text-sm text-muted-foreground hover:text-foreground"
+                      className="text-sm text-muted-foreground hover:text-orange-600 transition-colors"
                     >
-                      All treatment centers in {state}
+                      Alle slotenmakers in {state}
                     </Link>
                   </li>
                 </ul>
-              </div>
+              </Card>
 
               {/* Info Box */}
-              <div className="bg-muted rounded-lg p-6">
-                <h3 className="text-lg font-semibold mb-2">About {city}</h3>
+              <Card className="p-6 bg-orange-50 border-orange-100">
+                <h3 className="text-lg font-semibold mb-2">Over {city}</h3>
                 <p className="text-sm text-muted-foreground">
-                  {city} is located in {county ? `${county} County, ` : ''}{state}.
-                  This page provides an overview of all addiction treatment centers and rehab facilities in this area.
+                  {city} ligt in {county ? `${county}, ` : ''}{state}.
+                  Op deze pagina vind je een overzicht van alle slotenmakers in deze plaats.
                 </p>
-              </div>
+              </Card>
             </div>
           </div>
         </div>
 
         {/* SEO Content */}
         <div className="mt-12 prose prose-lg max-w-none">
-          <h2>Treatment Centers and Rehab Facilities in {city}</h2>
-          <p>
-            In {city} you&apos;ll find various types of treatment centers, from inpatient rehabilitation facilities to
-            outpatient programs and sober living homes. Each facility offers specialized care and support for those seeking recovery.
+          <h2 className="font-serif text-2xl font-semibold">Slotenmakers in {city}</h2>
+          <p className="text-muted-foreground">
+            In {city} vind je diverse slotenmakers die je kunnen helpen met noodopeningen, sloten vervangen,
+            inbraakbeveiliging en meer. Elke slotenmaker biedt gespecialiseerde diensten aan.
           </p>
 
-          {typeCount['Inpatient Rehabilitation'] > 0 && (
+          {typeCount['Noodopening'] > 0 && (
             <>
-              <h3>Inpatient Rehabilitation Centers</h3>
-              <p>
-                {city} has {typeCount['Inpatient Rehabilitation']} inpatient {typeCount['Inpatient Rehabilitation'] > 1 ? 'facilities' : 'facility'}.
-                These programs provide 24/7 care and support in a residential setting for those beginning their recovery journey.
+              <h3 className="font-serif text-xl font-semibold mt-6">Noodopening</h3>
+              <p className="text-muted-foreground">
+                {city} heeft {typeCount['Noodopening']} slotenmaker{typeCount['Noodopening'] > 1 ? 's' : ''} die gespecialiseerd is/zijn in noodopeningen.
+                Deze diensten zijn vaak 24/7 beschikbaar voor als je buitengesloten bent.
               </p>
             </>
           )}
 
-          {typeCount['Outpatient Treatment'] > 0 && (
+          {typeCount['Inbraakbeveiliging'] > 0 && (
             <>
-              <h3>Outpatient Treatment Programs</h3>
-              <p>
-                There {typeCount['Outpatient Treatment'] > 1 ? 'are' : 'is'} {typeCount['Outpatient Treatment']} outpatient
-                {typeCount['Outpatient Treatment'] > 1 ? ' programs' : ' program'} in {city}, offering flexible treatment options for those who need to maintain work or family commitments.
+              <h3 className="font-serif text-xl font-semibold mt-6">Inbraakbeveiliging</h3>
+              <p className="text-muted-foreground">
+                Er {typeCount['Inbraakbeveiliging'] > 1 ? 'zijn' : 'is'} {typeCount['Inbraakbeveiliging']} specialist{typeCount['Inbraakbeveiliging'] > 1 ? 'en' : ''} in
+                inbraakbeveiliging in {city}, die je kunnen adviseren over betere sloten en veiligheidsmaatregelen.
               </p>
             </>
           )}
 
-          <h3>Getting Help Information</h3>
-          <p>
-            For more information about a specific treatment center in {city}, click on the facility
-            above. There you will find contact details, services offered, insurance information, and how to get started with treatment.
+          <h3 className="font-serif text-xl font-semibold mt-6">Hulp Nodig?</h3>
+          <p className="text-muted-foreground">
+            Voor meer informatie over een specifieke slotenmaker in {city}, klik op de vermelding hierboven.
+            Daar vind je contactgegevens, diensten en reviews.
           </p>
         </div>
       </div>

@@ -1,90 +1,90 @@
-# Facility Discovery System
+# Slotenmaker Discovery Systeem
 
-Automatically discover rehabilitation facilities via Bright Data SERP API.
+Automatisch Nederlandse slotenmakers ontdekken via Bright Data SERP API.
 
-## Overview
+## Overzicht
 
-This system automatically searches for rehab facilities across US states and cities via Google Maps, retrieves CIDs/place_ids, and collects reviews, ratings, and opening hours.
+Dit systeem zoekt automatisch naar slotenmakers in alle Nederlandse provincies en steden via Google Maps, haalt CIDs/place_ids op en verzamelt reviews, ratings en openingstijden.
 
 ## Scripts
 
-### 1. `seed-locations.ts` - Generate search locations
+### 1. `seed-locations.ts` - Genereer zoeklocaties
 
-Creates a list of all US states and cities.
+Maakt een lijst van alle Nederlandse provincies en steden.
 
 ```bash
-# Generate all locations
+# Genereer alle locaties
 npx tsx scripts/discovery/seed-locations.ts
 
-# Only one state
-npx tsx scripts/discovery/seed-locations.ts --state "California"
+# Alleen een provincie
+npx tsx scripts/discovery/seed-locations.ts --province "Noord-Holland"
 
 # Dry run (preview)
 npx tsx scripts/discovery/seed-locations.ts --dry-run
 
-# Reset and start fresh
+# Reset en opnieuw beginnen
 npx tsx scripts/discovery/seed-locations.ts --reset
 ```
 
-### 2. `discover-facilities.ts` - Search for facilities
+### 2. `discover-facilities.ts` - Zoek naar slotenmakers
 
-Searches via Bright Data SERP API for rehab facilities in each location.
+Zoekt via Bright Data SERP API naar slotenmakers in elke locatie.
 
 ```bash
-# Process all pending locations
+# Verwerk alle pending locaties
 npx tsx scripts/discovery/discover-facilities.ts
 
-# Only one state
-npx tsx scripts/discovery/discover-facilities.ts --state "Texas"
+# Alleen een provincie
+npx tsx scripts/discovery/discover-facilities.ts --province "Noord-Holland"
 
-# Limit number of locations
+# Beperk aantal locaties
 npx tsx scripts/discovery/discover-facilities.ts --batch 50
 
-# Dry run (preview, no API calls)
+# Dry run (preview, geen API calls)
 npx tsx scripts/discovery/discover-facilities.ts --dry-run
 
-# Resume after interruption
+# Hervat na onderbreking
 npx tsx scripts/discovery/discover-facilities.ts --resume
 ```
 
-### 3. `export-to-main-data.ts` - Export to main data
+### 3. `export-to-main-data.ts` - Export naar hoofddata
 
-Merges discovered facilities with the existing `facilities.json`.
+Voegt ontdekte slotenmakers samen met bestaande `facilities.json`.
 
 ```bash
-# Export all
+# Export alles
 npx tsx scripts/discovery/export-to-main-data.ts
 
-# Preview without changes
+# Preview zonder wijzigingen
 npx tsx scripts/discovery/export-to-main-data.ts --dry-run
 
-# Only new (skip updates)
+# Alleen nieuwe (skip updates)
 npx tsx scripts/discovery/export-to-main-data.ts --skip-existing
 ```
 
-## Data Files
+## Data Bestanden
 
 ```
 data/discovery/
-├── locations.json              # All US locations with status
-├── progress.json               # Progress statistics
-├── discovered-facilities.json  # Discovered facilities (raw)
+├── locations.json              # Alle Nederlandse locaties met status
+├── progress.json               # Voortgangsstatistieken
+├── discovered-facilities.json  # Ontdekte slotenmakers (raw)
 └── rate-limits.json            # API rate limiting state
 ```
 
 ## Workflow
 
-1. **Seed locations** (one-time or after boundary changes)
+1. **Seed locaties** (eenmalig of na grenswijzigingen)
    ```bash
    npx tsx scripts/discovery/seed-locations.ts
    ```
 
-2. **Run discovery** (can be run multiple times, auto-resumes)
+2. **Run discovery** (kan meerdere keren, auto-hervat)
    ```bash
    npx tsx scripts/discovery/discover-facilities.ts
    ```
 
-3. **Export to main data**
+3. **Export naar hoofddata**
    ```bash
    npx tsx scripts/discovery/export-to-main-data.ts
    ```
@@ -92,86 +92,124 @@ data/discovery/
 4. **Commit & deploy**
    ```bash
    git add data/
-   git commit -m "Add discovered facilities"
+   git commit -m "Add discovered slotenmakers"
    ```
 
 ## Rate Limiting
 
-The discovery script has built-in rate limiting:
+Het discovery script heeft ingebouwde rate limiting:
 
-| Limit | Value |
-|-------|-------|
-| Per minute | 10 requests |
-| Per hour | 300 requests |
-| Per day | 3000 requests |
-| Retry attempts | 3 (exponential backoff) |
-| Batch delay | 3 seconds |
+| Limiet | Waarde |
+|--------|--------|
+| Per minuut | 10 requests |
+| Per uur | 300 requests |
+| Per dag | 3000 requests |
+| Retry pogingen | 3 (exponential backoff) |
+| Batch delay | 3 seconden |
 
-The state is saved in `rate-limits.json` and persists between runs.
+De state wordt opgeslagen in `rate-limits.json` en blijft behouden tussen runs.
 
-## Retry Logic
+## Retry Logica
 
-- **Automatic retries**: 3 attempts with exponential backoff
-- **Failed locations**: Are marked and can be retried
-- **Resume support**: Resume where you left off with `--resume`
+- **Automatische retries**: 3 pogingen met exponential backoff
+- **Gefaalde locaties**: Worden gemarkeerd en kunnen opnieuw worden geprobeerd
+- **Resume support**: Hervat waar je gebleven bent met `--resume`
 
-## What is Retrieved?
+## Wat Wordt Opgehaald?
 
-Per facility:
-- Google CID (for reviews fetching)
+Per slotenmaker:
+- Google CID (voor reviews ophalen)
 - Google Place ID
-- Name and address
-- GPS coordinates
-- Phone and website
-- Rating and review count
-- Opening hours
+- Naam en adres
+- GPS coordinaten
+- Telefoon en website
+- Rating en aantal reviews
+- Openingstijden
 - Top reviews (max 10)
-- Business type
+- Bedrijfstype en diensten
 
 ## Environment Variables
 
-Ensure these are in `.env.local`:
+Zorg dat deze in `.env.local` staan:
 
 ```env
 BRIGHTDATA_API_KEY=your_api_key_here
-# or
+# of
 BRIGHTDATA_API_TOKEN=your_api_key_here
 ```
 
 ## Tips
 
-1. **Start small**: Test first with one state (`--state "Delaware"`)
-2. **Monitor progress**: Check `progress.json` for statistics
-3. **Batch runs**: Use `--batch 100` for controlled runs
-4. **Dry run first**: Use `--dry-run` to see what happens
+1. **Begin klein**: Test eerst met een provincie (`--province "Flevoland"`)
+2. **Monitor voortgang**: Check `progress.json` voor statistieken
+3. **Batch runs**: Gebruik `--batch 100` voor gecontroleerde runs
+4. **Dry run eerst**: Gebruik `--dry-run` om te zien wat er gebeurt
 
-## Example Output
+## Voorbeeld Output
 
 ```
-🔍 Facility Discovery Script
+🔐 Slotenmaker Discovery Script - Nederland
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📊 Status:
-   Total locations: 456
-   To process: 456
-   Already found: 0 facilities
+   Total locations: 342
+   To process: 342
+   Already found: 0 slotenmakers
    Unique CIDs: 0
 
-🚀 Starting processing of 456 locations...
+🚀 Starting processing of 342 locations...
 
-📍 Los Angeles (Los Angeles, California)
-   🔎 Searching: "rehab center Los Angeles"...
-   ✓ 12 found (12 new)
-   🔎 Searching: "addiction treatment Los Angeles"...
-   ✓ 5 found (3 new)
-   💾 Saved (1/456)
+🔐 Amsterdam, NH
+   🔎 Searching: "slotenmaker Amsterdam"...
+   ✓ 15 found (15 new)
+   🔎 Searching: "24 uur slotenmaker Amsterdam"...
+   ✓ 8 found (3 new)
+   💾 Saved (1/342)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📊 SUMMARY
+📊 SAMENVATTING
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-✅ Processed: 456/456 locations
-🆕 Newly found: 2847 facilities
-📦 Total in database: 2847
-🔢 Unique CIDs: 2847
+✅ Processed: 342/342 locations
+🆕 Newly found: 1847 slotenmakers
+📦 Total in database: 1847
+🔢 Unique CIDs: 1847
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
+
+## Zoektermen
+
+Het script zoekt met de volgende Nederlandse termen:
+
+- slotenmaker
+- slotspecialist
+- sleutelservice
+- 24 uur slotenmaker
+- noodslotenmaker
+- slot openen
+- cilinder vervangen
+- inbraakbeveiliging
+- hang en sluitwerk
+- auto slotenmaker
+- sleutel bijmaken
+- slot reparatie
+- deur openen
+- slot vervangen
+
+## Nederlandse Provincies
+
+Het systeem ondersteunt alle 12 Nederlandse provincies:
+
+| Provincie | Afkorting |
+|-----------|-----------|
+| Noord-Holland | NH |
+| Zuid-Holland | ZH |
+| Utrecht | UT |
+| Noord-Brabant | NB |
+| Gelderland | GE |
+| Limburg | LI |
+| Overijssel | OV |
+| Friesland | FR |
+| Groningen | GR |
+| Drenthe | DR |
+| Zeeland | ZE |
+| Flevoland | FL |

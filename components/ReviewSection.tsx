@@ -121,15 +121,15 @@ export default function ReviewSection({
     setError('');
 
     if (rating === 0) {
-      setError('Please select a rating (1-5 stars)');
+      setError('Selecteer een beoordeling (1-5 sterren)');
       return;
     }
     if (authorName.trim().length < 2) {
-      setError('Please enter your name (at least 2 characters)');
+      setError('Vul uw naam in (minimaal 2 tekens)');
       return;
     }
     if (reviewContent.trim().length < 20) {
-      setError('Your review must be at least 20 characters');
+      setError('Uw review moet minimaal 20 tekens bevatten');
       return;
     }
 
@@ -152,7 +152,7 @@ export default function ReviewSection({
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.error || 'Something went wrong');
+        setError(data.error || 'Er ging iets mis');
         return;
       }
 
@@ -164,7 +164,7 @@ export default function ReviewSection({
       setReviewTitle('');
       setReviewContent('');
     } catch {
-      setError('Something went wrong. Please try again later.');
+      setError('Er ging iets mis. Probeer het later opnieuw.');
     } finally {
       setSubmitting(false);
     }
@@ -175,7 +175,7 @@ export default function ReviewSection({
     if (!dateStr) return '';
     try {
       const date = new Date(dateStr);
-      return date.toLocaleDateString('en-US', {
+      return date.toLocaleDateString('nl-NL', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
@@ -193,7 +193,7 @@ export default function ReviewSection({
     <section className="mb-8">
       <Card className="p-6">
         <div className="mb-6">
-          <h2 className="text-2xl font-semibold mb-4">Reviews & Experiences</h2>
+          <h2 className="text-2xl font-semibold mb-4">Reviews & Ervaringen</h2>
 
           {/* Rating Summary */}
           {totalReviews > 0 ? (
@@ -222,7 +222,7 @@ export default function ReviewSection({
             </div>
           ) : (
             <p className="text-muted-foreground mb-4">
-              There are no reviews for this facility yet. Be the first to share your experience!
+              Er zijn nog geen reviews voor deze slotenmaker. Wees de eerste om uw ervaring te delen!
             </p>
           )}
 
@@ -230,20 +230,20 @@ export default function ReviewSection({
           {!showReviewForm && !submitted && (
             <button
               onClick={() => setShowReviewForm(true)}
-              className="mb-6 inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors"
+              className="mb-6 inline-flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors"
             >
               <Star className="w-4 h-4" />
-              Write a Review
+              Schrijf een Review
             </button>
           )}
 
           {/* Success Message */}
           {submitted && (
-            <div className="mb-6 p-4 bg-teal-50 border border-teal-200 rounded-lg flex items-center gap-3">
-              <CheckCircle className="w-5 h-5 text-teal-600" />
+            <div className="mb-6 p-4 bg-orange-50 border border-orange-200 rounded-lg flex items-center gap-3">
+              <CheckCircle className="w-5 h-5 text-orange-600" />
               <div>
-                <p className="font-medium text-teal-800">Thank you for your review!</p>
-                <p className="text-sm text-teal-700">Your review will be published after moderation.</p>
+                <p className="font-medium text-orange-800">Bedankt voor uw review!</p>
+                <p className="text-sm text-orange-700">Uw review wordt na moderatie gepubliceerd.</p>
               </div>
             </div>
           )}
@@ -251,12 +251,12 @@ export default function ReviewSection({
           {/* Review Form */}
           {showReviewForm && !submitted && (
             <Card className="p-4 mb-6 bg-muted/50">
-              <h3 className="font-semibold mb-4">Share your experience with {facilityName}</h3>
+              <h3 className="font-semibold mb-4">Deel uw ervaring met {facilityName}</h3>
 
               <form onSubmit={handleSubmit}>
                 {/* Star Rating */}
                 <div className="mb-4">
-                  <p className="text-sm text-muted-foreground mb-2">Your rating *</p>
+                  <p className="text-sm text-muted-foreground mb-2">Uw beoordeling *</p>
                   <div className="flex gap-1">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <button
@@ -281,51 +281,51 @@ export default function ReviewSection({
                 <div className="space-y-4">
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium mb-1">Name *</label>
+                      <label className="block text-sm font-medium mb-1">Naam *</label>
                       <input
                         type="text"
                         value={authorName}
                         onChange={(e) => setAuthorName(e.target.value)}
-                        placeholder="Your name"
+                        placeholder="Uw naam"
                         className="w-full px-3 py-2 border rounded-md"
                         required
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium mb-1">Email (optional)</label>
+                      <label className="block text-sm font-medium mb-1">E-mail (optioneel)</label>
                       <input
                         type="email"
                         value={authorEmail}
                         onChange={(e) => setAuthorEmail(e.target.value)}
-                        placeholder="your@email.com"
+                        placeholder="uw@email.nl"
                         className="w-full px-3 py-2 border rounded-md"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-1">Title (optional)</label>
+                    <label className="block text-sm font-medium mb-1">Titel (optioneel)</label>
                     <input
                       type="text"
                       value={reviewTitle}
                       onChange={(e) => setReviewTitle(e.target.value)}
-                      placeholder="Brief summary of your experience"
+                      placeholder="Korte samenvatting van uw ervaring"
                       className="w-full px-3 py-2 border rounded-md"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-1">Your experience *</label>
+                    <label className="block text-sm font-medium mb-1">Uw ervaring *</label>
                     <textarea
                       value={reviewContent}
                       onChange={(e) => setReviewContent(e.target.value)}
-                      placeholder="Tell us about your experience with this treatment center. How was the care? What did you like? What could be improved?"
+                      placeholder="Vertel over uw ervaring met deze slotenmaker. Hoe was de service? Wat vond u goed? Wat kan beter?"
                       rows={4}
                       className="w-full px-3 py-2 border rounded-md resize-none"
                       required
                     />
                     <p className="text-xs text-muted-foreground mt-1">
-                      Minimum 20 characters ({reviewContent.length}/20)
+                      Minimaal 20 tekens ({reviewContent.length}/20)
                     </p>
                   </div>
 
@@ -337,21 +337,21 @@ export default function ReviewSection({
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 disabled:opacity-50"
+                      className="inline-flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 disabled:opacity-50"
                     >
                       {submitting ? (
                         <Loader2 className="w-4 h-4 animate-spin" />
                       ) : (
                         <Send className="w-4 h-4" />
                       )}
-                      Submit Review
+                      Review Versturen
                     </button>
                     <button
                       type="button"
                       onClick={() => setShowReviewForm(false)}
                       className="text-muted-foreground hover:text-foreground"
                     >
-                      Cancel
+                      Annuleren
                     </button>
                   </div>
                 </div>
@@ -385,7 +385,7 @@ export default function ReviewSection({
                         <span className="font-medium">{review.reviewer_name}</span>
                         {review.review_date && (
                           <span className="text-sm text-muted-foreground">
-                            • {formatDate(review.review_date)}
+                            - {formatDate(review.review_date)}
                           </span>
                         )}
                         {review.source === 'google' && (

@@ -278,7 +278,7 @@ export default function VeteransGuidePage() {
 
       <div className="min-h-screen bg-background">
         {/* Hero Section */}
-        <div className="bg-gradient-to-br from-teal-800 to-teal-900 text-white py-16">
+        <div className="bg-gradient-to-br from-orange-800 to-orange-900 text-white py-16">
           <div className="container mx-auto px-4">
             {/* Breadcrumb */}
             <nav className="mb-6">
@@ -386,7 +386,7 @@ export default function VeteransGuidePage() {
                 ))}
               </div>
 
-              <Card className="p-6 bg-gradient-to-br from-teal-50 to-coral-50/50 dark:from-teal-900/20 dark:to-coral-900/10 border-teal-100 dark:border-teal-800">
+              <Card className="p-6 bg-gradient-to-br from-orange-50 to-coral-50/50 dark:from-orange-900/20 dark:to-coral-900/10 border-orange-100 dark:border-orange-800">
                 <div className="flex items-start gap-4">
                   <Heart className="w-8 h-8 text-accent shrink-0" />
                   <div>
@@ -538,7 +538,7 @@ export default function VeteransGuidePage() {
                 ))}
               </div>
 
-              <Card className="p-6 bg-gradient-to-br from-teal-50 to-coral-50/50 dark:from-teal-900/20 dark:to-coral-900/10 border-teal-100 dark:border-teal-800">
+              <Card className="p-6 bg-gradient-to-br from-orange-50 to-coral-50/50 dark:from-orange-900/20 dark:to-coral-900/10 border-orange-100 dark:border-orange-800">
                 <h3 className="font-serif font-semibold text-lg mb-4 flex items-center gap-2">
                   <Phone className="w-5 h-5 text-accent" />
                   Key Contact Information
@@ -666,7 +666,7 @@ export default function VeteransGuidePage() {
 
             {/* CTA Section */}
             <section className="text-center">
-              <Card className="p-8 bg-gradient-to-br from-teal-50 to-coral-50/50 dark:from-teal-900/20 dark:to-coral-900/10 border-teal-100 dark:border-teal-800">
+              <Card className="p-8 bg-gradient-to-br from-orange-50 to-coral-50/50 dark:from-orange-900/20 dark:to-coral-900/10 border-orange-100 dark:border-orange-800">
                 <h2 className="font-serif text-2xl font-bold mb-4">
                   Find Veterans Treatment Programs Near You
                 </h2>

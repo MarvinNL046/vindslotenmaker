@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { getFacilityBySlug, getAllFacilities, createCountySlug, createStateSlug, getFacilitiesByCity, type FacilityWithContent } from '@/lib/data';
 import { notFound } from 'next/navigation';
-import { MapPin, Clock, Navigation, ExternalLink, Phone, Star, ChevronDown, Heart, Users, Calendar, CheckCircle2, Sparkles, Car, Accessibility, Building2, TreePine, Info, ChevronRight, ArrowRight } from 'lucide-react';
+import { MapPin, Clock, Navigation, ExternalLink, Phone, Star, ChevronDown, Heart, Users, Calendar, CheckCircle2, Sparkles, Car, Accessibility, Building2, TreePine, Info, ChevronRight, ArrowRight, Key, Lock, Shield, Wrench } from 'lucide-react';
 import ProxiedImage from '@/components/ProxiedImage';
 import CompareButton from '@/components/CompareButton';
 import AffiliateAd from '@/components/ads/AffiliateAd';
@@ -48,14 +48,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!facility) {
     return {
-      title: 'Facility Not Found',
+      title: 'Slotenmaker Niet Gevonden',
     };
   }
 
   return {
-    title: facility.seoTitle || `${facility.name} in ${facility.city}, ${facility.state} | Rehab Near By Me`,
+    title: facility.seoTitle || `${facility.name} in ${facility.city}, ${facility.state} | Vind Slotenmaker`,
     description: facility.seoDescription || facility.generated?.summary ||
-      `Information about ${facility.name} in ${facility.city}, ${facility.state}. View hours, treatment programs, and contact details.`,
+      `Informatie over ${facility.name} in ${facility.city}, ${facility.state}. Bekijk diensten, openingstijden en contactgegevens.`,
     openGraph: {
       title: facility.seoTitle || facility.name,
       description: facility.seoDescription || facility.generated?.summary || `${facility.type} in ${facility.city}`,
@@ -65,59 +65,58 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 function getTypePlaceholder(type: string): string {
-  const typeSlug = type?.toLowerCase().replace(/\s+/g, '-') || 'rehab-center';
-  const validTypes = ['inpatient-rehab', 'outpatient-treatment', 'detox-center', 'sober-living', 'dual-diagnosis', 'luxury-rehab'];
+  const typeSlug = type?.toLowerCase().replace(/\s+/g, '-') || 'slotenmaker';
+  const validTypes = ['noodopening', 'sloten-vervangen', 'inbraakbeveiliging', 'autosloten', '24-uurs-service'];
   if (validTypes.includes(typeSlug)) {
     return `/images/placeholders/${typeSlug}.svg`;
   }
-  return '/images/placeholders/rehab-center.svg';
+  return '/images/placeholders/slotenmaker.svg';
 }
 
 function getTypeIcon(type: string): string {
   const typeMap: Record<string, string> = {
-    'inpatient rehab': '🏥',
-    'outpatient treatment': '🏢',
-    'detox center': '💊',
-    'sober living': '🏠',
-    'dual diagnosis': '🧠',
-    'luxury rehab': '✨',
-    'adolescent program': '👨‍👩‍👧‍👦',
-    'veterans program': '🎖️',
-    'women\'s program': '👩',
-    'men\'s program': '👨',
+    'noodopening': '🔑',
+    'sloten vervangen': '🔒',
+    'inbraakbeveiliging': '🛡️',
+    'autosloten': '🚗',
+    '24-uurs service': '⏰',
+    'sleutelservice': '🗝️',
+    'kluizen': '🔐',
+    'cilindersloten': '🔧',
+    'elektronische sloten': '📱',
   };
-  return typeMap[type?.toLowerCase()] || '🏥';
+  return typeMap[type?.toLowerCase()] || '🔑';
 }
 
 function getFacilityIcon(facility: string): React.ReactNode {
   const facilityLower = facility.toLowerCase();
-  if (facilityLower.includes('parking')) return <Car className="w-4 h-4" />;
-  if (facilityLower.includes('wheelchair') || facilityLower.includes('accessible')) return <Accessibility className="w-4 h-4" />;
-  if (facilityLower.includes('chapel') || facilityLower.includes('building') || facilityLower.includes('gym') || facilityLower.includes('fitness')) return <Building2 className="w-4 h-4" />;
-  if (facilityLower.includes('nature') || facilityLower.includes('garden') || facilityLower.includes('outdoor')) return <TreePine className="w-4 h-4" />;
-  if (facilityLower.includes('pool') || facilityLower.includes('spa') || facilityLower.includes('wellness')) return <Heart className="w-4 h-4" />;
-  return <CheckCircle2 className="w-4 h-4" />;
+  if (facilityLower.includes('nood') || facilityLower.includes('spoed')) return <Key className="w-4 h-4" />;
+  if (facilityLower.includes('slot') || facilityLower.includes('cilinder')) return <Lock className="w-4 h-4" />;
+  if (facilityLower.includes('beveilig') || facilityLower.includes('inbraak')) return <Shield className="w-4 h-4" />;
+  if (facilityLower.includes('auto') || facilityLower.includes('voertuig')) return <Car className="w-4 h-4" />;
+  if (facilityLower.includes('24') || facilityLower.includes('uur')) return <Clock className="w-4 h-4" />;
+  return <Wrench className="w-4 h-4" />;
 }
 
 function generateFAQs(facility: FacilityWithContent) {
   return [
     {
-      question: `What are the admission hours at ${facility.name}?`,
-      answer: facility.opening_hours || 'Admission hours may vary. Please contact the facility for current hours and intake information.'
+      question: `Wat zijn de openingstijden van ${facility.name}?`,
+      answer: facility.opening_hours || 'De openingstijden kunnen varieren. Neem contact op met de slotenmaker voor actuele informatie.'
     },
     {
-      question: `How do I get to ${facility.name}?`,
-      answer: facility.generated?.directions || `${facility.name} is located in ${facility.city}, ${facility.state}. ${facility.address ? `The address is ${facility.address}.` : 'Use the directions feature for navigation.'}`
+      question: `Hoe kom ik bij ${facility.name}?`,
+      answer: facility.generated?.directions || `${facility.name} is gevestigd in ${facility.city}, ${facility.state}. ${facility.address ? `Het adres is ${facility.address}.` : 'Gebruik de routefunctie voor navigatie.'}`
     },
     {
-      question: `What treatment programs does ${facility.name} offer?`,
-      answer: facility.treatment_types?.join(', ') || facility.generated?.amenities?.join(', ') || 'Please contact the facility for information about available treatment programs.'
+      question: `Welke diensten biedt ${facility.name}?`,
+      answer: facility.treatment_types?.join(', ') || facility.generated?.amenities?.join(', ') || 'Neem contact op met de slotenmaker voor informatie over beschikbare diensten.'
     },
     {
-      question: `What insurance does ${facility.name} accept?`,
-      answer: facility.insurance_accepted && facility.insurance_accepted.length > 0
-        ? `${facility.name} accepts the following insurance: ${facility.insurance_accepted.join(', ')}.`
-        : 'Please contact the facility directly for information about accepted insurance plans.'
+      question: `Is ${facility.name} 24/7 bereikbaar?`,
+      answer: facility.opening_hours?.includes('24')
+        ? `Ja, ${facility.name} is 24/7 bereikbaar voor noodgevallen.`
+        : 'Neem contact op met de slotenmaker voor informatie over spoedservice en bereikbaarheid buiten kantooruren.'
     }
   ];
 }
@@ -164,32 +163,32 @@ export default async function FacilityPage({ params }: PageProps) {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://www.rehabnearbyme.com'
+        item: 'https://www.vindslotenmaker.nl'
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: facility.state,
-        item: `https://www.rehabnearbyme.com/state/${createStateSlug(facility.state)}`
+        item: `https://www.vindslotenmaker.nl/state/${createStateSlug(facility.state)}`
       },
       ...(facility.county ? [{
         '@type': 'ListItem',
         position: 3,
-        name: `${facility.county} County`,
-        item: `https://www.rehabnearbyme.com/county/${createCountySlug(facility.county)}`
+        name: facility.county,
+        item: `https://www.vindslotenmaker.nl/county/${createCountySlug(facility.county)}`
       }] : []),
       {
         '@type': 'ListItem',
         position: facility.county ? 4 : 3,
         name: facility.name,
-        item: `https://www.rehabnearbyme.com/facility/${facility.slug}`
+        item: `https://www.vindslotenmaker.nl/facility/${facility.slug}`
       }
     ]
   };
 
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'MedicalClinic',
+    '@type': 'Locksmith',
     name: facility.name,
     description: facility.generated?.summary || facility.description || `${facility.type} in ${facility.city}, ${facility.state}`,
     address: {
@@ -197,7 +196,7 @@ export default async function FacilityPage({ params }: PageProps) {
       streetAddress: facility.address || '',
       addressLocality: facility.city,
       addressRegion: facility.state,
-      addressCountry: 'US',
+      addressCountry: 'NL',
       postalCode: facility.zipCode || '',
     },
     ...(lat && lon && {
@@ -209,7 +208,7 @@ export default async function FacilityPage({ params }: PageProps) {
     }),
     openingHours: facility.opening_hours,
     telephone: phone || '',
-    url: `https://www.rehabnearbyme.com/facility/${facility.slug}`,
+    url: `https://www.vindslotenmaker.nl/facility/${facility.slug}`,
     ...((facility.photo_url || facility.photo) && { image: facility.photo_url || facility.photo }),
     ...(rating && {
       aggregateRating: {
@@ -251,16 +250,16 @@ export default async function FacilityPage({ params }: PageProps) {
       />
 
       {/* Hero Section */}
-      <section className="relative bg-primary text-primary-foreground overflow-hidden">
+      <section className="relative bg-gradient-to-br from-orange-600 via-orange-700 to-orange-800 text-white overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-teal-600/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-coral-500/10 rounded-full blur-3xl" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl" />
         </div>
 
         <div className="container mx-auto px-4 py-8 relative">
           {/* Breadcrumbs */}
           <nav className="mb-6">
-            <ol className="flex items-center flex-wrap gap-2 text-sm text-primary-foreground/70">
+            <ol className="flex items-center flex-wrap gap-2 text-sm text-white/70">
               <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
               <li>/</li>
               <li>
@@ -279,7 +278,7 @@ export default async function FacilityPage({ params }: PageProps) {
                       href={`/county/${createCountySlug(facility.county)}`}
                       className="hover:text-white transition-colors"
                     >
-                      {facility.county} County
+                      {facility.county}
                     </Link>
                   </li>
                 </>
@@ -294,7 +293,7 @@ export default async function FacilityPage({ params }: PageProps) {
               {/* Category Badge */}
               <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur-sm rounded-full text-sm mb-4">
                 <span>{getTypeIcon(facility.type)}</span>
-                <span className="capitalize">{facility.type}</span>
+                <span className="capitalize">{facility.type || 'Slotenmaker'}</span>
               </div>
 
               {/* Title */}
@@ -303,7 +302,7 @@ export default async function FacilityPage({ params }: PageProps) {
               </h1>
 
               {/* Rating and Location */}
-              <div className="flex flex-wrap items-center gap-4 text-primary-foreground/80">
+              <div className="flex flex-wrap items-center gap-4 text-white/80">
                 {rating && (
                   <div className="flex items-center gap-1.5">
                     <div className="flex">
@@ -312,18 +311,18 @@ export default async function FacilityPage({ params }: PageProps) {
                           key={star}
                           className={`w-5 h-5 ${
                             star <= Math.round(rating)
-                              ? 'fill-coral-400 text-coral-400'
+                              ? 'fill-orange-400 text-orange-400'
                               : 'fill-gray-400/30 text-gray-400/30'
                           }`}
                         />
                       ))}
                     </div>
-                    <span className="font-semibold text-coral-300">{rating}</span>
-                    <span className="text-primary-foreground/60">({reviewCount} reviews)</span>
+                    <span className="font-semibold text-orange-300">{rating}</span>
+                    <span className="text-white/60">({reviewCount} reviews)</span>
                   </div>
                 )}
                 <div className="flex items-center gap-1.5">
-                  <MapPin className="w-4 h-4 text-coral-400" />
+                  <MapPin className="w-4 h-4 text-orange-400" />
                   <span>{facility.city}, {facility.state_abbr || facility.state}</span>
                 </div>
               </div>
@@ -332,13 +331,13 @@ export default async function FacilityPage({ params }: PageProps) {
               <div className="flex flex-wrap items-center gap-3 mt-4">
                 {facility.year_established && (
                   <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/10 backdrop-blur-sm rounded-full text-sm">
-                    <Calendar className="w-4 h-4 text-coral-400" />
-                    <span>Since {facility.year_established}</span>
+                    <Calendar className="w-4 h-4 text-orange-400" />
+                    <span>Sinds {facility.year_established}</span>
                   </div>
                 )}
                 <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/10 backdrop-blur-sm rounded-full text-sm">
-                  <CheckCircle2 className="w-4 h-4 text-coral-400" />
-                  <span>Verified</span>
+                  <CheckCircle2 className="w-4 h-4 text-orange-400" />
+                  <span>Geverifieerd</span>
                 </div>
               </div>
             </div>
@@ -348,10 +347,10 @@ export default async function FacilityPage({ params }: PageProps) {
               {phone && (
                 <a
                   href={`tel:${phone}`}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-accent text-accent-foreground font-semibold rounded-lg hover:bg-accent/90 transition-colors shadow-lg"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 transition-colors shadow-lg"
                 >
                   <Phone className="w-5 h-5" />
-                  <span>Call</span>
+                  <span>Bellen</span>
                 </a>
               )}
               <FavoriteButton
@@ -381,17 +380,15 @@ export default async function FacilityPage({ params }: PageProps) {
                     priority
                   />
                 ) : (
-                  <img
-                    src={getTypePlaceholder(facility.type)}
-                    alt={`${facility.type || 'Treatment Facility'} - ${facility.name}`}
-                    className="w-full h-full object-cover"
-                  />
+                  <div className="w-full h-full bg-orange-100 flex items-center justify-center">
+                    <Key className="w-24 h-24 text-orange-300" />
+                  </div>
                 )}
               </Card>
 
               {/* About Section */}
               <Card className="p-4 sm:p-6 shadow-soft">
-                <h2 className="font-serif text-xl sm:text-2xl font-bold mb-4 text-foreground">About {facility.name}</h2>
+                <h2 className="font-serif text-xl sm:text-2xl font-bold mb-4 text-foreground">Over {facility.name}</h2>
                 {facility.enrichedContent ? (
                   <ReadMore text={facility.enrichedContent} maxLength={600} />
                 ) : facility.description ? (
@@ -400,25 +397,25 @@ export default async function FacilityPage({ params }: PageProps) {
                   <ReadMore text={facility.generated.summary} maxLength={600} />
                 ) : (
                   <p className="text-muted-foreground">
-                    {facility.name} is a {facility.type || 'treatment facility'} located in {facility.city}, {facility.state}.
-                    {facility.amenities && facility.amenities.length > 0 && ` Available amenities include ${facility.amenities.join(', ').toLowerCase()}.`}
-                    {facility.year_established && ` The facility was established in ${facility.year_established}.`}
-                    {` For more information about ${facility.name}, please contact using the details on this page.`}
+                    {facility.name} is een {facility.type || 'slotenmaker'} gevestigd in {facility.city}, {facility.state}.
+                    {facility.amenities && facility.amenities.length > 0 && ` Beschikbare diensten zijn onder andere ${facility.amenities.join(', ').toLowerCase()}.`}
+                    {facility.year_established && ` Het bedrijf is opgericht in ${facility.year_established}.`}
+                    {` Neem contact op voor meer informatie over ${facility.name}.`}
                   </p>
                 )}
               </Card>
 
-              {/* Amenities */}
+              {/* Services / Amenities */}
               {facility.amenities && facility.amenities.length > 0 && (
                 <Card className="p-6 shadow-soft">
                   <div className="flex items-center gap-2 mb-4">
-                    <Sparkles className="w-6 h-6 text-accent" />
-                    <h2 className="font-serif text-2xl font-bold">Amenities</h2>
+                    <Wrench className="w-6 h-6 text-orange-600" />
+                    <h2 className="font-serif text-2xl font-bold">Diensten</h2>
                   </div>
                   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
                     {facility.amenities.map((amenity: string, index: number) => (
-                      <div key={index} className="flex items-center gap-3 p-4 bg-teal-50 dark:bg-teal-900/20 rounded-xl border border-teal-100 dark:border-teal-800">
-                        <div className="w-10 h-10 rounded-full bg-teal-100 dark:bg-teal-900/50 flex items-center justify-center flex-shrink-0 text-teal-700 dark:text-teal-400">
+                      <div key={index} className="flex items-center gap-3 p-4 bg-orange-50 dark:bg-orange-900/20 rounded-xl border border-orange-100 dark:border-orange-800">
+                        <div className="w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/50 flex items-center justify-center flex-shrink-0 text-orange-700 dark:text-orange-400">
                           {getFacilityIcon(amenity)}
                         </div>
                         <span className="font-medium text-sm">{amenity}</span>
@@ -428,41 +425,18 @@ export default async function FacilityPage({ params }: PageProps) {
                 </Card>
               )}
 
-              {/* History Section - commented out as GeneratedContent doesn't have history property */}
-              {/* {facility.generated?.history && (
-                <Card className="p-6 shadow-soft">
-                  <h2 className="font-serif text-2xl font-bold mb-4">History</h2>
-                  <p className="text-muted-foreground">{facility.generated.history}</p>
-                </Card>
-              )} */}
-
               {/* Inline Ad */}
               <InlineAd slot={AD_SLOTS.facility.afterInfo} />
 
-              {/* Treatment Programs Section */}
+              {/* Service Types Section */}
               {facility.treatment_types && facility.treatment_types.length > 0 && (
                 <Card className="p-6 shadow-soft">
-                  <h2 className="font-serif text-2xl font-bold mb-4">Treatment Programs</h2>
+                  <h2 className="font-serif text-2xl font-bold mb-4">Specialisaties</h2>
                   <div className="grid sm:grid-cols-2 gap-3">
                     {facility.treatment_types.map((program: string, index: number) => (
-                      <div key={index} className="flex items-center gap-3 p-4 bg-accent/10 rounded-xl border border-accent/20">
-                        <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0" />
+                      <div key={index} className="flex items-center gap-3 p-4 bg-orange-50 rounded-xl border border-orange-100">
+                        <CheckCircle2 className="w-5 h-5 text-orange-500 flex-shrink-0" />
                         <span className="font-medium text-sm">{program}</span>
-                      </div>
-                    ))}
-                  </div>
-                </Card>
-              )}
-
-              {/* Insurance Accepted */}
-              {facility.insurance_accepted && facility.insurance_accepted.length > 0 && (
-                <Card className="p-6 shadow-soft">
-                  <h2 className="font-serif text-2xl font-bold mb-4">Insurance Accepted</h2>
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                    {facility.insurance_accepted.map((insurance: string, index: number) => (
-                      <div key={index} className="flex items-center gap-2 p-3 bg-secondary/50 rounded-lg">
-                        <CheckCircle2 className="w-4 h-4 text-accent flex-shrink-0" />
-                        <span className="text-sm">{insurance}</span>
                       </div>
                     ))}
                   </div>
@@ -489,7 +463,7 @@ export default async function FacilityPage({ params }: PageProps) {
 
               {/* FAQ Section */}
               <Card className="p-6 shadow-soft">
-                <h2 className="font-serif text-2xl font-bold mb-6">Frequently Asked Questions</h2>
+                <h2 className="font-serif text-2xl font-bold mb-6">Veelgestelde Vragen</h2>
                 <div className="space-y-4">
                   {faqs.map((faq, index) => (
                     <details key={index} className="group">
@@ -508,11 +482,11 @@ export default async function FacilityPage({ params }: PageProps) {
               {/* Visitor Tips */}
               {facility.generated?.visitor_tips && facility.generated.visitor_tips.length > 0 && (
                 <Card className="p-6 shadow-soft">
-                  <h2 className="font-serif text-2xl font-bold mb-4">Visitor Tips</h2>
+                  <h2 className="font-serif text-2xl font-bold mb-4">Tips</h2>
                   <ul className="space-y-3">
                     {facility.generated.visitor_tips.map((tip: string, index: number) => (
-                      <li key={index} className="flex items-start gap-3 p-3 bg-coral-50 dark:bg-coral-900/20 rounded-xl border border-coral-100 dark:border-coral-800">
-                        <span className="text-coral-500 text-xl">💡</span>
+                      <li key={index} className="flex items-start gap-3 p-3 bg-orange-50 dark:bg-orange-900/20 rounded-xl border border-orange-100 dark:border-orange-800">
+                        <span className="text-orange-500 text-xl">💡</span>
                         <span className="text-muted-foreground">{tip}</span>
                       </li>
                     ))}
@@ -522,9 +496,9 @@ export default async function FacilityPage({ params }: PageProps) {
 
               {/* Contact Form */}
               <Card id="contact-form" className="p-6 shadow-soft scroll-mt-24">
-                <h2 className="font-serif text-2xl font-bold mb-4">Get in Touch</h2>
+                <h2 className="font-serif text-2xl font-bold mb-4">Neem Contact Op</h2>
                 <p className="text-muted-foreground mb-6">
-                  Have questions about {facility.name}? Fill out the form and we&apos;ll be happy to help.
+                  Heb je vragen over {facility.name}? Vul het formulier in en we helpen je graag.
                 </p>
                 <FeedbackForm
                   pageTitle={facility.name}
@@ -539,12 +513,12 @@ export default async function FacilityPage({ params }: PageProps) {
                 {/* Business Info Card */}
                 <Card className="p-4 sm:p-6 shadow-soft">
                   <div className="flex items-center gap-3 mb-6">
-                    <div className="w-12 h-12 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
                       <span className="text-2xl">{getTypeIcon(facility.type)}</span>
                     </div>
                     <div>
                       <p className="text-sm text-muted-foreground">
-                        {facility.year_established ? `Since ${facility.year_established}` : facility.type}
+                        {facility.year_established ? `Sinds ${facility.year_established}` : facility.type || 'Slotenmaker'}
                       </p>
                       <p className="font-medium">{facility.city}, {facility.state_abbr}</p>
                     </div>
@@ -552,8 +526,8 @@ export default async function FacilityPage({ params }: PageProps) {
 
                   <div className="space-y-4">
                     {phone && (
-                      <a href={`tel:${phone}`} className="flex items-center gap-3 p-3 bg-secondary/50 rounded-lg hover:bg-secondary transition-colors">
-                        <Phone className="w-5 h-5 text-accent" />
+                      <a href={`tel:${phone}`} className="flex items-center gap-3 p-3 bg-orange-50 rounded-lg hover:bg-orange-100 transition-colors">
+                        <Phone className="w-5 h-5 text-orange-600" />
                         <span className="text-sm font-medium">{phone}</span>
                       </a>
                     )}
@@ -565,8 +539,8 @@ export default async function FacilityPage({ params }: PageProps) {
                         rel="noopener noreferrer"
                         className="flex items-center gap-3 p-3 bg-secondary/50 rounded-lg hover:bg-secondary transition-colors"
                       >
-                        <ExternalLink className="w-5 h-5 text-accent" />
-                        <span className="text-sm font-medium truncate">Visit Website</span>
+                        <ExternalLink className="w-5 h-5 text-orange-600" />
+                        <span className="text-sm font-medium truncate">Bezoek Website</span>
                       </a>
                     )}
 
@@ -577,14 +551,14 @@ export default async function FacilityPage({ params }: PageProps) {
                         rel="noopener noreferrer"
                         className="flex items-center gap-3 p-3 bg-secondary/50 rounded-lg hover:bg-secondary transition-colors"
                       >
-                        <Navigation className="w-5 h-5 text-accent" />
-                        <span className="text-sm font-medium">Get Directions</span>
+                        <Navigation className="w-5 h-5 text-orange-600" />
+                        <span className="text-sm font-medium">Routebeschrijving</span>
                       </a>
                     )}
 
                     {facility.address && (
                       <div className="flex items-start gap-3 p-3 bg-secondary/50 rounded-lg">
-                        <MapPin className="w-5 h-5 text-accent mt-0.5" />
+                        <MapPin className="w-5 h-5 text-orange-600 mt-0.5" />
                         <div>
                           <p className="text-sm">{facility.address}</p>
                           <p className="text-sm text-muted-foreground">
@@ -596,9 +570,9 @@ export default async function FacilityPage({ params }: PageProps) {
 
                     {facility.opening_hours && (
                       <div className="flex items-start gap-3 p-3 bg-secondary/50 rounded-lg">
-                        <Clock className="w-5 h-5 text-accent mt-0.5" />
+                        <Clock className="w-5 h-5 text-orange-600 mt-0.5" />
                         <div>
-                          <p className="text-sm font-medium">Hours</p>
+                          <p className="text-sm font-medium">Openingstijden</p>
                           <p className="text-sm text-muted-foreground">{facility.opening_hours}</p>
                         </div>
                       </div>
@@ -614,25 +588,33 @@ export default async function FacilityPage({ params }: PageProps) {
                   </div>
                 </Card>
 
-                {/* Affiliate Blocks */}
-                <Card className="p-4 sm:p-6 shadow-soft bg-gradient-to-br from-teal-50 to-coral-50/50 dark:from-teal-900/20 dark:to-coral-900/10 border-teal-200 dark:border-teal-800">
+                {/* Emergency CTA */}
+                <Card className="p-4 sm:p-6 shadow-soft bg-gradient-to-br from-orange-50 to-orange-50 dark:from-orange-900/20 dark:to-orange-900/10 border-orange-200 dark:border-orange-800">
                   <div className="flex items-center gap-2 mb-3">
-                    <Heart className="w-5 h-5 text-accent" />
-                    <span className="font-semibold">Recovery Support</span>
+                    <Key className="w-5 h-5 text-orange-500" />
+                    <span className="font-semibold">Buitengesloten?</span>
                   </div>
                   <p className="text-sm text-muted-foreground mb-4">
-                    Find the right treatment program and start your recovery journey today.
+                    Direct hulp nodig? Neem contact op met deze slotenmaker voor snelle service.
                   </p>
-                  <a
-                    href="#contact-form"
-                    className="inline-flex items-center justify-center w-full gap-2 px-4 py-2.5 bg-accent text-accent-foreground font-medium rounded-lg hover:bg-accent/90 transition-colors"
-                  >
-                    Get Help Now
-                    <ArrowRight className="w-4 h-4" />
-                  </a>
+                  {phone ? (
+                    <a
+                      href={`tel:${phone}`}
+                      className="inline-flex items-center justify-center w-full gap-2 px-4 py-2.5 bg-orange-500 text-white font-medium rounded-lg hover:bg-orange-600 transition-colors"
+                    >
+                      Direct Bellen
+                      <ArrowRight className="w-4 h-4" />
+                    </a>
+                  ) : (
+                    <a
+                      href="#contact-form"
+                      className="inline-flex items-center justify-center w-full gap-2 px-4 py-2.5 bg-orange-600 text-white font-medium rounded-lg hover:bg-orange-700 transition-colors"
+                    >
+                      Contact Opnemen
+                      <ArrowRight className="w-4 h-4" />
+                    </a>
+                  )}
                 </Card>
-
-                <AffiliateAd sticky={false} maxPartners={2} />
 
                 {/* Sidebar Ad */}
                 <SidebarAd slot={AD_SLOTS.facility.sidebar} sticky={false} />
@@ -643,7 +625,7 @@ export default async function FacilityPage({ params }: PageProps) {
           {/* Similar Facilities */}
           {similarFacilities.length > 0 && (
             <section className="mt-12 max-w-6xl mx-auto">
-              <h2 className="font-serif text-xl sm:text-2xl font-bold mb-6">Treatment Facilities in {facility.city}</h2>
+              <h2 className="font-serif text-xl sm:text-2xl font-bold mb-6">Slotenmakers in {facility.city}</h2>
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                 {similarFacilities.map((similar) => (
                   <Link
@@ -651,22 +633,22 @@ export default async function FacilityPage({ params }: PageProps) {
                     href={`/facility/${similar.slug}`}
                     className="group"
                   >
-                    <Card className="h-full p-3 sm:p-4 border-2 border-transparent hover:border-accent/30 transition-all duration-300">
+                    <Card className="h-full p-3 sm:p-4 border-2 border-transparent hover:border-orange-300 transition-all duration-300">
                       <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
-                        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center flex-shrink-0">
+                        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center flex-shrink-0">
                           <span className="text-sm sm:text-base">{getTypeIcon(similar.type)}</span>
                         </div>
                         {similar.rating && (
                           <div className="flex items-center gap-1 text-xs sm:text-sm">
-                            <Star className="w-3 h-3 sm:w-4 sm:h-4 fill-coral-400 text-coral-400" />
+                            <Star className="w-3 h-3 sm:w-4 sm:h-4 fill-orange-400 text-orange-400" />
                             <span>{similar.rating}</span>
                           </div>
                         )}
                       </div>
-                      <h3 className="font-semibold text-sm sm:text-base group-hover:text-accent transition-colors line-clamp-2">
+                      <h3 className="font-semibold text-sm sm:text-base group-hover:text-orange-600 transition-colors line-clamp-2">
                         {similar.name}
                       </h3>
-                      <p className="text-xs sm:text-sm text-muted-foreground capitalize line-clamp-1">{similar.type}</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground capitalize line-clamp-1">{similar.type || 'Slotenmaker'}</p>
                     </Card>
                   </Link>
                 ))}
@@ -676,21 +658,21 @@ export default async function FacilityPage({ params }: PageProps) {
 
           {/* Discover More Links */}
           <section className="mt-12 max-w-6xl mx-auto">
-            <h2 className="font-serif text-xl sm:text-2xl font-bold mb-6">Discover More</h2>
+            <h2 className="font-serif text-xl sm:text-2xl font-bold mb-6">Ontdek Meer</h2>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
               <Link
                 href={`/state/${createStateSlug(facility.state)}`}
                 className="group"
               >
-                <Card className="h-full p-4 sm:p-6 hover:shadow-hover transition-all duration-300 border-2 border-transparent hover:border-accent/30">
-                  <h3 className="font-semibold text-sm sm:text-base mb-2 group-hover:text-accent transition-colors">
+                <Card className="h-full p-4 sm:p-6 hover:shadow-hover transition-all duration-300 border-2 border-transparent hover:border-orange-300">
+                  <h3 className="font-semibold text-sm sm:text-base mb-2 group-hover:text-orange-600 transition-colors">
                     {facility.state}
                   </h3>
                   <p className="text-xs sm:text-sm text-muted-foreground hidden sm:block">
-                    All treatment facilities in this state
+                    Alle slotenmakers in deze provincie
                   </p>
-                  <div className="mt-2 sm:mt-3 flex items-center gap-1 text-xs sm:text-sm font-medium text-accent">
-                    View
+                  <div className="mt-2 sm:mt-3 flex items-center gap-1 text-xs sm:text-sm font-medium text-orange-600">
+                    Bekijk
                     <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4" />
                   </div>
                 </Card>
@@ -701,15 +683,15 @@ export default async function FacilityPage({ params }: PageProps) {
                   href={`/county/${createCountySlug(facility.county)}`}
                   className="group"
                 >
-                  <Card className="h-full p-4 sm:p-6 hover:shadow-hover transition-all duration-300 border-2 border-transparent hover:border-accent/30">
-                    <h3 className="font-semibold text-sm sm:text-base mb-2 group-hover:text-accent transition-colors">
-                      {facility.county} County
+                  <Card className="h-full p-4 sm:p-6 hover:shadow-hover transition-all duration-300 border-2 border-transparent hover:border-orange-300">
+                    <h3 className="font-semibold text-sm sm:text-base mb-2 group-hover:text-orange-600 transition-colors">
+                      {facility.county}
                     </h3>
                     <p className="text-xs sm:text-sm text-muted-foreground hidden sm:block">
-                      All treatment facilities in this county
+                      Alle slotenmakers in deze gemeente
                     </p>
-                    <div className="mt-2 sm:mt-3 flex items-center gap-1 text-xs sm:text-sm font-medium text-accent">
-                      View
+                    <div className="mt-2 sm:mt-3 flex items-center gap-1 text-xs sm:text-sm font-medium text-orange-600">
+                      Bekijk
                       <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4" />
                     </div>
                   </Card>
@@ -721,15 +703,15 @@ export default async function FacilityPage({ params }: PageProps) {
                   href={`/type/${facility.type_slug || facility.type.toLowerCase().replace(/\s+/g, '-')}`}
                   className="group"
                 >
-                  <Card className="h-full p-4 sm:p-6 hover:shadow-hover transition-all duration-300 border-2 border-transparent hover:border-accent/30">
-                    <h3 className="font-semibold text-sm sm:text-base mb-2 group-hover:text-accent transition-colors capitalize line-clamp-2">
-                      {facility.type}s
+                  <Card className="h-full p-4 sm:p-6 hover:shadow-hover transition-all duration-300 border-2 border-transparent hover:border-orange-300">
+                    <h3 className="font-semibold text-sm sm:text-base mb-2 group-hover:text-orange-600 transition-colors capitalize line-clamp-2">
+                      {facility.type}
                     </h3>
                     <p className="text-xs sm:text-sm text-muted-foreground hidden sm:block">
-                      Similar treatment facilities
+                      Soortgelijke slotenmakers
                     </p>
-                    <div className="mt-2 sm:mt-3 flex items-center gap-1 text-xs sm:text-sm font-medium text-accent">
-                      View
+                    <div className="mt-2 sm:mt-3 flex items-center gap-1 text-xs sm:text-sm font-medium text-orange-600">
+                      Bekijk
                       <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4" />
                     </div>
                   </Card>
@@ -740,15 +722,15 @@ export default async function FacilityPage({ params }: PageProps) {
                 href="/compare"
                 className="group"
               >
-                <Card className="h-full p-4 sm:p-6 hover:shadow-hover transition-all duration-300 border-2 border-transparent hover:border-accent/30">
-                  <h3 className="font-semibold text-sm sm:text-base mb-2 group-hover:text-accent transition-colors">
-                    Compare
+                <Card className="h-full p-4 sm:p-6 hover:shadow-hover transition-all duration-300 border-2 border-transparent hover:border-orange-300">
+                  <h3 className="font-semibold text-sm sm:text-base mb-2 group-hover:text-orange-600 transition-colors">
+                    Vergelijken
                   </h3>
                   <p className="text-xs sm:text-sm text-muted-foreground hidden sm:block">
-                    Compare up to 3 treatment facilities
+                    Vergelijk tot 3 slotenmakers
                   </p>
-                  <div className="mt-2 sm:mt-3 flex items-center gap-1 text-xs sm:text-sm font-medium text-accent">
-                    View
+                  <div className="mt-2 sm:mt-3 flex items-center gap-1 text-xs sm:text-sm font-medium text-orange-600">
+                    Bekijk
                     <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4" />
                   </div>
                 </Card>
@@ -771,11 +753,10 @@ export default async function FacilityPage({ params }: PageProps) {
           <Card className="mt-12 p-4 sm:p-6 bg-secondary/50 max-w-6xl mx-auto">
             <h3 className="font-serif text-lg font-semibold mb-2">Disclaimer</h3>
             <p className="text-sm text-muted-foreground">
-              We have tried to collect all information as carefully as possible.
-              If you find incorrect or outdated information (such as address, description,
-              facility status, treatment programs), you can submit a correction request via the contact form.
-              This directory is for informational purposes only and does not constitute medical advice.
-              Please consult with healthcare professionals before making treatment decisions.
+              Wij hebben geprobeerd alle informatie zo zorgvuldig mogelijk te verzamelen.
+              Als je onjuiste of verouderde informatie vindt (zoals adres, beschrijving,
+              diensten of status), kun je een correctieverzoek indienen via het contactformulier.
+              Deze directory is alleen bedoeld ter informatie.
             </p>
           </Card>
         </div>

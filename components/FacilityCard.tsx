@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { MapPin, Phone, Building2, Star, Shield } from 'lucide-react';
+import { MapPin, Phone, Wrench, Star, CreditCard, Clock } from 'lucide-react';
 import ProxiedImage from './ProxiedImage';
 
 interface Facility {
@@ -17,6 +17,7 @@ interface Facility {
   photo_url?: string;
   photo?: string;
   description?: string;
+  is_24_hour?: boolean;
 }
 
 interface FacilityCardProps {
@@ -50,8 +51,8 @@ export default function FacilityCard({ facility }: FacilityCardProps) {
 
   return (
     <Link
-      href={`/facility/${facility.slug}`}
-      className="group block bg-card rounded-xl overflow-hidden shadow-sm border border-gray-200 hover:shadow-xl hover:border-teal-300 transition-all duration-300"
+      href={`/slotenmaker/${facility.slug}`}
+      className="group block bg-card rounded-xl overflow-hidden shadow-sm border border-gray-200 hover:shadow-xl hover:border-orange-300 transition-all duration-300"
     >
       <div className="flex gap-6 p-6">
         {/* Image */}
@@ -63,24 +64,30 @@ export default function FacilityCard({ facility }: FacilityCardProps) {
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-300"
             />
+            {facility.is_24_hour && (
+              <div className="absolute top-2 left-2 bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1">
+                <Clock className="w-3 h-3" />
+                24/7
+              </div>
+            )}
           </div>
         )}
 
         {/* Content */}
         <div className="flex-1 min-w-0">
-          <h2 className="text-xl font-semibold mb-2 truncate text-slate-800 group-hover:text-teal-600 transition-colors">
+          <h2 className="text-xl font-semibold mb-2 truncate text-slate-800 group-hover:text-orange-500 transition-colors">
             {facility.name}
           </h2>
 
-          {/* Facility Type Badges */}
+          {/* Service Type Badges */}
           {facility.facility_types && facility.facility_types.length > 0 && (
             <div className="flex flex-wrap gap-2 mb-3">
               {facility.facility_types.slice(0, 3).map((type, index) => (
                 <span
                   key={index}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-full bg-teal-50 text-teal-700 border border-teal-200"
+                  className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-full bg-orange-50 text-orange-700 border border-orange-200"
                 >
-                  <Building2 className="w-3 h-3" />
+                  <Wrench className="w-3 h-3" />
                   <span className="capitalize">{type}</span>
                 </span>
               ))}
@@ -90,7 +97,7 @@ export default function FacilityCard({ facility }: FacilityCardProps) {
           <div className="space-y-2 text-sm text-muted-foreground">
             {/* Location */}
             <div className="flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-teal-600" />
+              <MapPin className="w-4 h-4 text-orange-500" />
               <span className="text-slate-600">
                 {facility.address && `${facility.address}, `}
                 {facility.city}
@@ -102,8 +109,8 @@ export default function FacilityCard({ facility }: FacilityCardProps) {
             {/* Phone */}
             {facility.phone && (
               <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-teal-500" />
-                <span className="text-slate-600 hover:text-teal-600 transition-colors">
+                <Phone className="w-4 h-4 text-orange-500" />
+                <span className="text-slate-600 hover:text-orange-500 transition-colors">
                   {facility.phone}
                 </span>
               </div>
@@ -125,21 +132,21 @@ export default function FacilityCard({ facility }: FacilityCardProps) {
             )}
           </div>
 
-          {/* Insurance Badges */}
+          {/* Payment Methods Badges */}
           {facility.insurance_accepted && facility.insurance_accepted.length > 0 && (
             <div className="flex flex-wrap items-center gap-2 mt-3">
-              <Shield className="w-4 h-4 text-indigo-500" />
-              {facility.insurance_accepted.slice(0, 3).map((insurance, index) => (
+              <CreditCard className="w-4 h-4 text-gray-500" />
+              {facility.insurance_accepted.slice(0, 3).map((method, index) => (
                 <span
                   key={index}
-                  className="inline-flex px-2 py-0.5 text-xs font-medium rounded bg-indigo-50 text-indigo-700 border border-indigo-200"
+                  className="inline-flex px-2 py-0.5 text-xs font-medium rounded bg-gray-100 text-gray-700 border border-gray-200"
                 >
-                  {insurance}
+                  {method}
                 </span>
               ))}
               {facility.insurance_accepted.length > 3 && (
                 <span className="text-xs text-slate-500">
-                  +{facility.insurance_accepted.length - 3} more
+                  +{facility.insurance_accepted.length - 3} meer
                 </span>
               )}
             </div>

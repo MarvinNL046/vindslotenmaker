@@ -131,10 +131,10 @@ export default function PhotoUpload({ facilitySlug, onUploadSuccess }: PhotoUplo
         <div className="p-4 space-y-4">
           {success ? (
             <div className="text-center py-8">
-              <div className="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Check className="w-8 h-8 text-teal-600" />
+              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Check className="w-8 h-8 text-orange-600" />
               </div>
-              <h4 className="text-lg font-semibold text-teal-700">
+              <h4 className="text-lg font-semibold text-orange-700">
                 Photo uploaded successfully!
               </h4>
               <p className="text-muted-foreground mt-2">

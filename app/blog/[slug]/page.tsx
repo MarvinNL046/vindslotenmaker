@@ -248,7 +248,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 </Card>
 
                 {/* Newsletter */}
-                <Card className="p-6 shadow-soft bg-gradient-to-br from-teal-50 to-coral-50/50 dark:from-teal-900/20 dark:to-coral-900/10 border-teal-100 dark:border-teal-800">
+                <Card className="p-6 shadow-soft bg-gradient-to-br from-orange-50 to-coral-50/50 dark:from-orange-900/20 dark:to-coral-900/10 border-orange-100 dark:border-orange-800">
                   <div className="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center mb-4">
                     <BookOpen className="w-5 h-5 text-accent" />
                   </div>

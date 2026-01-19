@@ -1,0 +1,144 @@
+{
+  "country": {
+    "name": "Nederland",
+    "code": "NLD",
+    "iso2": "NL",
+    "iso3": "NLD",
+    "continent": "Europe",
+    "language": "nl",
+    "currency": "EUR",
+    "coordinate_bounds": {
+      "north": 53.5104,
+      "south": 50.7504,
+      "east": 7.2275,
+      "west": 3.3625
+    }
+  },
+  "administrative_divisions": {
+    "primary": "provincie",
+    "secondary": "gemeente",
+    "tertiary": "plaats",
+    "special_cases": {}
+  },
+  "search_terms": {
+    "locksmith": ["slotenmaker", "sleutelservice", "slot specialist", "slotenmakerbedrijf"],
+    "services": ["slot openen", "slot vervangen", "cilinder vervangen", "sleutel bijmaken", "inbraakbeveiliging"],
+    "emergency": ["24 uur slotenmaker", "spoed slotenmaker", "noodslotenmaker", "buitengesloten", "noodopening"]
+  },
+  "url_patterns": {
+    "provincie": "/provincie/{provincie-slug}",
+    "gemeente": "/provincie/{provincie-slug}/{gemeente-slug}",
+    "plaats": "/plaats/{plaats-slug}",
+    "slotenmaker": "/slotenmaker/{slotenmaker-slug}"
+  },
+  "provincies": [
+    {
+      "name": "Noord-Holland",
+      "abbr": "NH",
+      "slug": "noord-holland",
+      "hoofdstad": "Haarlem",
+      "gemeenten": 44,
+      "priority": 1,
+      "major_cities": ["Amsterdam", "Haarlem", "Zaanstad", "Hilversum", "Amstelveen", "Alkmaar", "Hoofddorp", "Purmerend", "Hoorn", "Heerhugowaard", "Den Helder", "Velsen", "Beverwijk", "Castricum", "Uithoorn"]
+    },
+    {
+      "name": "Zuid-Holland",
+      "abbr": "ZH",
+      "slug": "zuid-holland",
+      "hoofdstad": "Den Haag",
+      "gemeenten": 50,
+      "priority": 1,
+      "major_cities": ["Rotterdam", "Den Haag", "Zoetermeer", "Leiden", "Dordrecht", "Delft", "Schiedam", "Alphen aan den Rijn", "Vlaardingen", "Gouda", "Capelle aan den IJssel", "Spijkenisse", "Katwijk", "Rijswijk", "Leidschendam-Voorburg"]
+    },
+    {
+      "name": "Utrecht",
+      "abbr": "UT",
+      "slug": "utrecht",
+      "hoofdstad": "Utrecht",
+      "gemeenten": 26,
+      "priority": 1,
+      "major_cities": ["Utrecht", "Amersfoort", "Veenendaal", "Nieuwegein", "Zeist", "Houten", "IJsselstein", "Woerden", "Maarssen", "Soest", "Bunnik", "De Bilt", "Bilthoven", "Driebergen-Rijsenburg"]
+    },
+    {
+      "name": "Noord-Brabant",
+      "abbr": "NB",
+      "slug": "noord-brabant",
+      "hoofdstad": "'s-Hertogenbosch",
+      "gemeenten": 61,
+      "priority": 1,
+      "major_cities": ["Eindhoven", "'s-Hertogenbosch", "Tilburg", "Breda", "Helmond", "Oss", "Bergen op Zoom", "Roosendaal", "Veldhoven", "Waalwijk", "Oosterhout", "Uden", "Veghel", "Best", "Boxtel"]
+    },
+    {
+      "name": "Gelderland",
+      "abbr": "GE",
+      "slug": "gelderland",
+      "hoofdstad": "Arnhem",
+      "gemeenten": 51,
+      "priority": 1,
+      "major_cities": ["Nijmegen", "Arnhem", "Apeldoorn", "Ede", "Doetinchem", "Harderwijk", "Zutphen", "Tiel", "Wageningen", "Zevenaar", "Winterswijk", "Barneveld", "Elburg", "Ermelo"]
+    },
+    {
+      "name": "Limburg",
+      "abbr": "LI",
+      "slug": "limburg",
+      "hoofdstad": "Maastricht",
+      "gemeenten": 31,
+      "priority": 2,
+      "major_cities": ["Maastricht", "Venlo", "Sittard-Geleen", "Heerlen", "Roermond", "Weert", "Kerkrade", "Landgraaf", "Brunssum", "Venray", "Geleen", "Sittard", "Valkenburg"]
+    },
+    {
+      "name": "Overijssel",
+      "abbr": "OV",
+      "slug": "overijssel",
+      "hoofdstad": "Zwolle",
+      "gemeenten": 25,
+      "priority": 2,
+      "major_cities": ["Enschede", "Zwolle", "Deventer", "Almelo", "Hengelo", "Kampen", "Oldenzaal", "Hardenberg", "Rijssen-Holten", "Borne", "Steenwijk", "Raalte"]
+    },
+    {
+      "name": "Friesland",
+      "abbr": "FR",
+      "slug": "friesland",
+      "hoofdstad": "Leeuwarden",
+      "gemeenten": 18,
+      "priority": 2,
+      "major_cities": ["Leeuwarden", "Drachten", "Sneek", "Heerenveen", "Harlingen", "Franeker", "Dokkum", "Bolsward", "Joure", "Wolvega", "Lemmer", "Grou"]
+    },
+    {
+      "name": "Groningen",
+      "abbr": "GR",
+      "slug": "groningen",
+      "hoofdstad": "Groningen",
+      "gemeenten": 10,
+      "priority": 2,
+      "major_cities": ["Groningen", "Hoogezand", "Veendam", "Stadskanaal", "Winschoten", "Delfzijl", "Appingedam", "Leek", "Ter Apel", "Uithuizen"]
+    },
+    {
+      "name": "Drenthe",
+      "abbr": "DR",
+      "slug": "drenthe",
+      "hoofdstad": "Assen",
+      "gemeenten": 12,
+      "priority": 3,
+      "major_cities": ["Emmen", "Assen", "Hoogeveen", "Meppel", "Coevorden", "Beilen", "Roden", "Zuidlaren", "Borger", "Gieten"]
+    },
+    {
+      "name": "Zeeland",
+      "abbr": "ZE",
+      "slug": "zeeland",
+      "hoofdstad": "Middelburg",
+      "gemeenten": 13,
+      "priority": 3,
+      "major_cities": ["Middelburg", "Vlissingen", "Goes", "Terneuzen", "Zierikzee", "Hulst", "Oostburg", "Tholen", "Domburg", "Veere"]
+    },
+    {
+      "name": "Flevoland",
+      "abbr": "FL",
+      "slug": "flevoland",
+      "hoofdstad": "Lelystad",
+      "gemeenten": 6,
+      "priority": 2,
+      "major_cities": ["Almere", "Lelystad", "Dronten", "Emmeloord", "Zeewolde", "Urk"]
+    }
+  ]
+}

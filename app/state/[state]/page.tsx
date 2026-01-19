@@ -209,8 +209,8 @@ export default async function StatePage({ params }: PageProps) {
                         >
                           <Card className="h-full p-4 flex items-center justify-between border-2 border-transparent hover:border-accent/30 transition-all duration-300">
                             <div className="flex items-center gap-3">
-                              <div className="w-10 h-10 rounded-lg bg-teal-100 flex items-center justify-center group-hover:bg-accent transition-colors">
-                                <Building2 className="w-5 h-5 text-teal-700 group-hover:text-white transition-colors" />
+                              <div className="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center group-hover:bg-accent transition-colors">
+                                <Building2 className="w-5 h-5 text-orange-700 group-hover:text-white transition-colors" />
                               </div>
                               <span className="font-medium group-hover:text-accent transition-colors">
                                 {county}
@@ -250,8 +250,8 @@ export default async function StatePage({ params }: PageProps) {
                         >
                           <Card className="h-full p-4 flex items-center justify-between border-2 border-transparent hover:border-accent/30 transition-all duration-300">
                             <div className="flex items-center gap-3">
-                              <div className="w-10 h-10 rounded-lg bg-teal-100 flex items-center justify-center group-hover:bg-accent transition-colors">
-                                <MapPin className="w-5 h-5 text-teal-700 group-hover:text-white transition-colors" />
+                              <div className="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center group-hover:bg-accent transition-colors">
+                                <MapPin className="w-5 h-5 text-orange-700 group-hover:text-white transition-colors" />
                               </div>
                               <span className="font-medium group-hover:text-accent transition-colors">
                                 {city}
@@ -291,10 +291,10 @@ export default async function StatePage({ params }: PageProps) {
             </div>
 
             {/* About Section */}
-            <Card className="mt-16 p-8 bg-gradient-to-r from-teal-50 to-coral-50/30 dark:from-teal-900/20 dark:to-coral-900/10 border-teal-100 dark:border-teal-800">
+            <Card className="mt-16 p-8 bg-gradient-to-r from-orange-50 to-coral-50/30 dark:from-orange-900/20 dark:to-coral-900/10 border-orange-100 dark:border-orange-800">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-teal-100 dark:bg-teal-900/50 flex items-center justify-center shrink-0">
-                  <Heart className="w-6 h-6 text-teal-700 dark:text-teal-400" />
+                <div className="w-12 h-12 rounded-xl bg-orange-100 dark:bg-orange-900/50 flex items-center justify-center shrink-0">
+                  <Heart className="w-6 h-6 text-orange-700 dark:text-orange-400" />
                 </div>
                 <div>
                   <h2 className="font-serif text-xl font-semibold mb-3">About addiction treatment in {state.name}</h2>

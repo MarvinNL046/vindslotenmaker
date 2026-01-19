@@ -14,9 +14,9 @@ function AffiliateCard({ partner }: { partner: AffiliatePartner }) {
   const affiliateUrl = buildAffiliateUrl(partner);
 
   return (
-    <Card className="overflow-hidden border-2 border-transparent hover:border-accent/30 transition-all duration-300">
+    <Card className="overflow-hidden border-2 border-transparent hover:border-orange-300 transition-all duration-300">
       {partner.imageUrl && (
-        <div className="relative h-32 bg-teal-50">
+        <div className="relative h-32 bg-orange-50">
           <Image
             src={partner.imageUrl}
             alt={partner.name}
@@ -32,7 +32,7 @@ function AffiliateCard({ partner }: { partner: AffiliatePartner }) {
           href={affiliateUrl}
           target="_blank"
           rel="noopener noreferrer sponsored"
-          className="inline-flex items-center gap-2 w-full justify-center px-4 py-2.5 bg-accent text-accent-foreground rounded-lg font-medium hover:bg-accent/90 transition-colors"
+          className="inline-flex items-center gap-2 w-full justify-center px-4 py-2.5 bg-orange-500 text-white rounded-lg font-medium hover:bg-orange-600 transition-colors"
         >
           {partner.buttonText}
           <ExternalLink className="w-4 h-4" />
@@ -59,7 +59,7 @@ export default function AffiliateAd({
   return (
     <div className={`${sticky ? 'sticky top-4' : ''}`}>
       <div className="space-y-4">
-        <p className="text-xs text-center text-muted-foreground">Recommended Partners</p>
+        <p className="text-xs text-center text-muted-foreground">Aanbevolen Partners</p>
 
         {partnersToShow.map((partner) => (
           <AffiliateCard key={partner.id} partner={partner} />

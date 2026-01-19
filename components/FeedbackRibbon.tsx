@@ -43,7 +43,7 @@ export default function FeedbackRibbon() {
       // Prepare data in API-expected format
       const feedbackData: FeedbackData = {
         page_url: window.location.pathname,
-        page_title: document.title || 'Rehab Near Me',
+        page_title: document.title || 'VindSlotenmaker.nl',
       };
 
       // Determine type based on what was provided
@@ -69,7 +69,7 @@ export default function FeedbackRibbon() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to submit feedback');
+        throw new Error('Feedback verzenden mislukt');
       }
 
       setIsSubmitted(true);
@@ -93,7 +93,7 @@ export default function FeedbackRibbon() {
       {/* Feedback Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className={`fixed right-0 top-1/2 -translate-y-1/2 bg-primary text-white px-3 py-8 rounded-l-lg shadow-lg hover:bg-primary/90 transition-all duration-300 z-40 ${
+        className={`fixed right-0 top-1/2 -translate-y-1/2 bg-orange-500 text-white px-3 py-8 rounded-l-lg shadow-lg hover:bg-orange-600 transition-all duration-300 z-40 ${
           isOpen ? 'translate-x-full' : 'translate-x-0'
         }`}
         style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
@@ -110,7 +110,7 @@ export default function FeedbackRibbon() {
       }`}>
         <div className="w-80 max-h-[600px] p-6 overflow-y-auto">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold">Your Opinion Matters!</h3>
+            <h3 className="text-lg font-semibold">Uw Mening Telt!</h3>
             <button
               onClick={() => setIsOpen(false)}
               className="text-gray-400 hover:text-gray-600 transition-colors"
@@ -121,19 +121,19 @@ export default function FeedbackRibbon() {
 
           {isSubmitted ? (
             <div className="py-8 text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-teal-100 rounded-full mb-4">
-                <Check className="w-8 h-8 text-teal-600" />
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-100 rounded-full mb-4">
+                <Check className="w-8 h-8 text-orange-600" />
               </div>
-              <p className="text-lg font-medium text-teal-600">Thank you!</p>
+              <p className="text-lg font-medium text-orange-600">Bedankt!</p>
               <p className="text-sm text-gray-600 mt-2">
-                Your feedback helps us improve the website.
+                Uw feedback helpt ons de website te verbeteren.
               </p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  How satisfied are you with this page?
+                  Hoe tevreden bent u met deze pagina?
                 </label>
                 <div className="flex gap-1 justify-center">
                   {[1, 2, 3, 4, 5].map((star) => (
@@ -155,14 +155,14 @@ export default function FeedbackRibbon() {
 
               <div>
                 <label htmlFor="ribbon-feedback" className="block text-sm font-medium text-gray-700 mb-2">
-                  Do you have suggestions for improvement?
+                  Heeft u suggesties voor verbetering?
                 </label>
                 <textarea
                   id="ribbon-feedback"
                   value={feedback}
                   onChange={(e) => setFeedback(e.target.value)}
-                  placeholder="Share your ideas with us..."
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent resize-none text-sm"
+                  placeholder="Deel uw ideeen met ons..."
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none text-sm"
                   rows={4}
                   disabled={isSubmitting}
                 />
@@ -172,14 +172,14 @@ export default function FeedbackRibbon() {
                 <Button
                   type="submit"
                   disabled={(!feedback.trim() && rating === 0) || isSubmitting}
-                  className="w-full flex items-center justify-center gap-2"
+                  className="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600"
                 >
                   <Send className="w-4 h-4" />
-                  {isSubmitting ? 'Sending...' : 'Submit Feedback'}
+                  {isSubmitting ? 'Verzenden...' : 'Feedback Versturen'}
                 </Button>
 
                 <p className="text-xs text-gray-500 text-center">
-                  100% anonymous & secure
+                  100% anoniem & veilig
                 </p>
               </div>
             </form>

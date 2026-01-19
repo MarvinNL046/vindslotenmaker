@@ -20,15 +20,15 @@ export default function FeedbackForm({ pageTitle, pageUrl }: FeedbackFormProps) 
 
   // Get prompt text based on rating
   const getPromptText = () => {
-    if (rating <= 2) return 'What can we improve?';
-    if (rating === 3) return 'What is missing?';
-    return 'What did you like?';
+    if (rating <= 2) return 'Wat kunnen we verbeteren?';
+    if (rating === 3) return 'Wat mist er nog?';
+    return 'Wat vond u goed?';
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (rating === 0) {
-      setError('Please select a rating first');
+      setError('Selecteer eerst een beoordeling');
       return;
     }
 
@@ -51,12 +51,12 @@ export default function FeedbackForm({ pageTitle, pageUrl }: FeedbackFormProps) 
       });
 
       if (!response.ok) {
-        throw new Error('Failed to submit feedback');
+        throw new Error('Feedback verzenden mislukt');
       }
 
       setIsSubmitted(true);
     } catch {
-      setError('Something went wrong. Please try again later.');
+      setError('Er ging iets mis. Probeer het later opnieuw.');
     } finally {
       setIsSubmitting(false);
     }
@@ -71,19 +71,19 @@ export default function FeedbackForm({ pageTitle, pageUrl }: FeedbackFormProps) 
 
   if (isSubmitted) {
     return (
-      <Card className="p-6 bg-teal-50 border-teal-200">
+      <Card className="p-6 bg-orange-50 border-orange-200">
         <div className="text-center space-y-2">
-          <p className="text-teal-700 font-medium">
-            Thank you for your feedback! ✓
+          <p className="text-orange-700 font-medium">
+            Bedankt voor uw feedback!
           </p>
-          <p className="text-sm text-teal-600">
-            Your input helps us improve our information.
+          <p className="text-sm text-orange-600">
+            Uw input helpt ons om onze informatie te verbeteren.
           </p>
           <button
             onClick={handleReset}
-            className="text-sm text-teal-700 underline hover:no-underline mt-2"
+            className="text-sm text-orange-700 underline hover:no-underline mt-2"
           >
-            Submit new feedback
+            Nieuwe feedback geven
           </button>
         </div>
       </Card>
@@ -93,7 +93,7 @@ export default function FeedbackForm({ pageTitle, pageUrl }: FeedbackFormProps) 
   return (
     <Card className="p-6">
       <form onSubmit={handleSubmit} className="space-y-4">
-        <h3 className="text-lg font-semibold">Was this information helpful?</h3>
+        <h3 className="text-lg font-semibold">Was deze informatie nuttig?</h3>
 
         {/* Rating stars */}
         <div className="space-y-1">
@@ -107,7 +107,7 @@ export default function FeedbackForm({ pageTitle, pageUrl }: FeedbackFormProps) 
                 onMouseLeave={() => setHoveredRating(0)}
                 disabled={isSubmitting}
                 className="p-1 transition-colors disabled:opacity-50"
-                aria-label={`Rate ${star} stars`}
+                aria-label={`Beoordeel met ${star} sterren`}
               >
                 <Star
                   className={`w-7 h-7 transition-colors ${
@@ -121,11 +121,11 @@ export default function FeedbackForm({ pageTitle, pageUrl }: FeedbackFormProps) 
           </div>
           {rating > 0 && (
             <p className="text-sm text-muted-foreground">
-              {rating === 1 && 'Very dissatisfied'}
-              {rating === 2 && 'Dissatisfied'}
-              {rating === 3 && 'Neutral'}
-              {rating === 4 && 'Satisfied'}
-              {rating === 5 && 'Very satisfied'}
+              {rating === 1 && 'Zeer ontevreden'}
+              {rating === 2 && 'Ontevreden'}
+              {rating === 3 && 'Neutraal'}
+              {rating === 4 && 'Tevreden'}
+              {rating === 5 && 'Zeer tevreden'}
             </p>
           )}
         </div>
@@ -135,19 +135,19 @@ export default function FeedbackForm({ pageTitle, pageUrl }: FeedbackFormProps) 
           <div className="space-y-3 animate-in slide-in-from-top-2 duration-200">
             <div className="relative">
               <label className="block text-sm font-medium mb-1.5">
-                {getPromptText()} <span className="text-muted-foreground font-normal">(optional)</span>
+                {getPromptText()} <span className="text-muted-foreground font-normal">(optioneel)</span>
               </label>
               <textarea
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 placeholder={
                   rating <= 2
-                    ? "E.g. missing info, errors, unclear information..."
+                    ? "Bijv. ontbrekende info, fouten, onduidelijke informatie..."
                     : rating === 3
-                    ? "E.g. additional information you'd like to see..."
-                    : "E.g. what was especially helpful for you..."
+                    ? "Bijv. welke aanvullende informatie zou u willen zien..."
+                    : "Bijv. wat was vooral nuttig voor u..."
                 }
-                className="w-full p-3 border rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+                className="w-full p-3 border rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm"
                 rows={3}
                 maxLength={500}
               />
@@ -156,7 +156,7 @@ export default function FeedbackForm({ pageTitle, pageUrl }: FeedbackFormProps) 
                   type="button"
                   onClick={() => setComment('')}
                   className="absolute top-8 right-2 text-gray-400 hover:text-gray-600"
-                  aria-label="Clear text"
+                  aria-label="Tekst wissen"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -165,7 +165,7 @@ export default function FeedbackForm({ pageTitle, pageUrl }: FeedbackFormProps) 
 
             <div className="flex items-center justify-between">
               <span className="text-xs text-muted-foreground">
-                {comment.length}/500 characters
+                {comment.length}/500 tekens
               </span>
               <div className="flex gap-2">
                 <Button
@@ -175,16 +175,16 @@ export default function FeedbackForm({ pageTitle, pageUrl }: FeedbackFormProps) 
                   onClick={handleReset}
                   disabled={isSubmitting}
                 >
-                  Cancel
+                  Annuleren
                 </Button>
                 <Button
                   type="submit"
                   size="sm"
                   disabled={isSubmitting}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600"
                 >
                   <Send className="w-4 h-4" />
-                  {isSubmitting ? 'Sending...' : 'Send'}
+                  {isSubmitting ? 'Verzenden...' : 'Versturen'}
                 </Button>
               </div>
             </div>

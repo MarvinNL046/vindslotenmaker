@@ -1,0 +1,114 @@
+{
+  "provinces": [
+    {
+      "name": "Groningen",
+      "abbr": "GR",
+      "slug": "groningen",
+      "municipalities": 10,
+      "capital": "Groningen",
+      "major_cities": ["Groningen", "Veendam", "Stadskanaal", "Hoogezand", "Winschoten", "Delfzijl"]
+    },
+    {
+      "name": "Friesland",
+      "abbr": "FR",
+      "slug": "friesland",
+      "municipalities": 18,
+      "capital": "Leeuwarden",
+      "major_cities": ["Leeuwarden", "Drachten", "Sneek", "Heerenveen", "Harlingen", "Franeker"]
+    },
+    {
+      "name": "Drenthe",
+      "abbr": "DR",
+      "slug": "drenthe",
+      "municipalities": 12,
+      "capital": "Assen",
+      "major_cities": ["Assen", "Emmen", "Hoogeveen", "Meppel", "Coevorden", "Beilen"]
+    },
+    {
+      "name": "Overijssel",
+      "abbr": "OV",
+      "slug": "overijssel",
+      "municipalities": 25,
+      "capital": "Zwolle",
+      "major_cities": ["Zwolle", "Enschede", "Deventer", "Hengelo", "Almelo", "Kampen"]
+    },
+    {
+      "name": "Flevoland",
+      "abbr": "FL",
+      "slug": "flevoland",
+      "municipalities": 6,
+      "capital": "Lelystad",
+      "major_cities": ["Almere", "Lelystad", "Dronten", "Zeewolde", "Emmeloord", "Urk"]
+    },
+    {
+      "name": "Gelderland",
+      "abbr": "GE",
+      "slug": "gelderland",
+      "municipalities": 51,
+      "capital": "Arnhem",
+      "major_cities": ["Arnhem", "Nijmegen", "Apeldoorn", "Ede", "Doetinchem", "Harderwijk", "Zutphen", "Tiel"]
+    },
+    {
+      "name": "Utrecht",
+      "abbr": "UT",
+      "slug": "utrecht",
+      "municipalities": 26,
+      "capital": "Utrecht",
+      "major_cities": ["Utrecht", "Amersfoort", "Veenendaal", "Nieuwegein", "Zeist", "Houten", "IJsselstein"]
+    },
+    {
+      "name": "Noord-Holland",
+      "abbr": "NH",
+      "slug": "noord-holland",
+      "municipalities": 44,
+      "capital": "Haarlem",
+      "major_cities": ["Amsterdam", "Haarlem", "Zaanstad", "Almere", "Haarlemmermeer", "Alkmaar", "Hilversum", "Purmerend"]
+    },
+    {
+      "name": "Zuid-Holland",
+      "abbr": "ZH",
+      "slug": "zuid-holland",
+      "municipalities": 50,
+      "capital": "Den Haag",
+      "major_cities": ["Rotterdam", "Den Haag", "Leiden", "Zoetermeer", "Dordrecht", "Delft", "Westland", "Schiedam", "Gouda"]
+    },
+    {
+      "name": "Zeeland",
+      "abbr": "ZE",
+      "slug": "zeeland",
+      "municipalities": 13,
+      "capital": "Middelburg",
+      "major_cities": ["Middelburg", "Vlissingen", "Goes", "Terneuzen", "Zierikzee", "Hulst"]
+    },
+    {
+      "name": "Noord-Brabant",
+      "abbr": "NB",
+      "slug": "noord-brabant",
+      "municipalities": 61,
+      "capital": "'s-Hertogenbosch",
+      "major_cities": ["Eindhoven", "'s-Hertogenbosch", "Tilburg", "Breda", "Helmond", "Oss", "Roosendaal", "Bergen op Zoom"]
+    },
+    {
+      "name": "Limburg",
+      "abbr": "LI",
+      "slug": "limburg",
+      "municipalities": 31,
+      "capital": "Maastricht",
+      "major_cities": ["Maastricht", "Venlo", "Heerlen", "Sittard-Geleen", "Roermond", "Weert", "Kerkrade"]
+    }
+  ],
+  "total_provinces": 12,
+  "total_municipalities": 342,
+  "service_types": [
+    { "slug": "24-uurs-service", "name": "24-uurs Spoedservice", "search_terms": ["24 uur slotenmaker", "nacht slotenmaker", "spoed slotenmaker"] },
+    { "slug": "woningbeveiliging", "name": "Woningbeveiliging", "search_terms": ["woningbeveiliging", "huis beveiligen", "inbraakbeveiliging"] },
+    { "slug": "autosloten", "name": "Autosloten", "search_terms": ["auto slotenmaker", "autosleutel bijmaken", "auto openen"] },
+    { "slug": "kluizen", "name": "Kluizen", "search_terms": ["kluis openen", "kluis installeren", "brandkast"] },
+    { "slug": "sleutelservice", "name": "Sleutelservice", "search_terms": ["sleutel bijmaken", "sleutel laten maken", "sleutels kopiëren"] },
+    { "slug": "inbraakschade-herstel", "name": "Inbraakschade Herstel", "search_terms": ["inbraakschade", "inbraak herstel", "deur repareren"] },
+    { "slug": "cilindersloten", "name": "Cilindersloten", "search_terms": ["cilinder vervangen", "cilinderslot", "SKG cilinder"] },
+    { "slug": "elektronische-sloten", "name": "Elektronische Sloten", "search_terms": ["elektronisch slot", "smart lock", "codeslot"] },
+    { "slug": "noodopening", "name": "Noodopening Deur", "search_terms": ["noodopening", "deur openen", "buitensluiting"] },
+    { "slug": "bedrijfsbeveiliging", "name": "Bedrijfsbeveiliging", "search_terms": ["bedrijf beveiligen", "zakelijke beveiliging", "toegangscontrole"] }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "types": [
+    {
+      "slug": "24-uurs-service",
+      "name": "24-uurs Spoedservice",
+      "description": "Dag en nacht bereikbaar voor noodgevallen. Bij buitensluitingen of inbraak kunt u direct bellen voor snelle hulp.",
+      "search_terms": ["24 uur slotenmaker", "nacht slotenmaker", "spoed slotenmaker", "noodopening", "buitensluiting"]
+    },
+    {
+      "slug": "woningbeveiliging",
+      "name": "Woningbeveiliging",
+      "description": "Professionele beveiliging van uw woning met gecertificeerde sloten, inbraakwerende scharnieren en veiligheidsbeslag.",
+      "search_terms": ["woningbeveiliging", "huis beveiligen", "inbraakbeveiliging", "SKG slot", "veiligheidssloten"]
+    },
+    {
+      "slug": "autosloten",
+      "name": "Autosloten",
+      "description": "Specialist in autosleutels, autosloten openen, sleutels bijmaken en het programmeren van autosleutels met chip.",
+      "search_terms": ["auto slotenmaker", "autosleutel bijmaken", "auto openen", "auto buitensluiting", "autosleutel kwijt"]
+    },
+    {
+      "slug": "kluizen",
+      "name": "Kluizen",
+      "description": "Levering, installatie en opening van kluizen. Van woningkluizen tot brandkasten en muurkluizen.",
+      "search_terms": ["kluis openen", "kluis installeren", "brandkast", "muurkluis", "kluis kopen"]
+    },
+    {
+      "slug": "sleutelservice",
+      "name": "Sleutelservice",
+      "description": "Sleutels bijmaken, cilinders vervangen en sleutelpassen. Ook voor beveiligde sleutels en patentsleutels.",
+      "search_terms": ["sleutel bijmaken", "sleutel laten maken", "sleutels kopiëren", "sleuteldienst", "reserve sleutel"]
+    },
+    {
+      "slug": "inbraakschade-herstel",
+      "name": "Inbraakschade Herstel",
+      "description": "Snel herstel na inbraak: kozijnen repareren, sloten vervangen en deuren weer veilig maken.",
+      "search_terms": ["inbraakschade", "inbraak herstel", "deur repareren na inbraak", "kozijn reparatie", "na inbraak"]
+    },
+    {
+      "slug": "cilindersloten",
+      "name": "Cilindersloten",
+      "description": "Levering en montage van alle soorten cilindersloten, van basis cilinders tot SKG*** gecertificeerde cilinders.",
+      "search_terms": ["cilinder vervangen", "cilinderslot", "SKG cilinder", "deurslot vervangen", "slot cilinder"]
+    },
+    {
+      "slug": "elektronische-sloten",
+      "name": "Elektronische Sloten",
+      "description": "Smart locks en elektronische toegangscontrole. Codesloten, vingerprintsloten en slimme sloten met app-bediening.",
+      "search_terms": ["elektronisch slot", "smart lock", "codeslot", "vingerafdruk slot", "slim slot"]
+    },
+    {
+      "slug": "hang-en-sluitwerk",
+      "name": "Hang- en Sluitwerk",
+      "description": "Complete oplossingen voor deuren en ramen: sloten, scharnieren, deurgrepen en raambeveiliging.",
+      "search_terms": ["hang en sluitwerk", "deurbeslag", "raambeveiliging", "deurgrepen", "sluitwerk"]
+    },
+    {
+      "slug": "bedrijfsbeveiliging",
+      "name": "Bedrijfsbeveiliging",
+      "description": "Professionele beveiliging voor bedrijfspanden met toegangscontrolesystemen, gelijksluitende cilinders en alarminstallaties.",
+      "search_terms": ["bedrijf beveiligen", "zakelijke beveiliging", "toegangscontrole", "gelijksluitend", "kantoorbeveiliging"]
+    },
+    {
+      "slug": "noodopening",
+      "name": "Noodopening Deur",
+      "description": "Professionele noodopening van deuren zonder schade. Bij buitensluiting binnen 30 minuten ter plaatse.",
+      "search_terms": ["noodopening", "deur openen", "buitensluiting", "sleutel vergeten", "deur openmaken"]
+    },
+    {
+      "slug": "raam-en-deurbeveiliging",
+      "name": "Raam- en Deurbeveiliging",
+      "description": "Beveiliging van ramen en deuren tegen inbraak met oplegsloten, raamsloten en inbraakwerende folie.",
+      "search_terms": ["raambeveiliging", "deurbeveiliging", "oplegslot", "raamslot", "inbraakwerende folie"]
+    },
+    {
+      "slug": "motorsloten",
+      "name": "Motorsloten",
+      "description": "Specialist in motorsleutels en motorsloten. Sleutels bijmaken en sloten voor motorfietsen en scooters.",
+      "search_terms": ["motor slotenmaker", "motorsleutel", "scooter slot", "motor beveiliging", "motorslot"]
+    },
+    {
+      "slug": "meubel-en-kantoorsloten",
+      "name": "Meubel- en Kantoorsloten",
+      "description": "Sloten voor kasten, bureaus, ladeblokken en archiefkasten. Nieuwe sleutels of cilinders voor kantoormeubilair.",
+      "search_terms": ["meubelslot", "kantoorslot", "bureauslot", "ladeslot", "archiefkast slot"]
+    }
+  ]
+}

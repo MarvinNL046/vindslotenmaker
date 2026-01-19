@@ -328,7 +328,7 @@ export default function WhatToExpectPage() {
 
       <div className="min-h-screen bg-background">
         {/* Hero Section */}
-        <div className="bg-gradient-to-br from-teal-800 to-teal-900 text-white py-16">
+        <div className="bg-gradient-to-br from-orange-800 to-orange-900 text-white py-16">
           <div className="container mx-auto px-4">
             {/* Breadcrumb */}
             <nav className="mb-6">
@@ -386,9 +386,9 @@ export default function WhatToExpectPage() {
             </div>
 
             {/* Reassurance Banner */}
-            <Card className="p-6 mb-12 bg-teal-50 dark:bg-teal-900/10 border-teal-200 dark:border-teal-800">
+            <Card className="p-6 mb-12 bg-orange-50 dark:bg-orange-900/10 border-orange-200 dark:border-orange-800">
               <div className="flex items-start gap-4">
-                <Heart className="w-8 h-8 text-teal-600 shrink-0" />
+                <Heart className="w-8 h-8 text-orange-600 shrink-0" />
                 <div>
                   <h3 className="font-serif font-semibold text-lg mb-2">You Are Not Alone</h3>
                   <p className="text-muted-foreground">
@@ -476,7 +476,7 @@ export default function WhatToExpectPage() {
                 While schedules vary, here is an example of what a typical day might look like.
               </p>
 
-              <Card className="p-6 bg-gradient-to-br from-teal-50 to-coral-50/50 dark:from-teal-900/20 dark:to-coral-900/10 border-teal-100 dark:border-teal-800">
+              <Card className="p-6 bg-gradient-to-br from-orange-50 to-coral-50/50 dark:from-orange-900/20 dark:to-coral-900/10 border-orange-100 dark:border-orange-800">
                 <div className="space-y-3">
                   {dailyScheduleItems.map((item) => (
                     <div key={item.time} className="flex items-center gap-4 py-2 border-b border-border/50 last:border-0">
@@ -594,7 +594,7 @@ export default function WhatToExpectPage() {
 
             {/* CTA Section */}
             <section className="text-center">
-              <Card className="p-8 bg-gradient-to-br from-teal-50 to-coral-50/50 dark:from-teal-900/20 dark:to-coral-900/10 border-teal-100 dark:border-teal-800">
+              <Card className="p-8 bg-gradient-to-br from-orange-50 to-coral-50/50 dark:from-orange-900/20 dark:to-coral-900/10 border-orange-100 dark:border-orange-800">
                 <h2 className="font-serif text-2xl font-bold mb-4">
                   Find Treatment Centers Near You
                 </h2>

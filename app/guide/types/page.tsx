@@ -66,7 +66,7 @@ const subPillarPages = [
     description: 'Residential programs with 24/7 care and support',
     href: '/guide/types/inpatient-rehab',
     icon: Building2,
-    color: 'bg-teal-100 text-teal-700',
+    color: 'bg-orange-100 text-orange-700',
     count: SITE_STATS.inpatientCentersCount,
   },
   {
@@ -233,7 +233,7 @@ export default function TreatmentTypesGuidePage() {
       />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-teal-800 to-teal-900 text-white py-16 md:py-20">
+      <section className="bg-gradient-to-br from-orange-800 to-orange-900 text-white py-16 md:py-20">
         <div className="container mx-auto px-4">
           {/* Breadcrumb */}
           <nav className="mb-6">
@@ -293,8 +293,8 @@ export default function TreatmentTypesGuidePage() {
           {/* Inpatient vs Outpatient Treatment */}
           <section className="mb-12">
             <h2 className="font-serif text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-teal-100 flex items-center justify-center">
-                <Building className="w-5 h-5 text-teal-700" />
+              <div className="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center">
+                <Building className="w-5 h-5 text-orange-700" />
               </div>
               Inpatient vs Outpatient Treatment
             </h2>
@@ -335,8 +335,8 @@ export default function TreatmentTypesGuidePage() {
           {/* Detoxification and Medical Support */}
           <section className="mb-12">
             <h2 className="font-serif text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-teal-100 flex items-center justify-center">
-                <Heart className="w-5 h-5 text-teal-700" />
+              <div className="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center">
+                <Heart className="w-5 h-5 text-orange-700" />
               </div>
               Detoxification Centers and Medical Support
             </h2>
@@ -554,8 +554,8 @@ export default function TreatmentTypesGuidePage() {
         <div className="container mx-auto px-4">
           <Card className="max-w-3xl mx-auto p-6">
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-full bg-teal-100 flex items-center justify-center flex-shrink-0">
-                <Shield className="w-6 h-6 text-teal-700" />
+              <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0">
+                <Shield className="w-6 h-6 text-orange-700" />
               </div>
               <div>
                 <h3 className="font-semibold text-lg mb-2">About This Guide</h3>

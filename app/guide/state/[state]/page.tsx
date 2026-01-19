@@ -215,7 +215,7 @@ export default async function StateGuidePage({ params }: PageProps) {
       />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-teal-900 to-teal-800 text-white py-16 md:py-24">
+      <section className="bg-gradient-to-b from-orange-900 to-orange-800 text-white py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             {/* Breadcrumb */}
@@ -276,7 +276,7 @@ export default async function StateGuidePage({ params }: PageProps) {
           {/* Table of Contents */}
           <Card className="p-6 mb-12 bg-white">
             <h2 className="font-serif text-xl font-semibold mb-4 flex items-center gap-2">
-              <FileText className="w-5 h-5 text-teal-600" />
+              <FileText className="w-5 h-5 text-orange-600" />
               In This Guide
             </h2>
             <nav>
@@ -330,8 +330,8 @@ export default async function StateGuidePage({ params }: PageProps) {
           {/* Overview Section */}
           <section id="overview" className="mb-16">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-teal-100 flex items-center justify-center">
-                <MapPin className="w-6 h-6 text-teal-700" />
+              <div className="w-12 h-12 rounded-xl bg-orange-100 flex items-center justify-center">
+                <MapPin className="w-6 h-6 text-orange-700" />
               </div>
               <h2 className="font-serif text-2xl md:text-3xl font-bold">Overview of Treatment Options in {guide.name}</h2>
             </div>
@@ -351,15 +351,15 @@ export default async function StateGuidePage({ params }: PageProps) {
             <div className="prose prose-lg max-w-none mb-8">
               <p className="text-muted-foreground leading-relaxed">{guide.treatmentLaws.content}</p>
             </div>
-            <Card className="p-6 bg-teal-50 border-teal-100">
-              <h3 className="font-semibold text-lg mb-4 text-teal-800">Key Points</h3>
+            <Card className="p-6 bg-orange-50 border-orange-100">
+              <h3 className="font-semibold text-lg mb-4 text-orange-800">Key Points</h3>
               <ul className="space-y-3">
                 {guide.treatmentLaws.keyPoints.map((point, index) => (
                   <li key={index} className="flex items-start gap-3">
-                    <div className="w-6 h-6 rounded-full bg-teal-200 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-teal-700 text-sm font-medium">{index + 1}</span>
+                    <div className="w-6 h-6 rounded-full bg-orange-200 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-orange-700 text-sm font-medium">{index + 1}</span>
                     </div>
-                    <span className="text-teal-800">{point}</span>
+                    <span className="text-orange-800">{point}</span>
                   </li>
                 ))}
               </ul>
@@ -474,8 +474,8 @@ export default async function StateGuidePage({ params }: PageProps) {
           {/* Top Cities Section */}
           <section className="mb-16">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-teal-100 flex items-center justify-center">
-                <Building2 className="w-6 h-6 text-teal-700" />
+              <div className="w-12 h-12 rounded-xl bg-orange-100 flex items-center justify-center">
+                <Building2 className="w-6 h-6 text-orange-700" />
               </div>
               <h2 className="font-serif text-2xl md:text-3xl font-bold">Major Cities with Treatment Centers</h2>
             </div>
@@ -511,7 +511,7 @@ export default async function StateGuidePage({ params }: PageProps) {
           </section>
 
           {/* CTA Section */}
-          <Card className="p-8 bg-gradient-to-r from-teal-100 to-coral-50 border-teal-200">
+          <Card className="p-8 bg-gradient-to-r from-orange-100 to-coral-50 border-orange-200">
             <div className="text-center">
               <h2 className="font-serif text-2xl font-bold mb-4">
                 Browse All Treatment Centers in {guide.name}
@@ -546,7 +546,7 @@ export default async function StateGuidePage({ params }: PageProps) {
                     <Card className="p-4 hover:shadow-hover transition-all duration-300 hover:-translate-y-1 bg-white">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          <MapPin className="w-5 h-5 text-teal-600" />
+                          <MapPin className="w-5 h-5 text-orange-600" />
                           <span className="font-medium group-hover:text-accent transition-colors">{stateName}</span>
                         </div>
                         <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-accent transition-colors" />

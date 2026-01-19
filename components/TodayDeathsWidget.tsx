@@ -1,40 +1,40 @@
 'use client';
 
 import Link from 'next/link';
-import { Heart, Users, ChevronRight, TrendingUp } from 'lucide-react';
+import { KeyRound, Shield, ChevronRight, Clock } from 'lucide-react';
 
-// Recovery statistics and facts
-const recoveryFacts = [
+// Locksmith statistics and facts for the Netherlands
+const locksmithFacts = [
   {
-    stat: '20.4M',
-    label: 'Americans in recovery',
-    description: 'Living proof that recovery is possible'
-  },
-  {
-    stat: '75%',
-    label: 'Success rate',
-    description: 'With professional treatment and support'
+    stat: '15-45',
+    label: 'Minuten responstijd',
+    description: 'Gemiddelde aankomsttijd bij spoedgevallen'
   },
   {
     stat: '24/7',
-    label: 'Support available',
-    description: 'Help is available whenever you need it'
+    label: 'Beschikbaar',
+    description: 'Slotenmakers zijn dag en nacht bereikbaar'
+  },
+  {
+    stat: '€75-150',
+    label: 'Vanaf prijs',
+    description: 'Standaard deuropening tijdens kantooruren'
   }
 ];
 
-export default function RecoveryStatsWidget() {
+export default function LocksmithStatsWidget() {
   return (
-    <section className="bg-gradient-to-br from-primary/90 to-primary backdrop-blur-sm rounded-xl p-6 text-white border border-white/10 shadow-2xl">
+    <section className="bg-gradient-to-br from-gray-800 to-gray-700 backdrop-blur-sm rounded-xl p-6 text-white border border-white/10 shadow-2xl">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <Heart className="w-5 h-5 text-rose-300" />
-          <h3 className="font-serif text-lg font-bold">Recovery is Possible</h3>
+          <KeyRound className="w-5 h-5 text-orange-400" />
+          <h3 className="font-serif text-lg font-bold">Slotenmaker Feiten</h3>
         </div>
-        <TrendingUp className="w-5 h-5 text-teal-300" />
+        <Shield className="w-5 h-5 text-orange-300" />
       </div>
 
       <div className="space-y-3">
-        {recoveryFacts.map((fact, index) => (
+        {locksmithFacts.map((fact, index) => (
           <div
             key={index}
             className="bg-white/10 rounded-lg p-3 hover:bg-white/15 transition-colors"
@@ -53,17 +53,17 @@ export default function RecoveryStatsWidget() {
       <div className="flex gap-2 mt-4">
         <Link
           href="/guide"
-          className="flex-1 flex items-center justify-center gap-1 bg-accent hover:bg-accent/90 text-accent-foreground font-medium py-2 rounded-lg transition-colors"
+          className="flex-1 flex items-center justify-center gap-1 bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 rounded-lg transition-colors"
         >
-          Treatment Guide
+          Gids Bekijken
           <ChevronRight className="w-4 h-4" />
         </Link>
         <Link
-          href="/search"
+          href="/zoeken"
           className="flex items-center justify-center gap-1 bg-white/10 hover:bg-white/20 text-white font-medium py-2 px-4 rounded-lg transition-colors"
         >
-          <Users className="w-4 h-4" />
-          Find Help
+          <Clock className="w-4 h-4" />
+          Zoeken
         </Link>
       </div>
     </section>

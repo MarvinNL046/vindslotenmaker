@@ -19,129 +19,129 @@ export interface FooterGuide {
   description?: string;
 }
 
-// Treatment types section
-export const treatmentTypes: FooterGuide[] = [
+// Service types section (Locksmith services)
+export const serviceTypes: FooterGuide[] = [
   {
-    href: '/treatment/inpatient-rehab',
-    label: 'Inpatient Rehab',
-    description: 'Residential treatment programs'
+    href: '/type/24-uur-slotenmaker',
+    label: '24-uurs Service',
+    description: 'Dag en nacht beschikbaar'
   },
   {
-    href: '/treatment/outpatient-programs',
-    label: 'Outpatient Programs',
-    description: 'Flexible treatment while living at home'
+    href: '/type/noodopening',
+    label: 'Noodopening',
+    description: 'Snel hulp bij buitensluiting'
   },
   {
-    href: '/treatment/detox-centers',
-    label: 'Detox Centers',
-    description: 'Medical detoxification services'
+    href: '/type/slot-vervangen',
+    label: 'Slot Vervangen',
+    description: 'Nieuwe sloten installeren'
   },
   {
-    href: '/treatment/sober-living',
-    label: 'Sober Living Homes',
-    description: 'Transitional housing for recovery'
+    href: '/type/cilinder-vervangen',
+    label: 'Cilinder Vervangen',
+    description: 'Cilindersloten vernieuwen'
   },
   {
-    href: '/treatment/dual-diagnosis',
-    label: 'Dual Diagnosis',
-    description: 'Co-occurring mental health treatment'
+    href: '/type/inbraakpreventie',
+    label: 'Inbraakpreventie',
+    description: 'Woningbeveiliging advies'
   },
   {
-    href: '/treatment/luxury-rehab',
-    label: 'Luxury Rehab',
-    description: 'Premium treatment facilities'
+    href: '/type/auto-slotenmaker',
+    label: 'Auto Slotenmaker',
+    description: 'Autosloten en sleutels'
   }
 ];
 
-// Addiction resources section
+// Locksmith resources section
 export const resources: FooterGuide[] = [
   {
-    href: '/guides/alcohol-addiction',
-    label: 'Alcohol Addiction',
-    description: 'Understanding and treating alcoholism'
+    href: '/guides/slotenmaker-kosten',
+    label: 'Kosten Slotenmaker',
+    description: 'Prijsindicaties en tarieven'
   },
   {
-    href: '/guides/opioid-addiction',
-    label: 'Opioid Addiction',
-    description: 'Heroin, fentanyl, and prescription opioid treatment'
+    href: '/guides/skg-sloten',
+    label: 'SKG Sloten Uitleg',
+    description: 'Veiligheidscertificeringen'
   },
   {
-    href: '/guides/drug-addiction',
-    label: 'Drug Addiction',
-    description: 'Cocaine, meth, and substance abuse treatment'
+    href: '/guides/inbraakbeveiliging',
+    label: 'Inbraakbeveiliging Tips',
+    description: 'Uw woning beter beveiligen'
   },
   {
-    href: '/guides/prescription-drugs',
-    label: 'Prescription Drug Abuse',
-    description: 'Benzodiazepine and prescription addiction'
+    href: '/guides/buitengesloten',
+    label: 'Buitengesloten?',
+    description: 'Wat te doen bij noodgeval'
   },
   {
-    href: '/guides/insurance-coverage',
-    label: 'Insurance Coverage',
-    description: 'Understanding rehab insurance options'
+    href: '/guides/sloten-onderhoud',
+    label: 'Sloten Onderhoud',
+    description: 'Tips voor langere levensduur'
   },
   {
-    href: '/guides/choosing-rehab',
-    label: 'Choosing a Rehab',
-    description: 'How to find the right treatment center'
+    href: '/guides/slotenmaker-kiezen',
+    label: 'Slotenmaker Kiezen',
+    description: 'Waar moet u op letten'
   }
 ];
 
 // Support resources section
 export const support: FooterGuide[] = [
   {
-    href: '/guides/family-support',
-    label: 'Family Support',
-    description: 'Resources for loved ones'
+    href: '/guides/veelgestelde-vragen',
+    label: 'Veelgestelde Vragen',
+    description: 'Antwoorden op uw vragen'
   },
   {
-    href: '/guides/intervention',
-    label: 'Intervention Guide',
-    description: 'How to help someone get treatment'
+    href: '/guides/malafide-slotenmakers',
+    label: 'Malafide Slotenmakers',
+    description: 'Zo herkent u oplichters'
   },
   {
-    href: '/guides/aftercare',
-    label: 'Aftercare & Relapse Prevention',
-    description: 'Maintaining long-term recovery'
+    href: '/guides/verzekering',
+    label: 'Verzekering & Schade',
+    description: 'Vergoedingen bij inbraak'
   },
   {
-    href: '/guides/veterans-programs',
-    label: 'Veterans Programs',
-    description: 'Treatment for military veterans'
+    href: '/guides/politie-aangifte',
+    label: 'Aangifte Doen',
+    description: 'Na inbraak of poging'
   },
   {
-    href: '/guides/teen-treatment',
-    label: 'Teen & Adolescent',
-    description: 'Youth addiction treatment programs'
+    href: '/guides/huurwoning',
+    label: 'Huurwoning Tips',
+    description: 'Rechten als huurder'
   }
 ];
 
 // Static guides content (pillar pages)
 export const guides: FooterGuide[] = [
   {
-    href: '/guides/treatment-types',
-    label: 'Types of Treatment',
-    description: 'Understand different treatment options'
+    href: '/guides/diensten-overzicht',
+    label: 'Diensten Overzicht',
+    description: 'Alle slotenmaker diensten'
   },
   {
-    href: '/guides/what-to-expect',
-    label: 'What to Expect in Rehab',
-    description: 'Guide to the treatment process'
+    href: '/guides/wat-te-verwachten',
+    label: 'Wat te Verwachten',
+    description: 'De slotenmaker aan het werk'
   },
   {
-    href: '/guides/paying-for-rehab',
-    label: 'Paying for Rehab',
-    description: 'Financial options and insurance'
+    href: '/guides/betaalmethoden',
+    label: 'Betaalmethoden',
+    description: 'Hoe betaalt u de slotenmaker'
   },
   {
-    href: '/guides/signs-of-addiction',
-    label: 'Signs of Addiction',
-    description: 'Recognizing substance abuse'
+    href: '/guides/certificeringen',
+    label: 'Certificeringen',
+    description: 'SKG, VEB en keurmerken'
   },
   {
-    href: '/guides/recovery-success',
-    label: 'Recovery Success Stories',
-    description: 'Inspiring stories of recovery'
+    href: '/guides/succesverhalen',
+    label: 'Klantervaringen',
+    description: 'Reviews en ervaringen'
   }
 ];
 
@@ -150,9 +150,9 @@ let statesCacheFooter: FooterState[] | null = null;
 let typesCacheFooter: FooterType[] | null = null;
 
 /**
- * Get top states by facility count
- * @param limit - Maximum number of states to return (default 8)
- * @returns Array of states sorted by facility count (descending)
+ * Get top provinces by locksmith count
+ * @param limit - Maximum number of provinces to return (default 8)
+ * @returns Array of provinces sorted by locksmith count (descending)
  */
 export async function getTopStatesByFacilityCount(limit: number = 8): Promise<FooterState[]> {
   if (statesCacheFooter && statesCacheFooter.length >= limit) {
@@ -162,7 +162,7 @@ export async function getTopStatesByFacilityCount(limit: number = 8): Promise<Fo
   try {
     const facilities = await getAllFacilities();
 
-    // Count facilities per state
+    // Count locksmiths per province
     const stateCounts = new Map<string, number>();
 
     for (const facility of facilities) {
@@ -186,15 +186,15 @@ export async function getTopStatesByFacilityCount(limit: number = 8): Promise<Fo
 
     return sortedStates.slice(0, limit);
   } catch (error) {
-    console.error('Error getting top states:', error);
+    console.error('Error getting top provinces:', error);
     return [];
   }
 }
 
 /**
- * Get top facility types by count
+ * Get top service types by count
  * @param limit - Maximum number of types to return (default 8)
- * @returns Array of types sorted by facility count (descending)
+ * @returns Array of types sorted by locksmith count (descending)
  */
 export async function getTopTypesByFacilityCount(limit: number = 8): Promise<FooterType[]> {
   if (typesCacheFooter && typesCacheFooter.length >= limit) {
@@ -205,7 +205,7 @@ export async function getTopTypesByFacilityCount(limit: number = 8): Promise<Foo
     const facilities = await getAllFacilities();
     const allTypes = await getAllFacilityTypes();
 
-    // Count facilities per type
+    // Count locksmiths per type
     const typeCounts = new Map<string, number>();
     const typeNames = new Map<string, string>();
 
@@ -280,7 +280,7 @@ export async function getFooterData(stateLimit: number = 8, typeLimit: number = 
   return {
     states: topStates,
     types: topTypes,
-    treatmentTypes,
+    serviceTypes,
     resources,
     support,
     guides

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { MapPin, Heart, Building2, Phone, Star, ArrowRight, Users, Award, Clock, Search, ChevronRight, Shield, Stethoscope, Home, Brain, CheckCircle2, Headphones } from 'lucide-react';
+import { MapPin, Heart, Building2, Phone, Star, ArrowRight, Users, Award, Clock, Search, ChevronRight, Shield, Key, Home, Lock, CheckCircle2, Headphones } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import FAQSection from '@/components/FAQSection';
@@ -12,28 +12,13 @@ import OptimizedAd from '@/components/ads/OptimizedAd';
 import MultiplexAd from '@/components/ads/MultiplexAd';
 import { AD_SLOTS } from '@/lib/ad-config';
 
-// Unsplash images for rehab/recovery theme
+// Unsplash images for locksmith theme
 const heroImages = {
-  // Peaceful nature/recovery themed
-  main: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80',
-  // Support/therapy
-  therapy: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&q=80',
-  // Peaceful setting
-  peaceful: 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=800&q=80',
-  // Group support
-  group: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80',
-  // Medical/professional
-  medical: 'https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=800&q=80',
-  // Nature/recovery
-  nature1: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80',
-  nature2: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80',
-  nature3: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=80',
-  nature4: 'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=800&q=80',
-  // Wellness
-  wellness1: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80',
-  wellness2: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80',
-  wellness3: 'https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=800&q=80',
-  wellness4: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80',
+  main: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80',
+  locksmith: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+  security: 'https://images.unsplash.com/photo-1558002038-1055907df827?w=800&q=80',
+  door: 'https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?w=800&q=80',
+  keys: 'https://images.unsplash.com/photo-1582139329536-e7284fece509?w=800&q=80',
 };
 
 interface Stats {
@@ -43,87 +28,87 @@ interface Stats {
   totalCounties: number;
 }
 
-// Featured states (highest need for addiction treatment)
-const featuredStates = [
+// Featured provinces (Nederlandse provincies)
+const featuredProvinces = [
   {
-    name: 'California',
-    slug: 'california',
-    abbr: 'CA',
-    highlight: 'Los Angeles, San Francisco, San Diego'
+    name: 'Noord-Holland',
+    slug: 'noord-holland',
+    abbr: 'NH',
+    highlight: 'Amsterdam, Haarlem, Zaandam'
   },
   {
-    name: 'Florida',
-    slug: 'florida',
-    abbr: 'FL',
-    highlight: 'Miami, Orlando, Tampa'
+    name: 'Zuid-Holland',
+    slug: 'zuid-holland',
+    abbr: 'ZH',
+    highlight: 'Rotterdam, Den Haag, Leiden'
   },
   {
-    name: 'Texas',
-    slug: 'texas',
-    abbr: 'TX',
-    highlight: 'Houston, Dallas, Austin'
+    name: 'Noord-Brabant',
+    slug: 'noord-brabant',
+    abbr: 'NB',
+    highlight: 'Eindhoven, Tilburg, Breda'
   },
   {
-    name: 'New York',
-    slug: 'new-york',
-    abbr: 'NY',
-    highlight: 'New York City, Buffalo, Rochester'
+    name: 'Gelderland',
+    slug: 'gelderland',
+    abbr: 'GE',
+    highlight: 'Arnhem, Nijmegen, Apeldoorn'
   },
   {
-    name: 'Pennsylvania',
-    slug: 'pennsylvania',
-    abbr: 'PA',
-    highlight: 'Philadelphia, Pittsburgh, Allentown'
+    name: 'Utrecht',
+    slug: 'utrecht',
+    abbr: 'UT',
+    highlight: 'Utrecht, Amersfoort, Nieuwegein'
   },
   {
-    name: 'Ohio',
-    slug: 'ohio',
-    abbr: 'OH',
-    highlight: 'Columbus, Cleveland, Cincinnati'
+    name: 'Limburg',
+    slug: 'limburg',
+    abbr: 'LI',
+    highlight: 'Maastricht, Venlo, Heerlen'
   }
 ];
 
-const facilityCategories = [
+const serviceCategories = [
   {
-    title: 'Inpatient Rehab',
-    description: 'Residential treatment programs with 24/7 medical supervision and support',
-    icon: Building2,
-    href: '/type/inpatient-rehab',
-    color: 'bg-teal-100 text-teal-700'
+    title: 'Noodopening',
+    description: '24/7 beschikbaar voor als je buitengesloten bent. Snelle service zonder schade aan je slot.',
+    icon: Key,
+    href: '/type/noodopening',
+    color: 'bg-orange-100 text-orange-700'
   },
   {
-    title: 'Outpatient Programs',
-    description: 'Flexible treatment allowing you to maintain work and family responsibilities',
-    icon: Heart,
-    href: '/type/outpatient-treatment',
+    title: 'Sloten Vervangen',
+    description: 'Professionele vervanging van cilindersloten, veiligheidssloten en meerpuntssluitingen.',
+    icon: Lock,
+    href: '/type/sloten-vervangen',
     color: 'bg-orange-100 text-orange-600'
   },
   {
-    title: 'Detox Centers',
-    description: 'Medical detoxification services for safe withdrawal management',
-    icon: Stethoscope,
-    href: '/type/detox-center',
-    color: 'bg-teal-50 text-teal-600'
+    title: 'Inbraakbeveiliging',
+    description: 'Laat je woning of bedrijf beveiligen met gecertificeerde sloten en extra veiligheidsmaatregelen.',
+    icon: Shield,
+    href: '/type/inbraakbeveiliging',
+    color: 'bg-orange-50 text-orange-600'
   }
 ];
 
 const userTestimonials = [
   {
-    name: 'Michael R.',
-    location: 'Los Angeles, CA',
-    quote: 'This website helped me find the right treatment center when I was at my lowest. The detailed information made choosing a facility so much easier.',
+    name: 'Peter V.',
+    location: 'Amsterdam',
+    quote: 'Dankzij deze website vond ik binnen 5 minuten een slotenmaker die dezelfde avond nog kon komen. Uitstekende service!',
     rating: 5
   },
   {
-    name: 'Jennifer S.',
-    location: 'Chicago, IL',
-    quote: 'As a family member looking for help for my brother, this resource was invaluable. We found a great program that accepts his insurance.',
+    name: 'Maria K.',
+    location: 'Rotterdam',
+    quote: 'Na een inbraak wilde ik betere sloten. Via deze site vond ik een gecertificeerde slotenmaker die me goed adviseerde.',
     rating: 5
   },
   {
-    name: 'David M.',
-    location: 'Houston, TX',
-    quote: 'The search filters helped me find an outpatient program that fits my work schedule. Two years sober now!',
+    name: 'Jan de B.',
+    location: 'Utrecht',
+    quote: 'Buitengesloten op zondagavond, maar dankzij de 24/7 service was ik binnen een uur weer binnen. Aanrader!',
     rating: 5
   }
 ];
@@ -164,12 +149,12 @@ export default function HomePage() {
     <main className="min-h-screen">
       {/* Hero Section */}
       <section className="relative min-h-[700px] lg:min-h-[800px] overflow-hidden">
-        {/* Background Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-teal-700 via-teal-600 to-teal-800" />
+        {/* Background Gradient - Orange/Dark Gray Theme */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-800 via-gray-900 to-gray-800" />
 
         {/* Decorative Elements */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-teal-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-orange-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
           <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-orange-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3" />
           <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] bg-white/5 rounded-full blur-2xl" />
         </div>
@@ -185,39 +170,39 @@ export default function HomePage() {
             <div className="flex justify-center mb-8">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white/90 text-sm border border-white/20">
                 <Shield className="w-4 h-4 text-orange-400" />
-                <span>Trusted by 50,000+ families seeking treatment</span>
+                <span>Betrouwbare slotenmakers in heel Nederland</span>
               </div>
             </div>
 
             <div className="text-center text-white">
               <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 leading-tight">
-                Your Journey to Recovery
+                Vind een Slotenmaker
                 <span className="block mt-2 bg-gradient-to-r from-orange-400 to-orange-300 bg-clip-text text-transparent">
-                  Starts Here
+                  Bij Jou in de Buurt
                 </span>
               </h1>
               <p className="text-lg md:text-xl text-white/80 mb-10 max-w-3xl mx-auto leading-relaxed">
-                Find compassionate, evidence-based addiction treatment near you.
-                We connect you with verified rehab centers, detox facilities, and recovery programs
-                across all 50 states.
+                Buitengesloten? Sloten vervangen? Inbraakbeveiliging nodig?
+                Vind snel een betrouwbare slotenmaker in jouw regio.
+                Vergelijk prijzen en reviews.
               </p>
 
               {/* Search Form */}
               <form onSubmit={handleSearch} className="max-w-3xl mx-auto mb-8">
                 <div className="flex flex-col sm:flex-row gap-3 p-2 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
                   <div className="relative flex-1">
-                    <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-teal-600" />
+                    <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-orange-600" />
                     <input
                       type="text"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder="Enter city, state, or zip code..."
-                      className="w-full pl-12 pr-4 py-4 rounded-xl bg-white text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500 shadow-lg"
+                      placeholder="Voer je stad of postcode in..."
+                      className="w-full pl-12 pr-4 py-4 rounded-xl bg-white text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 shadow-lg"
                     />
                   </div>
                   <Button size="lg" type="submit" className="px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-xl shadow-lg shadow-orange-500/30 transition-all hover:shadow-xl hover:shadow-orange-500/40">
                     <Search className="w-5 h-5 mr-2" />
-                    Find Treatment
+                    Zoek Slotenmaker
                   </Button>
                 </div>
               </form>
@@ -225,16 +210,16 @@ export default function HomePage() {
               {/* Quick Links */}
               <div className="flex flex-wrap justify-center gap-3 text-sm mb-12">
                 <Link href="/state" className="px-5 py-2.5 bg-white/10 backdrop-blur-sm rounded-full hover:bg-white/20 transition-all text-white border border-white/20 hover:border-white/40">
-                  Browse by State
+                  Zoek op Provincie
                 </Link>
-                <Link href="/type/inpatient-rehab" className="px-5 py-2.5 bg-white/10 backdrop-blur-sm rounded-full hover:bg-white/20 transition-all text-white border border-white/20 hover:border-white/40">
-                  Inpatient Rehab
+                <Link href="/type/noodopening" className="px-5 py-2.5 bg-white/10 backdrop-blur-sm rounded-full hover:bg-white/20 transition-all text-white border border-white/20 hover:border-white/40">
+                  Noodopening
                 </Link>
-                <Link href="/type/detox-center" className="px-5 py-2.5 bg-white/10 backdrop-blur-sm rounded-full hover:bg-white/20 transition-all text-white border border-white/20 hover:border-white/40">
-                  Detox Centers
+                <Link href="/type/sloten-vervangen" className="px-5 py-2.5 bg-white/10 backdrop-blur-sm rounded-full hover:bg-white/20 transition-all text-white border border-white/20 hover:border-white/40">
+                  Sloten Vervangen
                 </Link>
                 <Link href="/guide" className="px-5 py-2.5 bg-orange-500/20 backdrop-blur-sm rounded-full hover:bg-orange-500/30 transition-all text-orange-200 border border-orange-400/30 hover:border-orange-400/50">
-                  Treatment Guide
+                  Tips & Advies
                 </Link>
               </div>
 
@@ -242,42 +227,42 @@ export default function HomePage() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-4xl mx-auto mb-10">
                 <div className="p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10">
                   <div className="text-3xl md:text-4xl font-bold text-white mb-1">
-                    {stats.totalFacilities > 0 ? stats.totalFacilities.toLocaleString('en-US') : '15,000+'}
+                    {stats.totalFacilities > 0 ? stats.totalFacilities.toLocaleString('nl-NL') : '500+'}
                   </div>
-                  <div className="text-sm text-white/70">Treatment Centers</div>
+                  <div className="text-sm text-white/70">Slotenmakers</div>
                 </div>
                 <div className="p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10">
-                  <div className="text-3xl md:text-4xl font-bold text-white mb-1">50</div>
-                  <div className="text-sm text-white/70">States Covered</div>
+                  <div className="text-3xl md:text-4xl font-bold text-white mb-1">12</div>
+                  <div className="text-sm text-white/70">Provincies</div>
                 </div>
                 <div className="p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10">
                   <div className="text-3xl md:text-4xl font-bold text-white mb-1">24/7</div>
-                  <div className="text-sm text-white/70">Support Available</div>
+                  <div className="text-sm text-white/70">Beschikbaar</div>
                 </div>
                 <div className="p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10">
                   <div className="text-3xl md:text-4xl font-bold text-white mb-1">100%</div>
-                  <div className="text-sm text-white/70">Free to Search</div>
+                  <div className="text-sm text-white/70">Gratis Zoeken</div>
                 </div>
               </div>
 
-              {/* SAMHSA Helpline Banner */}
+              {/* Emergency Banner */}
               <div className="inline-flex flex-col sm:flex-row items-center gap-4 p-5 bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center">
-                    <Headphones className="w-6 h-6 text-teal-700" />
+                  <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
+                    <Phone className="w-6 h-6 text-orange-700" />
                   </div>
                   <div className="text-left">
-                    <p className="text-sm text-gray-600 font-medium">SAMHSA National Helpline</p>
-                    <p className="text-xs text-gray-500">Free, confidential, 24/7 support</p>
+                    <p className="text-sm text-gray-600 font-medium">Spoed? Direct hulp nodig?</p>
+                    <p className="text-xs text-gray-500">24/7 slotenmakers beschikbaar</p>
                   </div>
                 </div>
-                <a
-                  href="tel:1-800-662-4357"
-                  className="flex items-center gap-2 px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-xl transition-colors shadow-lg"
+                <Link
+                  href="/type/noodopening"
+                  className="flex items-center gap-2 px-6 py-3 bg-orange-600 hover:bg-gray-700 text-white font-bold rounded-xl transition-colors shadow-lg"
                 >
-                  <Phone className="w-5 h-5" />
-                  1-800-662-4357
-                </a>
+                  <Key className="w-5 h-5" />
+                  Noodopening Aanvragen
+                </Link>
               </div>
             </div>
           </div>
@@ -291,55 +276,54 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Why Choose Section - New */}
+      {/* Why Choose Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               {/* Left - Content */}
               <div>
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-teal-50 rounded-full text-teal-700 text-sm font-medium mb-6">
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-50 rounded-full text-orange-700 text-sm font-medium mb-6">
                   <CheckCircle2 className="w-4 h-4" />
-                  Trusted Resource
+                  Betrouwbaar Platform
                 </div>
                 <h2 className="font-serif text-3xl md:text-4xl font-bold mb-6 text-gray-900">
-                  Finding the Right Treatment Shouldn&apos;t Be Hard
+                  De Juiste Slotenmaker Vinden Hoeft Niet Moeilijk Te Zijn
                 </h2>
                 <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                  We believe everyone deserves access to quality addiction treatment.
-                  Our comprehensive directory makes it simple to find, compare, and connect
-                  with verified treatment centers that match your needs.
+                  Wij geloven dat iedereen snel toegang moet hebben tot een betrouwbare slotenmaker.
+                  Onze uitgebreide database maakt het eenvoudig om slotenmakers te vinden, vergelijken en contact op te nemen.
                 </p>
                 <ul className="space-y-4 mb-8">
                   <li className="flex items-start gap-3">
-                    <div className="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <CheckCircle2 className="w-4 h-4 text-teal-600" />
+                    <div className="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <CheckCircle2 className="w-4 h-4 text-orange-600" />
                     </div>
-                    <span className="text-gray-700">Verified facility information and contact details</span>
+                    <span className="text-gray-700">Geverifieerde slotenmakers met reviews</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <div className="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <CheckCircle2 className="w-4 h-4 text-teal-600" />
+                    <div className="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <CheckCircle2 className="w-4 h-4 text-orange-600" />
                     </div>
-                    <span className="text-gray-700">Filter by treatment type, insurance, and location</span>
+                    <span className="text-gray-700">Filter op locatie, service en beschikbaarheid</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <div className="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <CheckCircle2 className="w-4 h-4 text-teal-600" />
+                    <div className="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <CheckCircle2 className="w-4 h-4 text-orange-600" />
                     </div>
-                    <span className="text-gray-700">No registration or fees - completely free service</span>
+                    <span className="text-gray-700">Gratis service - geen registratie vereist</span>
                   </li>
                 </ul>
                 <div className="flex flex-wrap gap-4">
                   <Link href="/search">
-                    <Button size="lg" className="bg-teal-600 hover:bg-teal-700">
-                      Start Your Search
+                    <Button size="lg" className="bg-orange-600 hover:bg-gray-700">
+                      Start Je Zoekopdracht
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
                   </Link>
                   <Link href="/guide">
-                    <Button variant="outline" size="lg" className="border-teal-200 text-teal-700 hover:bg-teal-50">
-                      Read Treatment Guide
+                    <Button variant="outline" size="lg" className="border-orange-200 text-orange-700 hover:bg-orange-50">
+                      Tips & Advies
                     </Button>
                   </Link>
                 </div>
@@ -349,47 +333,23 @@ export default function HomePage() {
               <div className="relative">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-4">
-                    <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
-                      <Image
-                        src={heroImages.therapy}
-                        alt="Professional therapy session"
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 50vw, 25vw"
-                      />
+                    <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl bg-orange-100 flex items-center justify-center">
+                      <Key className="w-16 h-16 text-orange-600" />
                     </div>
-                    <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl">
-                      <Image
-                        src={heroImages.peaceful}
-                        alt="Peaceful treatment environment"
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 50vw, 25vw"
-                      />
+                    <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl bg-orange-100 flex items-center justify-center">
+                      <Lock className="w-16 h-16 text-orange-600" />
                     </div>
                   </div>
                   <div className="space-y-4 pt-8">
-                    <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl">
-                      <Image
-                        src={heroImages.group}
-                        alt="Group support session"
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 50vw, 25vw"
-                      />
+                    <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl bg-orange-50 flex items-center justify-center">
+                      <Shield className="w-16 h-16 text-orange-500" />
                     </div>
-                    <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
-                      <Image
-                        src={heroImages.medical}
-                        alt="Medical professionals"
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 50vw, 25vw"
-                      />
+                    <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl bg-gray-100 flex items-center justify-center">
+                      <Home className="w-16 h-16 text-gray-600" />
                     </div>
                   </div>
                 </div>
-                <div className="absolute -top-4 -right-4 w-24 h-24 bg-teal-200/50 rounded-full blur-2xl" />
+                <div className="absolute -top-4 -right-4 w-24 h-24 bg-orange-200/50 rounded-full blur-2xl" />
                 <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-orange-200/50 rounded-full blur-2xl" />
               </div>
             </div>
@@ -410,133 +370,93 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Featured Category - Inpatient Rehab */}
-      <section className="py-16 bg-gradient-to-br from-teal-800 via-teal-700 to-teal-900 text-white overflow-hidden">
+      {/* Featured Service - Noodopening */}
+      <section className="py-16 bg-gradient-to-br from-orange-800 via-orange-700 to-orange-900 text-white overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Left - Content */}
             <div className="order-2 lg:order-1">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-500/20 rounded-full text-orange-300 text-sm font-medium mb-6">
-                <Building2 className="w-4 h-4" />
-                Most Effective Treatment
+                <Key className="w-4 h-4" />
+                24/7 Spoedservice
               </div>
               <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-                Inpatient Rehabilitation
+                Noodopening
               </h2>
               <p className="text-lg text-white/80 mb-6 leading-relaxed">
-                Residential treatment programs provide the highest level of care for addiction recovery.
-                With 24/7 medical supervision, structured therapy, and a supportive community,
-                inpatient rehab gives you the best chance at lasting recovery.
+                Buitengesloten? Geen paniek! Onze aangesloten slotenmakers zijn 24/7 beschikbaar
+                voor noodopeningen. Binnen 30 minuten ter plaatse in de meeste regio&apos;s.
               </p>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center gap-3 text-white/80">
                   <div className="w-6 h-6 rounded-full bg-orange-500/20 flex items-center justify-center">
                     <ChevronRight className="w-4 h-4 text-orange-300" />
                   </div>
-                  30, 60, or 90-day program options
+                  24/7 beschikbaar, ook in het weekend
                 </li>
                 <li className="flex items-center gap-3 text-white/80">
                   <div className="w-6 h-6 rounded-full bg-orange-500/20 flex items-center justify-center">
                     <ChevronRight className="w-4 h-4 text-orange-300" />
                   </div>
-                  Medical detox and withdrawal management
+                  Meestal binnen 30 minuten ter plaatse
                 </li>
                 <li className="flex items-center gap-3 text-white/80">
                   <div className="w-6 h-6 rounded-full bg-orange-500/20 flex items-center justify-center">
                     <ChevronRight className="w-4 h-4 text-orange-300" />
                   </div>
-                  Individual and group therapy sessions
+                  Vakkundige opening zonder schade
                 </li>
               </ul>
-              <Link href="/type/inpatient-rehab">
+              <Link href="/type/noodopening">
                 <Button size="lg" className="group bg-orange-500 hover:bg-orange-600 shadow-lg shadow-orange-500/30">
-                  Find Inpatient Programs
+                  Vind Noodopening Service
                   <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
             </div>
 
-            {/* Right - Image Grid */}
+            {/* Right - Visual */}
             <div className="order-1 lg:order-2 relative">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-4">
-                  <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
-                    <Image
-                      src={heroImages.therapy}
-                      alt="Professional therapy session"
-                      fill
-                      className="object-cover hover:scale-105 transition-transform duration-500"
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                    />
-                  </div>
-                  <div className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl">
-                    <Image
-                      src={heroImages.peaceful}
-                      alt="Peaceful treatment environment"
-                      fill
-                      className="object-cover hover:scale-105 transition-transform duration-500"
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                    />
-                  </div>
-                </div>
-                <div className="space-y-4 pt-8">
-                  <div className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl">
-                    <Image
-                      src={heroImages.group}
-                      alt="Group support session"
-                      fill
-                      className="object-cover hover:scale-105 transition-transform duration-500"
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                    />
-                  </div>
-                  <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
-                    <Image
-                      src={heroImages.medical}
-                      alt="Medical professionals"
-                      fill
-                      className="object-cover hover:scale-105 transition-transform duration-500"
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                    />
-                  </div>
-                </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-12 flex items-center justify-center">
+                <Key className="w-48 h-48 text-white/20" />
               </div>
               <div className="absolute -top-4 -right-4 w-24 h-24 bg-orange-500/20 rounded-full blur-2xl" />
-              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-teal-500/30 rounded-full blur-2xl" />
+              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-orange-500/30 rounded-full blur-2xl" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Featured States */}
+      {/* Featured Provinces */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
-              Browse by State
+              Zoek op Provincie
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Find addiction treatment centers in your state or search our entire database.
+              Vind slotenmakers in jouw provincie of doorzoek onze complete database.
             </p>
           </div>
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
-            {featuredStates.map((state) => (
-              <Link key={state.slug} href={`/state/${state.slug}`} className="group">
+            {featuredProvinces.map((province) => (
+              <Link key={province.slug} href={`/state/${province.slug}`} className="group">
                 <Card className="p-6 h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-gray-100">
                   <div className="flex items-start justify-between mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-teal-100 flex items-center justify-center group-hover:bg-teal-600 transition-colors">
-                      <MapPin className="w-6 h-6 text-teal-700 group-hover:text-white transition-colors" />
+                    <div className="w-12 h-12 rounded-xl bg-orange-100 flex items-center justify-center group-hover:bg-orange-600 transition-colors">
+                      <MapPin className="w-6 h-6 text-orange-700 group-hover:text-white transition-colors" />
                     </div>
-                    <span className="text-sm font-mono text-muted-foreground">{state.abbr}</span>
+                    <span className="text-sm font-mono text-muted-foreground">{province.abbr}</span>
                   </div>
-                  <h3 className="font-serif text-xl font-semibold mb-2 group-hover:text-teal-600 transition-colors">
-                    {state.name}
+                  <h3 className="font-serif text-xl font-semibold mb-2 group-hover:text-orange-600 transition-colors">
+                    {province.name}
                   </h3>
                   <p className="text-sm text-muted-foreground mb-4">
-                    {state.highlight}
+                    {province.highlight}
                   </p>
-                  <span className="text-sm font-medium text-teal-600 flex items-center gap-1 group-hover:gap-2 transition-all">
-                    View treatment centers
+                  <span className="text-sm font-medium text-orange-600 flex items-center gap-1 group-hover:gap-2 transition-all">
+                    Bekijk slotenmakers
                     <ArrowRight className="w-4 h-4" />
                   </span>
                 </Card>
@@ -546,8 +466,8 @@ export default function HomePage() {
 
           <div className="text-center mt-10">
             <Link href="/state">
-              <Button variant="outline" size="lg" className="border-teal-200 text-teal-700 hover:bg-teal-50">
-                View All 50 States
+              <Button variant="outline" size="lg" className="border-orange-200 text-orange-700 hover:bg-orange-50">
+                Bekijk Alle 12 Provincies
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
@@ -555,95 +475,55 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Featured Category - Outpatient Treatment */}
+      {/* Featured Service - Sloten Vervangen */}
       <section className="py-16 bg-white overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            {/* Left - Image Grid */}
+            {/* Left - Visual */}
             <div className="relative">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-4">
-                  <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
-                    <Image
-                      src={heroImages.wellness1}
-                      alt="Wellness and recovery"
-                      fill
-                      className="object-cover hover:scale-105 transition-transform duration-500"
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                    />
-                  </div>
-                  <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl">
-                    <Image
-                      src={heroImages.wellness2}
-                      alt="Meditation and mindfulness"
-                      fill
-                      className="object-cover hover:scale-105 transition-transform duration-500"
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                    />
-                  </div>
-                </div>
-                <div className="space-y-4 pt-8">
-                  <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl">
-                    <Image
-                      src={heroImages.wellness3}
-                      alt="Yoga and healing"
-                      fill
-                      className="object-cover hover:scale-105 transition-transform duration-500"
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                    />
-                  </div>
-                  <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
-                    <Image
-                      src={heroImages.wellness4}
-                      alt="Exercise and recovery"
-                      fill
-                      className="object-cover hover:scale-105 transition-transform duration-500"
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                    />
-                  </div>
-                </div>
+              <div className="bg-orange-50 rounded-3xl p-12 flex items-center justify-center">
+                <Lock className="w-48 h-48 text-orange-200" />
               </div>
-              <div className="absolute -top-4 -left-4 w-24 h-24 bg-teal-100 rounded-full blur-2xl" />
+              <div className="absolute -top-4 -left-4 w-24 h-24 bg-orange-100 rounded-full blur-2xl" />
               <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-orange-100 rounded-full blur-2xl" />
             </div>
 
             {/* Right - Content */}
             <div>
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-100 rounded-full text-orange-600 text-sm font-medium mb-6">
-                <Heart className="w-4 h-4" />
-                Flexible Treatment
+                <Lock className="w-4 h-4" />
+                Vakkundig Uitgevoerd
               </div>
               <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-                Outpatient Programs
+                Sloten Vervangen
               </h2>
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                Continue your recovery while maintaining work, school, or family responsibilities.
-                Outpatient programs offer flexible scheduling with intensive therapy options
-                including Partial Hospitalization (PHP) and Intensive Outpatient (IOP).
+                Verouderde sloten? Net verhuisd? Of gewoon extra beveiliging nodig?
+                Onze slotenmakers adviseren en plaatsen alle soorten sloten, van cilindersloten tot meerpuntssluitingen.
               </p>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center gap-3 text-muted-foreground">
-                  <div className="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center">
-                    <ChevronRight className="w-4 h-4 text-teal-700" />
+                  <div className="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center">
+                    <ChevronRight className="w-4 h-4 text-orange-700" />
                   </div>
-                  Flexible day and evening schedules
+                  Cilindersloten en veiligheidssloten
                 </li>
                 <li className="flex items-center gap-3 text-muted-foreground">
-                  <div className="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center">
-                    <ChevronRight className="w-4 h-4 text-teal-700" />
+                  <div className="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center">
+                    <ChevronRight className="w-4 h-4 text-orange-700" />
                   </div>
-                  Individual, group, and family therapy
+                  SKG-gecertificeerde sloten
                 </li>
                 <li className="flex items-center gap-3 text-muted-foreground">
-                  <div className="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center">
-                    <ChevronRight className="w-4 h-4 text-teal-700" />
+                  <div className="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center">
+                    <ChevronRight className="w-4 h-4 text-orange-700" />
                   </div>
-                  Often covered by insurance
+                  Persoonlijk advies op maat
                 </li>
               </ul>
-              <Link href="/type/outpatient-treatment">
-                <Button size="lg" className="group bg-teal-600 hover:bg-teal-700">
-                  Find Outpatient Programs
+              <Link href="/type/sloten-vervangen">
+                <Button size="lg" className="group bg-orange-600 hover:bg-gray-700">
+                  Vind Slotenvervanger
                   <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
@@ -652,123 +532,83 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Featured Category - Detox Centers */}
-      <section className="py-16 bg-teal-50 overflow-hidden">
+      {/* Featured Service - Inbraakbeveiliging */}
+      <section className="py-16 bg-orange-50 overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Left - Content */}
             <div className="order-2 lg:order-1">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-teal-100 rounded-full text-teal-700 text-sm font-medium mb-6">
-                <Stethoscope className="w-4 h-4" />
-                Medical Supervision
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-100 rounded-full text-orange-700 text-sm font-medium mb-6">
+                <Shield className="w-4 h-4" />
+                Preventief Beveiligen
               </div>
               <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-                Detox Centers
+                Inbraakbeveiliging
               </h2>
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                Safe, medically-supervised detoxification is the crucial first step in recovery.
-                Professional detox centers provide 24/7 medical care to manage withdrawal symptoms
-                and prepare you for the next phase of treatment.
+                Voorkom inbraak met professionele beveiliging. Onze slotenmakers adviseren over en installeren
+                gecertificeerde sloten, extra grendels, raambeveiliging en meer.
               </p>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center gap-3 text-muted-foreground">
-                  <div className="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center">
-                    <ChevronRight className="w-4 h-4 text-teal-700" />
+                  <div className="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center">
+                    <ChevronRight className="w-4 h-4 text-orange-700" />
                   </div>
-                  Medical staff available 24/7
+                  SKG*** gecertificeerde sloten
                 </li>
                 <li className="flex items-center gap-3 text-muted-foreground">
-                  <div className="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center">
-                    <ChevronRight className="w-4 h-4 text-teal-700" />
+                  <div className="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center">
+                    <ChevronRight className="w-4 h-4 text-orange-700" />
                   </div>
-                  Medication-assisted treatment (MAT) available
+                  Extra grendels en nachtsloten
                 </li>
                 <li className="flex items-center gap-3 text-muted-foreground">
-                  <div className="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center">
-                    <ChevronRight className="w-4 h-4 text-teal-700" />
+                  <div className="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center">
+                    <ChevronRight className="w-4 h-4 text-orange-700" />
                   </div>
-                  Seamless transition to rehab programs
+                  Gratis adviesgesprek mogelijk
                 </li>
               </ul>
-              <Link href="/type/detox-center">
+              <Link href="/type/inbraakbeveiliging">
                 <Button size="lg" className="group bg-orange-500 hover:bg-orange-600 shadow-lg">
-                  Find Detox Centers
+                  Vind Beveiligingsspecialist
                   <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
             </div>
 
-            {/* Right - Image Grid */}
+            {/* Right - Visual */}
             <div className="order-1 lg:order-2 relative">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-4">
-                  <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
-                    <Image
-                      src={heroImages.nature1}
-                      alt="Peaceful nature setting"
-                      fill
-                      className="object-cover hover:scale-105 transition-transform duration-500"
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                    />
-                  </div>
-                  <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl">
-                    <Image
-                      src={heroImages.nature2}
-                      alt="Serene landscape"
-                      fill
-                      className="object-cover hover:scale-105 transition-transform duration-500"
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                    />
-                  </div>
-                </div>
-                <div className="space-y-4 pt-8">
-                  <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl">
-                    <Image
-                      src={heroImages.nature3}
-                      alt="Mountain recovery setting"
-                      fill
-                      className="object-cover hover:scale-105 transition-transform duration-500"
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                    />
-                  </div>
-                  <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
-                    <Image
-                      src={heroImages.nature4}
-                      alt="Forest path to recovery"
-                      fill
-                      className="object-cover hover:scale-105 transition-transform duration-500"
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                    />
-                  </div>
-                </div>
+              <div className="bg-white rounded-3xl p-12 flex items-center justify-center shadow-xl">
+                <Shield className="w-48 h-48 text-orange-200" />
               </div>
-              <div className="absolute -top-4 -right-4 w-24 h-24 bg-teal-200/50 rounded-full blur-2xl" />
+              <div className="absolute -top-4 -right-4 w-24 h-24 bg-orange-200/50 rounded-full blur-2xl" />
               <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-orange-200/40 rounded-full blur-2xl" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Treatment Categories */}
+      {/* Service Categories */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
-              Types of Treatment
+              Onze Diensten
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Different levels of care for different stages of recovery. Find the right treatment for your needs.
+              Verschillende services voor al je slotenproblemen. Vind de juiste specialist.
             </p>
           </div>
 
           <div className="grid gap-8 md:grid-cols-3 max-w-5xl mx-auto">
-            {facilityCategories.map((category) => (
+            {serviceCategories.map((category) => (
               <Link key={category.href} href={category.href} className="group">
                 <Card className="p-8 h-full text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-gray-100">
                   <div className={`w-16 h-16 rounded-2xl ${category.color} flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform`}>
                     <category.icon className="w-8 h-8" />
                   </div>
-                  <h3 className="font-serif text-xl font-semibold mb-3 group-hover:text-teal-600 transition-colors">
+                  <h3 className="font-serif text-xl font-semibold mb-3 group-hover:text-orange-600 transition-colors">
                     {category.title}
                   </h3>
                   <p className="text-muted-foreground text-sm">
@@ -781,8 +621,8 @@ export default function HomePage() {
 
           <div className="text-center mt-10">
             <Link href="/type">
-              <Button variant="outline" size="lg" className="border-teal-200 text-teal-700 hover:bg-teal-50">
-                View All Treatment Types
+              <Button variant="outline" size="lg" className="border-orange-200 text-orange-700 hover:bg-orange-50">
+                Bekijk Alle Diensten
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
@@ -808,10 +648,10 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
-              Recovery Stories
+              Ervaringen van Klanten
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Hear from people who found help through our directory.
+              Lees wat anderen vonden van de slotenmakers via ons platform.
             </p>
           </div>
 
@@ -841,36 +681,36 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
-              Why Use RehabNearMe.com?
+              Waarom VindSlotenmaker.nl?
             </h2>
           </div>
 
           <div className="grid gap-8 md:grid-cols-3 max-w-4xl mx-auto">
             <div className="text-center">
-              <div className="w-14 h-14 rounded-xl bg-teal-100 flex items-center justify-center mx-auto mb-4">
-                <Users className="w-7 h-7 text-teal-700" />
+              <div className="w-14 h-14 rounded-xl bg-orange-100 flex items-center justify-center mx-auto mb-4">
+                <Users className="w-7 h-7 text-orange-700" />
               </div>
-              <h3 className="font-semibold mb-2">Comprehensive Database</h3>
+              <h3 className="font-semibold mb-2">Uitgebreide Database</h3>
               <p className="text-sm text-muted-foreground">
-                Thousands of verified treatment centers across all 50 states.
+                Honderden geverifieerde slotenmakers in alle 12 provincies.
               </p>
             </div>
             <div className="text-center">
               <div className="w-14 h-14 rounded-xl bg-orange-100 flex items-center justify-center mx-auto mb-4">
                 <Shield className="w-7 h-7 text-orange-600" />
               </div>
-              <h3 className="font-semibold mb-2">Verified Information</h3>
+              <h3 className="font-semibold mb-2">Betrouwbare Informatie</h3>
               <p className="text-sm text-muted-foreground">
-                Accurate details including services, insurance, and contact info.
+                Actuele gegevens inclusief diensten, reviews en contactinfo.
               </p>
             </div>
             <div className="text-center">
-              <div className="w-14 h-14 rounded-xl bg-teal-50 flex items-center justify-center mx-auto mb-4">
-                <Award className="w-7 h-7 text-teal-600" />
+              <div className="w-14 h-14 rounded-xl bg-orange-50 flex items-center justify-center mx-auto mb-4">
+                <Award className="w-7 h-7 text-orange-600" />
               </div>
-              <h3 className="font-semibold mb-2">100% Free</h3>
+              <h3 className="font-semibold mb-2">100% Gratis</h3>
               <p className="text-sm text-muted-foreground">
-                Search, compare, and connect with no cost or registration.
+                Zoek, vergelijk en neem contact op zonder kosten of registratie.
               </p>
             </div>
           </div>
@@ -885,47 +725,47 @@ export default function HomePage() {
         <div className="container mx-auto px-4 max-w-5xl">
           <MultiplexAd
             slot={AD_SLOTS.home.beforeFooter}
-            title="Related Resources"
+            title="Gerelateerde Informatie"
           />
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-br from-teal-700 via-teal-600 to-teal-800 text-white relative overflow-hidden">
+      <section className="py-16 bg-gradient-to-br from-orange-700 via-orange-600 to-orange-800 text-white relative overflow-hidden">
         {/* Decorative elements */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-teal-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
+          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-orange-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
           <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-orange-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3" />
         </div>
 
         <div className="container mx-auto px-4 text-center relative z-10">
           <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">
-            Take the First Step Today
+            Vind Nu een Slotenmaker
           </h2>
           <p className="text-white/80 mb-8 max-w-2xl mx-auto">
-            Recovery is possible. Search our directory to find the right treatment center for you or your loved one.
+            Buitengesloten? Sloten vervangen? Inbraakbeveiliging nodig? Vind direct een betrouwbare slotenmaker bij jou in de buurt.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link href="/search">
               <Button size="lg" className="bg-orange-500 hover:bg-orange-600 shadow-lg shadow-orange-500/30">
-                Find Treatment Now
+                Zoek Slotenmaker
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
             <Link href="/guide">
               <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10">
-                Learn About Treatment
+                Tips & Advies
               </Button>
             </Link>
           </div>
 
-          {/* Crisis Line */}
+          {/* Quick Contact */}
           <div className="mt-10 pt-8 border-t border-white/20">
-            <p className="text-white/60 mb-2">Need to talk to someone now?</p>
-            <a href="tel:1-800-662-4357" className="text-xl font-bold text-orange-300 hover:text-orange-200">
-              SAMHSA Helpline: 1-800-662-4357
-            </a>
-            <p className="text-white/60 text-sm mt-1">Free, confidential, 24/7 support</p>
+            <p className="text-white/60 mb-2">Spoed? Direct hulp nodig?</p>
+            <Link href="/type/noodopening" className="text-xl font-bold text-orange-300 hover:text-orange-200">
+              24/7 Noodopening Service Beschikbaar
+            </Link>
+            <p className="text-white/60 text-sm mt-1">Slotenmakers staan klaar om je te helpen</p>
           </div>
         </div>
       </section>

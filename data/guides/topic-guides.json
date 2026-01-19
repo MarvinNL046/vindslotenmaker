@@ -1,322 +1,264 @@
 {
   "topics": [
     {
-      "slug": "treatment-etiquette",
-      "title": "Treatment Etiquette: A Guide to Respectful Visits and Support",
-      "description": "Learn proper etiquette for visiting someone in treatment, supporting a loved one's recovery, and understanding boundaries in addiction treatment settings.",
-      "excerpt": "Understanding treatment etiquette helps you support loved ones in recovery while respecting their healing process and facility guidelines.",
-      "category": "Visitor Guide",
-      "author": "Rehab Near Me Editorial Team",
+      "slug": "buitengesloten-wat-te-doen",
+      "title": "Buitengesloten? Dit Moet Je Weten en Doen",
+      "description": "Complete gids voor wanneer je buitengesloten staat. Leer wat je moet doen, hoe je een betrouwbare slotenmaker vindt en wat je kunt verwachten qua kosten.",
+      "excerpt": "Sta je voor een dichte deur? Leer stap voor stap wat je moet doen wanneer je buitengesloten bent en hoe je snel professionele hulp krijgt.",
+      "category": "Noodhulp",
+      "author": "VindSlotenmaker Redactie",
+      "datePublished": "2024-12-20",
+      "dateModified": "2024-12-26",
+      "readTime": "8 min",
+      "keywords": ["buitengesloten", "deur openen", "slotenmaker bellen", "noodopening", "sleutel kwijt", "hulp bij buitensluiting"],
+      "sections": [
+        {
+          "id": "eerste-stappen",
+          "title": "Eerste Stappen Bij Buitensluiting",
+          "anchor": "eerste-stappen-bij-buitensluiting"
+        },
+        {
+          "id": "slotenmaker-vinden",
+          "title": "Een Betrouwbare Slotenmaker Vinden",
+          "anchor": "betrouwbare-slotenmaker-vinden"
+        },
+        {
+          "id": "kosten",
+          "title": "Wat Kost een Slotenmaker?",
+          "anchor": "kosten-slotenmaker"
+        },
+        {
+          "id": "oplichting-voorkomen",
+          "title": "Oplichting Voorkomen",
+          "anchor": "oplichting-voorkomen"
+        },
+        {
+          "id": "verzekering",
+          "title": "Vergoeding door Verzekering",
+          "anchor": "vergoeding-verzekering"
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Wat moet ik doen als ik buitengesloten sta?",
+          "answer": "Blijf kalm en check eerst of er ramen of andere deuren open zijn. Bel vervolgens een lokale slotenmaker met goede recensies. Vraag vooraf naar de kosten en vraag om een prijsopgave voordat de slotenmaker begint."
+        },
+        {
+          "question": "Hoe herken ik een betrouwbare slotenmaker?",
+          "answer": "Een betrouwbare slotenmaker heeft een KvK-inschrijving, geeft vooraf een duidelijke prijsopgave, komt in een herkenbaar voertuig en kan zich legitimeren. Check ook online recensies voordat je belt."
+        },
+        {
+          "question": "Wat kost het openen van een deur door een slotenmaker?",
+          "answer": "Een standaard noodopening kost tussen de 75 en 125 euro overdag. 's Nachts en in het weekend kan dit oplopen tot 150-200 euro. Vraag altijd vooraf een prijsopgave."
+        },
+        {
+          "question": "Kan mijn verzekering de kosten vergoeden?",
+          "answer": "Veel inboedelverzekeringen dekken de kosten van een slotenmaker bij verlies of diefstal van sleutels. Check je polisvoorwaarden of neem contact op met je verzekeraar."
+        },
+        {
+          "question": "Hoe snel kan een slotenmaker ter plaatse zijn?",
+          "answer": "De meeste 24-uurs slotenmakers zijn binnen 15-30 minuten ter plaatse in stedelijke gebieden. In landelijke gebieden kan dit langer duren."
+        }
+      ]
+    },
+    {
+      "slug": "inbraakbeveiliging-woning",
+      "title": "Inbraakbeveiliging voor je Woning: Complete Gids",
+      "description": "Alles over het beveiligen van je woning tegen inbraak. Van SKG-sloten tot het Politiekeurmerk Veilig Wonen - bescherm je huis effectief.",
+      "excerpt": "Bescherm je woning tegen inbrekers met de juiste maatregelen. Deze gids helpt je de beste beveiligingsopties te kiezen.",
+      "category": "Beveiliging",
+      "author": "VindSlotenmaker Redactie",
       "datePublished": "2024-12-20",
       "dateModified": "2024-12-26",
       "readTime": "12 min",
-      "keywords": ["treatment etiquette", "visiting rehab", "supporting recovery", "addiction support", "family visitation", "treatment facility rules"],
+      "keywords": ["inbraakbeveiliging", "skg sloten", "politiekeurmerk", "woning beveiligen", "inbraakpreventie", "hang en sluitwerk"],
       "sections": [
         {
-          "id": "visiting-hours",
-          "title": "Visiting Hours and Rules",
-          "anchor": "visiting-hours-and-rules"
+          "id": "skg-certificering",
+          "title": "SKG-Certificering Uitgelegd",
+          "anchor": "skg-certificering-uitgelegd"
         },
         {
-          "id": "what-to-bring",
-          "title": "What to Bring",
-          "anchor": "what-to-bring"
+          "id": "politiekeurmerk",
+          "title": "Politiekeurmerk Veilig Wonen",
+          "anchor": "politiekeurmerk-veilig-wonen"
         },
         {
-          "id": "communication",
-          "title": "Communication Guidelines",
-          "anchor": "communication-guidelines"
+          "id": "deur-beveiliging",
+          "title": "Deuren Beveiligen",
+          "anchor": "deuren-beveiligen"
         },
         {
-          "id": "support-tips",
-          "title": "How to Be Supportive",
-          "anchor": "how-to-be-supportive"
+          "id": "raam-beveiliging",
+          "title": "Ramen Beveiligen",
+          "anchor": "ramen-beveiligen"
         },
         {
-          "id": "boundaries",
-          "title": "Understanding Boundaries",
-          "anchor": "understanding-boundaries"
-        },
-        {
-          "id": "children",
-          "title": "Bringing Children to Visits",
-          "anchor": "bringing-children-to-visits"
+          "id": "kosten-subsidie",
+          "title": "Kosten en Subsidies",
+          "anchor": "kosten-en-subsidies"
         }
       ],
       "faqs": [
         {
-          "question": "Can I visit someone in rehab?",
-          "answer": "Most treatment facilities have scheduled visiting hours, typically on weekends. Some facilities restrict visits during the first week or two to allow patients to focus on initial treatment. Always check with the specific facility about their visitation policies."
+          "question": "Wat betekent SKG 1, 2 en 3 sterren?",
+          "answer": "SKG-sterren geven de inbraakwerendheid aan. SKG 1 ster biedt minimale weerstand (3 minuten), SKG 2 sterren biedt gemiddelde weerstand (3-5 minuten), en SKG 3 sterren biedt maximale weerstand (5+ minuten). Voor voordeur wordt minimaal SKG 2 sterren aanbevolen."
         },
         {
-          "question": "What should I bring when visiting?",
-          "answer": "Bring only approved items—most facilities have restricted item lists. Typically allowed: comfortable clothes, approved toiletries, books without drug/alcohol themes, family photos, and encouraging letters. Not allowed: outside food, medications, electronics, or anything containing alcohol."
+          "question": "Wat is het Politiekeurmerk Veilig Wonen?",
+          "answer": "Het PKVW is een officieel keurmerk dat aangeeft dat een woning voldoet aan strenge beveiligingseisen. Woningen met dit keurmerk zijn aantoonbaar veiliger en hebben soms recht op korting op de inboedelverzekering."
         },
         {
-          "question": "Can I bring my phone when visiting?",
-          "answer": "Policies vary by facility. Many allow visitors to keep phones but restrict photography or recording. Some facilities ask visitors to leave phones in lockers. Check the specific facility's policy before your visit."
+          "question": "Hoeveel kost het om mijn woning inbraakwerend te maken?",
+          "answer": "De kosten varieren sterk. Een nieuw SKG-slot kost 100-300 euro inclusief montage. Volledige beveiliging volgens PKVW-normen kan 500-2000 euro kosten afhankelijk van de huidige situatie."
         },
         {
-          "question": "What if my loved one doesn't want visitors?",
-          "answer": "Respect their wishes. Some people need space during early recovery to focus on treatment without outside pressures. Continue showing support through approved methods like letters, and let them know you're ready to visit when they are."
-        },
-        {
-          "question": "How do I talk to someone in treatment?",
-          "answer": "Focus on their progress and well-being rather than outside problems. Avoid discussing stressful topics, especially family conflicts or financial issues. Be encouraging but avoid making promises you can't keep. Let them guide the conversation about their treatment."
+          "question": "Zijn er subsidies voor inbraakbeveiliging?",
+          "answer": "Sommige gemeenten bieden subsidies of kortingen voor inbraakbeveiliging. Ook kan je inboedelverzekering korting geven bij bepaalde beveiligingsmaatregelen. Check de mogelijkheden bij je gemeente en verzekeraar."
         }
       ]
     },
     {
-      "slug": "finding-treatment",
-      "title": "Finding the Right Treatment Center: A Complete Guide",
-      "description": "Step-by-step guide to finding addiction treatment including insurance verification, assessing needs, evaluating facilities, and making informed decisions.",
-      "excerpt": "Finding the right treatment center can feel overwhelming. This guide walks you through the process of identifying your needs and evaluating options.",
-      "category": "Planning Guide",
-      "author": "Rehab Near Me Editorial Team",
+      "slug": "slotenmaker-kiezen",
+      "title": "Hoe Kies Je een Betrouwbare Slotenmaker?",
+      "description": "Tips en adviezen voor het kiezen van een betrouwbare slotenmaker. Voorkom oplichting en vind een professional die eerlijk en vakkundig is.",
+      "excerpt": "Niet elke slotenmaker is betrouwbaar. Leer hoe je de juiste keuze maakt en oplichters vermijdt.",
+      "category": "Advies",
+      "author": "VindSlotenmaker Redactie",
       "datePublished": "2024-12-20",
       "dateModified": "2024-12-26",
-      "readTime": "14 min",
-      "keywords": ["finding treatment", "choosing rehab", "treatment center selection", "addiction treatment options", "rehab research", "treatment planning"],
+      "readTime": "10 min",
+      "keywords": ["slotenmaker kiezen", "betrouwbare slotenmaker", "slotenmaker oplichting", "goede slotenmaker vinden", "slotenmaker tips"],
       "sections": [
         {
-          "id": "assess-needs",
-          "title": "Assessing Treatment Needs",
-          "anchor": "assessing-treatment-needs"
+          "id": "kwaliteitskenmerken",
+          "title": "Kenmerken van een Goede Slotenmaker",
+          "anchor": "kenmerken-goede-slotenmaker"
         },
         {
-          "id": "treatment-levels",
-          "title": "Understanding Levels of Care",
-          "anchor": "understanding-levels-of-care"
+          "id": "waarschuwingssignalen",
+          "title": "Waarschuwingssignalen",
+          "anchor": "waarschuwingssignalen"
         },
         {
-          "id": "insurance",
-          "title": "Insurance and Payment Options",
-          "anchor": "insurance-and-payment-options"
+          "id": "vragen-stellen",
+          "title": "Welke Vragen Moet Je Stellen?",
+          "anchor": "vragen-stellen"
         },
         {
-          "id": "evaluating",
-          "title": "Evaluating Facilities",
-          "anchor": "evaluating-facilities"
-        },
-        {
-          "id": "questions",
-          "title": "Questions to Ask",
-          "anchor": "questions-to-ask"
+          "id": "prijs-onderhandelen",
+          "title": "Over Prijzen Praten",
+          "anchor": "over-prijzen-praten"
         }
       ],
       "faqs": [
         {
-          "question": "How do I know what type of treatment is needed?",
-          "answer": "A professional assessment can determine the appropriate level of care based on substance use history, medical needs, mental health status, and support system. Most facilities offer free phone assessments. Factors include severity of addiction, history of withdrawal, and presence of co-occurring disorders."
+          "question": "Hoe herken ik een malafide slotenmaker?",
+          "answer": "Let op deze waarschuwingssignalen: geen duidelijke prijsopgave vooraf, onherkenbaar voertuig, druk om snel te beslissen, extreme prijzen na de klus, geen factuur of bewijs van betaling."
         },
         {
-          "question": "How much does rehab cost?",
-          "answer": "Costs vary widely: outpatient programs may cost $5,000-$10,000, standard inpatient $20,000-$30,000 for 30 days, and luxury facilities $30,000-$100,000+. Many insurance plans cover treatment under mental health parity laws. Free and sliding-scale options exist for those without coverage."
+          "question": "Moet een slotenmaker gecertificeerd zijn?",
+          "answer": "In Nederland is certificering niet wettelijk verplicht, maar VVS-lidmaatschap en ervaring met SKG-sloten zijn goede indicatoren van professionaliteit."
         },
         {
-          "question": "Does insurance cover addiction treatment?",
-          "answer": "The Mental Health Parity and Addiction Equity Act requires most insurance plans to cover addiction treatment similar to other medical conditions. Coverage varies by plan—verify your specific benefits with your insurance provider or have the treatment facility check for you."
-        },
-        {
-          "question": "How do I know if a treatment center is legitimate?",
-          "answer": "Look for accreditation from organizations like The Joint Commission or CARF. Verify licensing with your state's health department. Check for licensed medical and clinical staff. Be wary of facilities that guarantee outcomes or pressure you into immediate decisions."
-        },
-        {
-          "question": "Should I choose a local facility or travel for treatment?",
-          "answer": "Both have advantages. Local facilities allow family involvement and easier aftercare transitions. Traveling removes you from triggers and negative influences. The best choice depends on your specific situation, support system, and treatment needs."
+          "question": "Wat is een redelijke prijs voor een slotenmaker?",
+          "answer": "Een noodopening kost overdag 75-125 euro. Slotvervanging varieert van 100-300 euro. Prijzen boven 250 euro voor een eenvoudige noodopening zijn verdacht."
         }
       ]
     },
     {
-      "slug": "treatment-costs",
-      "title": "Understanding Treatment Costs: A Complete Price Guide",
-      "description": "Comprehensive breakdown of addiction treatment costs including insurance coverage, payment options, free resources, and how to get help affording treatment.",
-      "excerpt": "Understanding treatment costs helps you make informed decisions and access the care you need. This guide breaks down all expenses and funding options.",
-      "category": "Planning Guide",
-      "author": "Rehab Near Me Editorial Team",
+      "slug": "slot-vervangen",
+      "title": "Slot Vervangen: Wanneer en Hoe?",
+      "description": "Alles over het vervangen van sloten. Wanneer is het nodig, welke opties heb je en wat kost het?",
+      "excerpt": "Een nieuw slot plaatsen? Leer wanneer dit nodig is en wat de beste opties zijn voor jouw situatie.",
+      "category": "Diensten",
+      "author": "VindSlotenmaker Redactie",
       "datePublished": "2024-12-20",
       "dateModified": "2024-12-26",
-      "readTime": "15 min",
-      "keywords": ["treatment costs", "rehab expenses", "addiction treatment cost", "insurance coverage", "payment options", "affordable treatment"],
+      "readTime": "9 min",
+      "keywords": ["slot vervangen", "nieuw slot", "cilinder vervangen", "deurslot", "slot monteren"],
       "sections": [
         {
-          "id": "cost-breakdown",
-          "title": "Average Costs by Treatment Type",
-          "anchor": "average-costs-by-treatment-type"
+          "id": "wanneer-vervangen",
+          "title": "Wanneer Moet Je een Slot Vervangen?",
+          "anchor": "wanneer-slot-vervangen"
         },
         {
-          "id": "insurance",
-          "title": "Insurance Coverage",
-          "anchor": "insurance-coverage"
+          "id": "slot-soorten",
+          "title": "Soorten Sloten",
+          "anchor": "soorten-sloten"
         },
         {
-          "id": "payment-options",
-          "title": "Payment Options",
-          "anchor": "payment-options"
+          "id": "cilinder-vervangen",
+          "title": "Cilinder Vervangen vs. Heel Slot",
+          "anchor": "cilinder-vs-heel-slot"
         },
         {
-          "id": "free-resources",
-          "title": "Free and Low-Cost Options",
-          "anchor": "free-and-low-cost-options"
-        },
-        {
-          "id": "financial-assistance",
-          "title": "Financial Assistance Programs",
-          "anchor": "financial-assistance-programs"
-        },
-        {
-          "id": "cost-comparison",
-          "title": "Cost Comparison Table",
-          "anchor": "cost-comparison-table"
+          "id": "kosten-overzicht",
+          "title": "Kosten Overzicht",
+          "anchor": "kosten-overzicht"
         }
       ],
       "faqs": [
         {
-          "question": "What is the average cost of rehab?",
-          "answer": "Costs vary significantly: Outpatient programs average $5,000-$10,000 for a full program. Standard inpatient (30 days) averages $20,000-$30,000. Luxury facilities range from $30,000-$100,000+ per month. Many people pay far less than these amounts due to insurance coverage."
+          "question": "Wanneer moet ik mijn slot vervangen?",
+          "answer": "Vervang je slot bij: verhuizing, sleutelverlies, na inbraak(poging), als het slot klemt of beschadigd is, of als je de beveiliging wilt upgraden."
         },
         {
-          "question": "Is there free addiction treatment?",
-          "answer": "Yes, free and low-cost treatment exists. SAMHSA's treatment locator can help find state-funded programs. Salvation Army, faith-based organizations, and some nonprofits offer free treatment. Medicaid covers treatment for eligible individuals in many states."
+          "question": "Wat is het verschil tussen cilinder vervangen en heel slot vervangen?",
+          "answer": "Bij cilindervervanging vervang je alleen het binnenwerk met de sleutelgaten. Dit is goedkoper (60-150 euro). Een heel slot vervangen (150-300 euro) is nodig bij beschadiging aan het slotkast."
         },
         {
-          "question": "What does insurance typically cover?",
-          "answer": "Most insurance covers detox, inpatient rehabilitation, and outpatient treatment. Coverage details vary by plan—some cover 30 days inpatient, others may cover 60-90 days. Verify your specific benefits and any prior authorization requirements."
-        },
-        {
-          "question": "Can I finance addiction treatment?",
-          "answer": "Many facilities offer payment plans or work with healthcare financing companies. Options include medical credit cards, personal loans, and facility payment plans. Some facilities offer sliding scale fees based on income."
-        },
-        {
-          "question": "Is treatment worth the cost?",
-          "answer": "Studies show addiction treatment is cost-effective compared to untreated addiction. The cost of addiction—medical care, legal issues, lost productivity, family impact—far exceeds treatment costs. Treatment is an investment in health and future."
+          "question": "Kan ik zelf een slot vervangen?",
+          "answer": "Een standaard cilinder vervangen is voor handige mensen mogelijk. Voor complexere sloten of SKG-gecertificeerde sloten is een professional aan te raden voor correcte montage en garantie."
         }
       ]
     },
     {
-      "slug": "inpatient-vs-outpatient",
-      "title": "Inpatient vs Outpatient Treatment: Making the Right Choice",
-      "description": "Compare inpatient and outpatient addiction treatment options including effectiveness, costs, time requirements, and factors to consider when choosing.",
-      "excerpt": "Choosing between inpatient and outpatient treatment is a crucial decision. This comprehensive comparison helps you make an informed choice.",
-      "category": "Planning Guide",
-      "author": "Rehab Near Me Editorial Team",
+      "slug": "auto-buitengesloten",
+      "title": "Auto Buitengesloten: Wat Te Doen?",
+      "description": "Hulp nodig bij je auto? Leer wat je moet doen als je buitengesloten staat of je autosleutel kwijt bent.",
+      "excerpt": "Sta je voor een gesloten auto? Ontdek je opties en hoe een auto slotenmaker je kan helpen.",
+      "category": "Noodhulp",
+      "author": "VindSlotenmaker Redactie",
       "datePublished": "2024-12-20",
       "dateModified": "2024-12-26",
-      "readTime": "13 min",
-      "keywords": ["inpatient vs outpatient", "residential treatment", "outpatient treatment", "treatment comparison", "level of care", "choosing treatment"],
+      "readTime": "7 min",
+      "keywords": ["auto buitengesloten", "auto slotenmaker", "autosleutel kwijt", "auto openen", "auto slot"],
       "sections": [
         {
-          "id": "pros-cons",
-          "title": "Pros and Cons Comparison",
-          "anchor": "pros-and-cons-comparison"
+          "id": "opties",
+          "title": "Je Opties Bij een Buitensluiting",
+          "anchor": "opties-auto-buitensluiting"
         },
         {
-          "id": "who-needs-what",
-          "title": "Who Needs Which Level",
-          "anchor": "who-needs-which-level"
+          "id": "kosten",
+          "title": "Kosten Auto Slotenmaker",
+          "anchor": "kosten-auto-slotenmaker"
         },
         {
-          "id": "effectiveness",
-          "title": "Treatment Effectiveness",
-          "anchor": "treatment-effectiveness"
+          "id": "sleutel-bijmaken",
+          "title": "Autosleutel Bijmaken",
+          "anchor": "autosleutel-bijmaken"
         },
         {
-          "id": "cost-comparison",
-          "title": "Cost Comparison",
-          "anchor": "cost-comparison"
-        },
-        {
-          "id": "hybrid-options",
-          "title": "Hybrid and Step-Down Options",
-          "anchor": "hybrid-and-step-down-options"
+          "id": "verzekering",
+          "title": "Pechhulp en Verzekering",
+          "anchor": "pechhulp-verzekering"
         }
       ],
       "faqs": [
         {
-          "question": "Is inpatient treatment more effective than outpatient?",
-          "answer": "Effectiveness depends on matching the level of care to individual needs. Inpatient is more effective for severe addictions, those needing medical detox, or lacking stable support systems. Outpatient works well for less severe cases with strong support. The right level of care matters more than inpatient vs outpatient."
+          "question": "Wat kost het om mijn auto te laten openen?",
+          "answer": "Een auto laten openen door een slotenmaker kost 100-200 euro. De prijs hangt af van het automerk, type slot en tijdstip."
         },
         {
-          "question": "Can I work during outpatient treatment?",
-          "answer": "Yes, outpatient treatment is designed to allow work and family responsibilities. Intensive outpatient (IOP) requires more hours but often offers evening sessions. Standard outpatient is highly compatible with work schedules."
+          "question": "Kan de ANWB mijn auto openen?",
+          "answer": "De ANWB kan bij sommige auto's helpen, maar niet altijd. Moderne auto's met geavanceerde sloten vereisen vaak een gespecialiseerde auto slotenmaker."
         },
         {
-          "question": "How do I know which level I need?",
-          "answer": "Factors include: severity of addiction, need for medical detox, presence of co-occurring mental health issues, stability of home environment, previous treatment attempts, and family/work obligations. A professional assessment provides personalized recommendations."
-        },
-        {
-          "question": "What if I fail outpatient treatment?",
-          "answer": "Struggling in outpatient may indicate need for a higher level of care. This isn't failure—it's valuable information. Many people start with outpatient and step up to inpatient if needed. Honest assessment and adjustment is part of the process."
-        },
-        {
-          "question": "Is there something between inpatient and outpatient?",
-          "answer": "Yes, Partial Hospitalization Programs (PHP) bridge the gap with full-day treatment (5-7 days/week) while returning home at night. This provides intensive care without full residential stay. Many use PHP as a step-down from inpatient."
-        }
-      ]
-    },
-    {
-      "slug": "family-support",
-      "title": "Supporting a Loved One Through Addiction: A Family Guide",
-      "description": "Guide for families of people struggling with addiction covering how to help, setting boundaries, intervention approaches, and self-care for family members.",
-      "excerpt": "Supporting a loved one through addiction is challenging. This guide helps families navigate recovery, set healthy boundaries, and care for themselves.",
-      "category": "Family Guide",
-      "author": "Rehab Near Me Editorial Team",
-      "datePublished": "2024-12-20",
-      "dateModified": "2024-12-26",
-      "readTime": "16 min",
-      "keywords": ["family support addiction", "helping addicted loved one", "family intervention", "addiction family guide", "codependency", "family recovery"],
-      "sections": [
-        {
-          "id": "understanding",
-          "title": "Understanding Addiction as a Disease",
-          "anchor": "understanding-addiction-as-disease"
-        },
-        {
-          "id": "communication",
-          "title": "Effective Communication",
-          "anchor": "effective-communication"
-        },
-        {
-          "id": "boundaries",
-          "title": "Setting Healthy Boundaries",
-          "anchor": "setting-healthy-boundaries"
-        },
-        {
-          "id": "intervention",
-          "title": "Intervention Approaches",
-          "anchor": "intervention-approaches"
-        },
-        {
-          "id": "self-care",
-          "title": "Family Self-Care",
-          "anchor": "family-self-care"
-        },
-        {
-          "id": "resources",
-          "title": "Family Support Resources",
-          "anchor": "family-support-resources"
-        }
-      ],
-      "faqs": [
-        {
-          "question": "How do I talk to someone about their addiction?",
-          "answer": "Choose a calm, private moment when they're sober. Use 'I' statements to express concern without blame ('I'm worried about you' rather than 'You have a problem'). Be specific about behaviors you've observed. Express love and offer support without ultimatums in initial conversations."
-        },
-        {
-          "question": "What is enabling and how do I stop?",
-          "answer": "Enabling is protecting someone from the consequences of their addiction—paying their bills, making excuses, providing housing without conditions. Stopping enabling means allowing natural consequences while still loving the person. It's painful but often necessary for them to recognize the need for help."
-        },
-        {
-          "question": "Should I do an intervention?",
-          "answer": "Interventions can be effective when done properly with professional guidance. They work best when the family is unified, prepared with treatment options, and ready to follow through on stated consequences. Working with a professional interventionist improves success rates."
-        },
-        {
-          "question": "How do I take care of myself?",
-          "answer": "Join a family support group like Al-Anon or Nar-Anon. Consider your own therapy to process emotions and learn healthy coping. Set boundaries to protect your wellbeing. Remember that your loved one's recovery is their responsibility—you can support but not control it."
-        },
-        {
-          "question": "What if they refuse treatment?",
-          "answer": "You cannot force an adult into treatment (except in some emergency situations). Continue expressing love and concern while maintaining boundaries. Let them know treatment options are available when they're ready. Sometimes reaching 'rock bottom' is necessary before someone seeks help."
+          "question": "Hoeveel kost een nieuwe autosleutel?",
+          "answer": "Een eenvoudige autosleutel kost 50-150 euro. Een sleutel met afstandsbediening of start-stopfunctie kan 150-500 euro kosten, afhankelijk van het merk."
         }
       ]
     }

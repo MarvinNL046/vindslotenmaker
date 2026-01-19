@@ -14,46 +14,57 @@ import {
 import { relations } from 'drizzle-orm';
 
 // ==========================================
-// FACILITIES TABLE - Treatment Centers
+// SLOTENMAKERS TABLE - Locksmith Directory
 // ==========================================
 export const facilities = pgTable('facilities', {
   id: serial('id').primaryKey(),
 
-  // Core identifiers
+  // Kern identificatie
   name: varchar('name', { length: 500 }).notNull(),
   slug: varchar('slug', { length: 500 }).notNull().unique(),
 
-  // Location - US geography
+  // Locatie - Nederlandse geografie
   address: text('address'),
-  city: varchar('city', { length: 255 }).notNull(),
-  county: varchar('county', { length: 255 }),
-  state: varchar('state', { length: 255 }).notNull(),
-  stateAbbr: varchar('state_abbr', { length: 10 }).notNull(),
-  zipCode: varchar('zip_code', { length: 20 }),
-  country: varchar('country', { length: 100 }).notNull().default('United States'),
+  city: varchar('city', { length: 255 }).notNull(),              // Plaats
+  municipality: varchar('municipality', { length: 255 }),         // Gemeente
+  province: varchar('province', { length: 255 }).notNull(),       // Provincie
+  provinceAbbr: varchar('province_abbr', { length: 10 }).notNull(),
+  zipCode: varchar('zip_code', { length: 10 }),                   // Postcode (1234 AB)
+  country: varchar('country', { length: 100 }).notNull().default('Nederland'),
   latitude: decimal('latitude', { precision: 10, scale: 7 }),
   longitude: decimal('longitude', { precision: 10, scale: 7 }),
+  werkgebied: jsonb('werkgebied').$type<string[]>().default([]),  // Service area (plaatsen)
 
-  // Classification
-  type: varchar('type', { length: 255 }).notNull().default('Treatment Center'),
+  // Classificatie
+  type: varchar('type', { length: 255 }).notNull().default('Slotenmaker'),
   typeSlug: varchar('type_slug', { length: 255 }),
-  facilityTypes: jsonb('facility_types').$type<string[]>().default([]),
-  treatmentTypes: jsonb('treatment_types').$type<string[]>().default([]),
-  insuranceAccepted: jsonb('insurance_accepted').$type<string[]>().default([]),
+  bedrijfsTypes: jsonb('bedrijfs_types').$type<string[]>().default([]),  // Business types
+  serviceTypes: jsonb('service_types').$type<string[]>().default([]),    // Services offered
+  betaalmethoden: jsonb('betaalmethoden').$type<string[]>().default([]), // Payment methods
+
+  // Diensten details
+  is24uurs: boolean('is_24uurs').default(false),                  // 24-hour service
+  spoedService: boolean('spoed_service').default(false),          // Emergency service
+  reactietijd: varchar('reactietijd', { length: 100 }),           // Response time (e.g., "15-30 minuten")
+  prijsindicatie: varchar('prijsindicatie', { length: 255 }),     // Price indication
+  voorrijkosten: varchar('voorrijkosten', { length: 100 }),       // Call-out fee
+  certificeringen: jsonb('certificeringen').$type<string[]>().default([]), // Certifications (SKG, VCA, etc.)
 
   // Contact
   phone: varchar('phone', { length: 50 }),
+  phone24h: varchar('phone_24h', { length: 50 }),                 // 24h emergency number
   email: varchar('email', { length: 255 }),
   website: text('website'),
+  whatsapp: varchar('whatsapp', { length: 50 }),
 
   // Details
   description: text('description'),
-  openingHours: text('opening_hours'),
-  amenities: jsonb('amenities').$type<string[]>().default([]),
+  openingHours: text('opening_hours'),                            // Regular hours
+  specialisaties: jsonb('specialisaties').$type<string[]>().default([]), // Specializations
   yearEstablished: varchar('year_established', { length: 10 }),
-  bedCount: integer('bed_count'),
-  accreditations: jsonb('accreditations').$type<string[]>().default([]),
-  languages: jsonb('languages').$type<string[]>().default([]),
+  kvkNummer: varchar('kvk_nummer', { length: 20 }),               // KvK registration
+  btwNummer: varchar('btw_nummer', { length: 25 }),               // BTW number
+  merken: jsonb('merken').$type<string[]>().default([]),          // Brands worked with
 
   // Google data
   googlePlaceId: varchar('google_place_id', { length: 255 }),
@@ -92,6 +103,7 @@ export const facilities = pgTable('facilities', {
   // Metadata
   status: varchar('status', { length: 50 }).default('active'),
   featured: boolean('featured').default(false),
+  premium: boolean('premium').default(false),
   source: varchar('source', { length: 100 }),
   sourceUrl: text('source_url'),
   discoveredAt: timestamp('discovered_at'),
@@ -101,9 +113,9 @@ export const facilities = pgTable('facilities', {
   // Performance indexes
   uniqueIndex('facilities_slug_idx').on(table.slug),
   index('facilities_city_idx').on(table.city),
-  index('facilities_state_idx').on(table.state),
-  index('facilities_state_abbr_idx').on(table.stateAbbr),
-  index('facilities_county_idx').on(table.county),
+  index('facilities_province_idx').on(table.province),
+  index('facilities_province_abbr_idx').on(table.provinceAbbr),
+  index('facilities_municipality_idx').on(table.municipality),
   index('facilities_type_idx').on(table.type),
   index('facilities_type_slug_idx').on(table.typeSlug),
   index('facilities_zip_code_idx').on(table.zipCode),
@@ -111,9 +123,10 @@ export const facilities = pgTable('facilities', {
   index('facilities_status_idx').on(table.status),
   index('facilities_featured_idx').on(table.featured),
   index('facilities_claimed_idx').on(table.claimed),
+  index('facilities_24uurs_idx').on(table.is24uurs),
   // Composite indexes for common queries
-  index('facilities_city_state_idx').on(table.city, table.stateAbbr),
-  index('facilities_county_state_idx').on(table.county, table.stateAbbr),
+  index('facilities_city_province_idx').on(table.city, table.provinceAbbr),
+  index('facilities_municipality_province_idx').on(table.municipality, table.provinceAbbr),
 ]);
 
 // ==========================================
@@ -141,13 +154,13 @@ export const users = pgTable('users', {
 ]);
 
 // ==========================================
-// CLAIMS TABLE - Facility ownership claims
+// CLAIMS TABLE - Business ownership claims
 // ==========================================
 export const claims = pgTable('claims', {
   id: serial('id').primaryKey(),
   userId: integer('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
   facilitySlug: varchar('facility_slug', { length: 500 }).notNull(),
-  businessRole: varchar('business_role', { length: 100 }).notNull(),
+  businessRole: varchar('business_role', { length: 100 }).notNull(), // eigenaar, manager, medewerker
   claimantName: varchar('claimant_name', { length: 255 }).notNull(),
   claimantPhone: varchar('claimant_phone', { length: 50 }),
   verificationEmail: varchar('verification_email', { length: 255 }).notNull(),
@@ -156,7 +169,7 @@ export const claims = pgTable('claims', {
   emailVerified: boolean('email_verified').default(false),
   notes: text('notes'),
   adminNotes: text('admin_notes'),
-  status: varchar('status', { length: 50 }).notNull().default('pending'),
+  status: varchar('status', { length: 50 }).notNull().default('pending'), // pending, approved, rejected
   reviewedBy: integer('reviewed_by').references(() => users.id),
   reviewedAt: timestamp('reviewed_at'),
   createdAt: timestamp('created_at').defaultNow(),
@@ -179,8 +192,9 @@ export const reviews = pgTable('reviews', {
   rating: integer('rating').notNull(),
   title: varchar('title', { length: 255 }),
   reviewText: text('review_text'),
-  treatmentType: varchar('treatment_type', { length: 100 }),
-  stayDuration: varchar('stay_duration', { length: 100 }),
+  serviceType: varchar('service_type', { length: 100 }),          // Type dienst (slotwissel, inbraakschade, etc.)
+  prijsKwaliteit: integer('prijs_kwaliteit'),                     // Price/quality rating 1-5
+  snelheid: integer('snelheid'),                                  // Speed rating 1-5
   wouldRecommend: boolean('would_recommend'),
   helpful: integer('helpful').default(0),
   reported: boolean('reported').default(false),
@@ -260,7 +274,7 @@ export const savedFacilities = pgTable('saved_facilities', {
 ]);
 
 // ==========================================
-// CONTACT REQUESTS TABLE - Facility inquiries
+// CONTACT REQUESTS TABLE - Offerteaanvragen
 // ==========================================
 export const contactRequests = pgTable('contact_requests', {
   id: serial('id').primaryKey(),
@@ -270,9 +284,9 @@ export const contactRequests = pgTable('contact_requests', {
   email: varchar('email', { length: 255 }).notNull(),
   phone: varchar('phone', { length: 50 }),
   message: text('message'),
-  insuranceType: varchar('insurance_type', { length: 100 }),
-  treatmentType: varchar('treatment_type', { length: 100 }),
-  urgency: varchar('urgency', { length: 50 }),
+  serviceType: varchar('service_type', { length: 100 }),          // Type dienst gewenst
+  urgentie: varchar('urgentie', { length: 50 }),                  // spoed, normaal, gepland
+  locatie: varchar('locatie', { length: 255 }),                   // Locatie van de klus
   status: varchar('status', { length: 50 }).default('new'),
   forwardedToFacility: boolean('forwarded_to_facility').default(false),
   forwardedAt: timestamp('forwarded_at'),

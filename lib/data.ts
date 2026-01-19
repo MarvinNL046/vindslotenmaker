@@ -3,42 +3,55 @@ import path from 'path';
 import { db, facilities } from './db';
 import { eq, ilike, or, desc, asc, sql, and, count } from 'drizzle-orm';
 
-// US Treatment Facility Interface
-export interface Facility {
-  // Core identifiers
+// Nederlandse Slotenmaker Interface
+export interface Slotenmaker {
+  // Kern identificatie
   id: string;
   name: string;
   slug: string;
 
-  // Location - US geography
+  // Locatie - Nederlandse geografie
   address?: string;
-  city: string;
-  county?: string;
-  state: string;
-  state_abbr: string;
-  zipCode?: string;
+  city: string;                    // Plaats
+  municipality?: string;           // Gemeente
+  province: string;                // Provincie
+  province_abbr: string;
+  zipCode?: string;                // Postcode
   country: string;
-  gps_coordinates?: string;
   latitude?: number;
   longitude?: number;
+  werkgebied?: string[];           // Service area (plaatsen)
 
-  // Classification
+  // Classificatie
   type: string;
   type_slug: string;
-  facility_types: string[];
-  treatment_types: string[];
-  insurance_accepted: string[];
+  bedrijfs_types: string[];        // Business types
+  service_types: string[];         // Services offered
+  betaalmethoden: string[];        // Payment methods
+
+  // Diensten details
+  is_24uurs: boolean;              // 24-uurs service
+  spoed_service: boolean;          // Spoedservice
+  reactietijd?: string;            // Reactietijd (bijv. "15-30 minuten")
+  prijsindicatie?: string;         // Prijsindicatie
+  voorrijkosten?: string;          // Voorrijkosten
+  certificeringen: string[];       // Certificeringen (SKG, VCA, etc.)
 
   // Contact
   phone?: string;
+  phone_24h?: string;              // 24-uurs noodnummer
   email?: string;
   website?: string;
+  whatsapp?: string;
 
   // Details
   description?: string;
   opening_hours?: string;
-  amenities?: string[];
+  specialisaties?: string[];       // Specialisaties
   year_established?: string;
+  kvk_nummer?: string;             // KvK registratie
+  btw_nummer?: string;             // BTW nummer
+  merken?: string[];               // Merken waarmee gewerkt wordt
 
   // Google data
   rating?: number;
@@ -71,17 +84,15 @@ export interface GeneratedContent {
   accessibility: string;
   amenities: string[];
   visitor_tips: string[];
-  treatment_approach?: string;
-  success_stories?: string;
   local_context?: string;
-  state_info?: string;
+  province_info?: string;
   type_info?: string;
   practical_info?: string;
   directions?: string;
 }
 
-// Enriched facility with generated content
-export interface EnrichedFacilityData {
+// Enriched slotenmaker with generated content
+export interface EnrichedSlotenmakerData {
   website_url?: string;
   website_content?: string;
   website_scraped_at?: string;
@@ -109,67 +120,79 @@ export interface EnrichedFacilityData {
   enrichedContent?: string;
 }
 
-export interface FacilityWithContent extends Facility, EnrichedFacilityData {}
+export interface SlotenmakerWithContent extends Slotenmaker, EnrichedSlotenmakerData {}
 
-// State interface
-export interface State {
+// Provincie interface
+export interface Provincie {
   name: string;
   abbr: string;
   slug: string;
-  counties?: number;
+  municipalities?: number;
   capital?: string;
   major_cities?: string[];
 }
 
-// Treatment type interface
-export interface TreatmentType {
+// Service type interface (vervangt TreatmentType)
+export interface ServiceType {
   slug: string;
   name: string;
   description?: string;
   search_terms?: string[];
 }
 
-// Facility type interface
-export interface FacilityType {
+// Bedrijfs type interface (vervangt FacilityType)
+export interface BedrijfsType {
   slug: string;
   name: string;
   description?: string;
   search_terms?: string[];
 }
 
-// Cache for static data (states and types only)
-let statesCache: State[] | null = null;
-let treatmentTypesCache: TreatmentType[] | null = null;
-let facilityTypesCache: FacilityType[] | null = null;
+// Cache for static data
+let provincesCache: Provincie[] | null = null;
+let serviceTypesCache: ServiceType[] | null = null;
+let bedrijfsTypesCache: BedrijfsType[] | null = null;
 
-// ===== HELPER: Map database row to Facility interface =====
+// ===== HELPER: Map database row to Slotenmaker interface =====
 
-function mapRowToFacility(row: typeof facilities.$inferSelect): Facility {
+function mapRowToSlotenmaker(row: typeof facilities.$inferSelect): Slotenmaker {
   return {
     id: row.id.toString(),
     name: row.name,
     slug: row.slug,
     address: row.address || undefined,
     city: row.city,
-    county: row.county || undefined,
-    state: row.state,
-    state_abbr: row.stateAbbr,
+    municipality: row.municipality || undefined,
+    province: row.province,
+    province_abbr: row.provinceAbbr,
     zipCode: row.zipCode || undefined,
     country: row.country,
     latitude: row.latitude ? parseFloat(row.latitude) : undefined,
     longitude: row.longitude ? parseFloat(row.longitude) : undefined,
+    werkgebied: row.werkgebied || [],
     type: row.type,
     type_slug: row.typeSlug || row.type.toLowerCase().replace(/\s+/g, '-'),
-    facility_types: row.facilityTypes || [],
-    treatment_types: row.treatmentTypes || [],
-    insurance_accepted: row.insuranceAccepted || [],
+    bedrijfs_types: row.bedrijfsTypes || [],
+    service_types: row.serviceTypes || [],
+    betaalmethoden: row.betaalmethoden || [],
+    is_24uurs: row.is24uurs || false,
+    spoed_service: row.spoedService || false,
+    reactietijd: row.reactietijd || undefined,
+    prijsindicatie: row.prijsindicatie || undefined,
+    voorrijkosten: row.voorrijkosten || undefined,
+    certificeringen: row.certificeringen || [],
     phone: row.phone || undefined,
+    phone_24h: row.phone24h || undefined,
     email: row.email || undefined,
     website: row.website || undefined,
+    whatsapp: row.whatsapp || undefined,
     description: row.description || undefined,
     opening_hours: row.openingHours || undefined,
-    amenities: row.amenities || undefined,
+    specialisaties: row.specialisaties || undefined,
     year_established: row.yearEstablished || undefined,
+    kvk_nummer: row.kvkNummer || undefined,
+    btw_nummer: row.btwNummer || undefined,
+    merken: row.merken || undefined,
     rating: row.rating ? parseFloat(row.rating) : undefined,
     review_count: row.reviewCount || undefined,
     photo_url: row.photoUrl || undefined,
@@ -181,8 +204,8 @@ function mapRowToFacility(row: typeof facilities.$inferSelect): Facility {
   };
 }
 
-function mapRowToFacilityWithContent(row: typeof facilities.$inferSelect): FacilityWithContent {
-  const base = mapRowToFacility(row);
+function mapRowToSlotenmakerWithContent(row: typeof facilities.$inferSelect): SlotenmakerWithContent {
+  const base = mapRowToSlotenmaker(row);
   return {
     ...base,
     enriched: !!row.enrichedContent || !!row.generatedSummary,
@@ -203,19 +226,27 @@ function mapRowToFacilityWithContent(row: typeof facilities.$inferSelect): Facil
   };
 }
 
+// ===== LEGACY ALIASES =====
+// Voor backwards compatibility met bestaande code
+export type Facility = Slotenmaker;
+export type FacilityWithContent = SlotenmakerWithContent;
+export type State = Provincie;
+export type TreatmentType = ServiceType;
+export type FacilityType = BedrijfsType;
+
 // ===== CORE DATA FUNCTIONS =====
 
-export async function getAllFacilities(): Promise<Facility[]> {
+export async function getAllFacilities(): Promise<Slotenmaker[]> {
   try {
     const results = await db.select().from(facilities);
-    return results.map(mapRowToFacility);
+    return results.map(mapRowToSlotenmaker);
   } catch (error) {
-    console.error('Error loading facilities from database:', error);
+    console.error('Fout bij laden slotenmakers uit database:', error);
     return [];
   }
 }
 
-export async function getFacilityBySlug(slug: string): Promise<FacilityWithContent | null> {
+export async function getFacilityBySlug(slug: string): Promise<SlotenmakerWithContent | null> {
   try {
     const results = await db.select()
       .from(facilities)
@@ -224,105 +255,133 @@ export async function getFacilityBySlug(slug: string): Promise<FacilityWithConte
 
     if (results.length === 0) return null;
 
-    return mapRowToFacilityWithContent(results[0]);
+    return mapRowToSlotenmakerWithContent(results[0]);
   } catch (error) {
-    console.error('Error loading facility:', error);
+    console.error('Fout bij laden slotenmaker:', error);
     return null;
   }
 }
 
-// ===== STATE FUNCTIONS =====
+// ===== PROVINCIE FUNCTIONS =====
 
-export async function getAllStates(): Promise<State[]> {
-  if (statesCache) return statesCache;
+export async function getAllStates(): Promise<Provincie[]> {
+  return getAllProvinces();
+}
+
+export async function getAllProvinces(): Promise<Provincie[]> {
+  if (provincesCache) return provincesCache;
 
   try {
-    const statesPath = path.join(process.cwd(), 'data', 'states.json');
-    const content = await fs.readFile(statesPath, 'utf-8');
+    const provincesPath = path.join(process.cwd(), 'data', 'provinces.json');
+    const content = await fs.readFile(provincesPath, 'utf-8');
     const data = JSON.parse(content);
-    statesCache = data.states as State[];
-    return statesCache;
+    provincesCache = data.provinces as Provincie[];
+    return provincesCache;
   } catch (error) {
-    console.error('Error loading states:', error);
+    console.error('Fout bij laden provincies:', error);
     return [];
   }
 }
 
-export async function getStateBySlug(slug: string): Promise<State | null> {
-  const states = await getAllStates();
-  return states.find(s => s.slug === slug) || null;
+export async function getStateBySlug(slug: string): Promise<Provincie | null> {
+  return getProvinceBySlug(slug);
 }
 
-export async function getStateByAbbr(abbr: string): Promise<State | null> {
-  const states = await getAllStates();
-  return states.find(s => s.abbr.toLowerCase() === abbr.toLowerCase()) || null;
+export async function getProvinceBySlug(slug: string): Promise<Provincie | null> {
+  const provinces = await getAllProvinces();
+  return provinces.find(p => p.slug === slug) || null;
 }
 
-export async function getFacilitiesByState(state: string): Promise<Facility[]> {
+export async function getStateByAbbr(abbr: string): Promise<Provincie | null> {
+  return getProvinceByAbbr(abbr);
+}
+
+export async function getProvinceByAbbr(abbr: string): Promise<Provincie | null> {
+  const provinces = await getAllProvinces();
+  return provinces.find(p => p.abbr.toLowerCase() === abbr.toLowerCase()) || null;
+}
+
+export async function getFacilitiesByState(province: string): Promise<Slotenmaker[]> {
+  return getFacilitiesByProvince(province);
+}
+
+export async function getFacilitiesByProvince(province: string): Promise<Slotenmaker[]> {
   try {
     const results = await db.select()
       .from(facilities)
       .where(
         or(
-          ilike(facilities.state, state),
-          ilike(facilities.stateAbbr, state)
+          ilike(facilities.province, province),
+          ilike(facilities.provinceAbbr, province)
         )
       );
-    return results.map(mapRowToFacility);
+    return results.map(mapRowToSlotenmaker);
   } catch (error) {
-    console.error('Error loading facilities by state:', error);
+    console.error('Fout bij laden slotenmakers per provincie:', error);
     return [];
   }
 }
 
-// ===== COUNTY FUNCTIONS =====
+// ===== GEMEENTE FUNCTIONS =====
 
 export async function getAllCounties(): Promise<string[]> {
-  try {
-    const results = await db.selectDistinct({ county: facilities.county })
-      .from(facilities)
-      .where(sql`${facilities.county} IS NOT NULL AND ${facilities.county} != ''`)
-      .orderBy(asc(facilities.county));
+  return getAllMunicipalities();
+}
 
-    return results.map(r => r.county!).filter(Boolean);
+export async function getAllMunicipalities(): Promise<string[]> {
+  try {
+    const results = await db.selectDistinct({ municipality: facilities.municipality })
+      .from(facilities)
+      .where(sql`${facilities.municipality} IS NOT NULL AND ${facilities.municipality} != ''`)
+      .orderBy(asc(facilities.municipality));
+
+    return results.map(r => r.municipality!).filter(Boolean);
   } catch (error) {
-    console.error('Error loading counties:', error);
+    console.error('Fout bij laden gemeenten:', error);
     return [];
   }
 }
 
-export async function getCountiesByState(state: string): Promise<string[]> {
+export async function getCountiesByState(province: string): Promise<string[]> {
+  return getMunicipalitiesByProvince(province);
+}
+
+export async function getMunicipalitiesByProvince(province: string): Promise<string[]> {
   try {
-    const results = await db.selectDistinct({ county: facilities.county })
+    const results = await db.selectDistinct({ municipality: facilities.municipality })
       .from(facilities)
       .where(
         and(
-          sql`${facilities.county} IS NOT NULL AND ${facilities.county} != ''`,
+          sql`${facilities.municipality} IS NOT NULL AND ${facilities.municipality} != ''`,
           or(
-            ilike(facilities.state, state),
-            ilike(facilities.stateAbbr, state)
+            ilike(facilities.province, province),
+            ilike(facilities.provinceAbbr, province)
           )
         )
       )
-      .orderBy(asc(facilities.county));
+      .orderBy(asc(facilities.municipality));
 
-    return results.map(r => r.county!).filter(Boolean);
+    return results.map(r => r.municipality!).filter(Boolean);
   } catch (error) {
-    console.error('Error loading counties by state:', error);
+    console.error('Fout bij laden gemeenten per provincie:', error);
     return [];
   }
 }
 
-export async function getFacilitiesByCounty(county: string, state?: string): Promise<Facility[]> {
-  try {
-    let whereClause = ilike(facilities.county, county);
+export async function getFacilitiesByCounty(municipality: string, province?: string): Promise<Slotenmaker[]> {
+  return getFacilitiesByMunicipality(municipality, province);
+}
 
-    if (state) {
+export async function getFacilitiesByMunicipality(municipality: string, province?: string): Promise<Slotenmaker[]> {
+  try {
+    let whereClause = ilike(facilities.municipality, municipality);
+
+    if (province) {
       whereClause = and(
         whereClause,
         or(
-          ilike(facilities.state, state),
-          ilike(facilities.stateAbbr, state)
+          ilike(facilities.province, province),
+          ilike(facilities.provinceAbbr, province)
         )
       )!;
     }
@@ -331,14 +390,14 @@ export async function getFacilitiesByCounty(county: string, state?: string): Pro
       .from(facilities)
       .where(whereClause);
 
-    return results.map(mapRowToFacility);
+    return results.map(mapRowToSlotenmaker);
   } catch (error) {
-    console.error('Error loading facilities by county:', error);
+    console.error('Fout bij laden slotenmakers per gemeente:', error);
     return [];
   }
 }
 
-// ===== CITY FUNCTIONS =====
+// ===== PLAATS FUNCTIONS =====
 
 export async function getAllCities(): Promise<string[]> {
   try {
@@ -349,12 +408,16 @@ export async function getAllCities(): Promise<string[]> {
 
     return results.map(r => r.city).filter(Boolean);
   } catch (error) {
-    console.error('Error loading cities:', error);
+    console.error('Fout bij laden plaatsen:', error);
     return [];
   }
 }
 
-export async function getCitiesByState(state: string): Promise<string[]> {
+export async function getCitiesByState(province: string): Promise<string[]> {
+  return getCitiesByProvince(province);
+}
+
+export async function getCitiesByProvince(province: string): Promise<string[]> {
   try {
     const results = await db.selectDistinct({ city: facilities.city })
       .from(facilities)
@@ -362,8 +425,8 @@ export async function getCitiesByState(state: string): Promise<string[]> {
         and(
           sql`${facilities.city} IS NOT NULL AND ${facilities.city} != ''`,
           or(
-            ilike(facilities.state, state),
-            ilike(facilities.stateAbbr, state)
+            ilike(facilities.province, province),
+            ilike(facilities.provinceAbbr, province)
           )
         )
       )
@@ -371,21 +434,21 @@ export async function getCitiesByState(state: string): Promise<string[]> {
 
     return results.map(r => r.city).filter(Boolean);
   } catch (error) {
-    console.error('Error loading cities by state:', error);
+    console.error('Fout bij laden plaatsen per provincie:', error);
     return [];
   }
 }
 
-export async function getFacilitiesByCity(city: string, state?: string): Promise<Facility[]> {
+export async function getFacilitiesByCity(city: string, province?: string): Promise<Slotenmaker[]> {
   try {
     let whereClause = ilike(facilities.city, city);
 
-    if (state) {
+    if (province) {
       whereClause = and(
         whereClause,
         or(
-          ilike(facilities.state, state),
-          ilike(facilities.stateAbbr, state)
+          ilike(facilities.province, province),
+          ilike(facilities.provinceAbbr, province)
         )
       )!;
     }
@@ -394,113 +457,174 @@ export async function getFacilitiesByCity(city: string, state?: string): Promise
       .from(facilities)
       .where(whereClause);
 
-    return results.map(mapRowToFacility);
+    return results.map(mapRowToSlotenmaker);
   } catch (error) {
-    console.error('Error loading facilities by city:', error);
+    console.error('Fout bij laden slotenmakers per plaats:', error);
     return [];
   }
 }
 
-// ===== TREATMENT TYPE FUNCTIONS =====
+// ===== SERVICE TYPE FUNCTIONS =====
 
-export async function getAllTreatmentTypes(): Promise<TreatmentType[]> {
-  if (treatmentTypesCache) return treatmentTypesCache;
+export async function getAllTreatmentTypes(): Promise<ServiceType[]> {
+  return getAllServiceTypes();
+}
+
+export async function getAllServiceTypes(): Promise<ServiceType[]> {
+  if (serviceTypesCache) return serviceTypesCache;
 
   try {
-    const typesPath = path.join(process.cwd(), 'data', 'treatment-types.json');
+    const typesPath = path.join(process.cwd(), 'data', 'service-types.json');
     const content = await fs.readFile(typesPath, 'utf-8');
     const data = JSON.parse(content);
-    treatmentTypesCache = data.types as TreatmentType[];
-    return treatmentTypesCache;
+    serviceTypesCache = data.types as ServiceType[];
+    return serviceTypesCache;
   } catch (error) {
-    console.error('Error loading treatment types:', error);
+    console.error('Fout bij laden service types:', error);
     return [];
   }
 }
 
-export async function getTreatmentTypeBySlug(slug: string): Promise<TreatmentType | null> {
-  const types = await getAllTreatmentTypes();
+export async function getTreatmentTypeBySlug(slug: string): Promise<ServiceType | null> {
+  return getServiceTypeBySlug(slug);
+}
+
+export async function getServiceTypeBySlug(slug: string): Promise<ServiceType | null> {
+  const types = await getAllServiceTypes();
   return types.find(t => t.slug === slug) || null;
 }
 
-export async function getFacilitiesByTreatmentType(treatmentType: string): Promise<Facility[]> {
+export async function getFacilitiesByTreatmentType(serviceType: string): Promise<Slotenmaker[]> {
+  return getFacilitiesByServiceType(serviceType);
+}
+
+export async function getFacilitiesByServiceType(serviceType: string): Promise<Slotenmaker[]> {
   try {
     const results = await db.select()
       .from(facilities)
       .where(
-        sql`${treatmentType} = ANY(${facilities.treatmentTypes})`
+        sql`${serviceType} = ANY(${facilities.serviceTypes})`
       );
 
-    return results.map(mapRowToFacility);
+    return results.map(mapRowToSlotenmaker);
   } catch (error) {
-    console.error('Error loading facilities by treatment type:', error);
+    console.error('Fout bij laden slotenmakers per service type:', error);
     return [];
   }
 }
 
-// ===== FACILITY TYPE FUNCTIONS =====
+// ===== BEDRIJFS TYPE FUNCTIONS =====
 
-export async function getAllFacilityTypes(): Promise<FacilityType[]> {
-  if (facilityTypesCache) return facilityTypesCache;
+export async function getAllFacilityTypes(): Promise<BedrijfsType[]> {
+  return getAllBedrijfsTypes();
+}
+
+export async function getAllBedrijfsTypes(): Promise<BedrijfsType[]> {
+  if (bedrijfsTypesCache) return bedrijfsTypesCache;
 
   try {
-    const typesPath = path.join(process.cwd(), 'data', 'facility-types.json');
+    const typesPath = path.join(process.cwd(), 'data', 'bedrijfs-types.json');
     const content = await fs.readFile(typesPath, 'utf-8');
     const data = JSON.parse(content);
-    facilityTypesCache = data.types as FacilityType[];
-    return facilityTypesCache;
+    bedrijfsTypesCache = data.types as BedrijfsType[];
+    return bedrijfsTypesCache;
   } catch (error) {
-    console.error('Error loading facility types:', error);
+    console.error('Fout bij laden bedrijfs types:', error);
     return [];
   }
 }
 
-export async function getFacilityTypeBySlug(slug: string): Promise<FacilityType | null> {
-  const types = await getAllFacilityTypes();
+export async function getFacilityTypeBySlug(slug: string): Promise<BedrijfsType | null> {
+  return getBedrijfsTypeBySlug(slug);
+}
+
+export async function getBedrijfsTypeBySlug(slug: string): Promise<BedrijfsType | null> {
+  const types = await getAllBedrijfsTypes();
   return types.find(t => t.slug === slug) || null;
 }
 
-export async function getFacilitiesByFacilityType(facilityType: string): Promise<Facility[]> {
+export async function getFacilitiesByFacilityType(bedrijfsType: string): Promise<Slotenmaker[]> {
+  return getFacilitiesByBedrijfsType(bedrijfsType);
+}
+
+export async function getFacilitiesByBedrijfsType(bedrijfsType: string): Promise<Slotenmaker[]> {
   try {
     const results = await db.select()
       .from(facilities)
       .where(
         or(
-          ilike(facilities.type, facilityType),
-          ilike(facilities.typeSlug, facilityType),
-          sql`${facilityType} = ANY(${facilities.facilityTypes})`
+          ilike(facilities.type, bedrijfsType),
+          ilike(facilities.typeSlug, bedrijfsType),
+          sql`${bedrijfsType} = ANY(${facilities.bedrijfsTypes})`
         )
       );
 
-    return results.map(mapRowToFacility);
+    return results.map(mapRowToSlotenmaker);
   } catch (error) {
-    console.error('Error loading facilities by facility type:', error);
+    console.error('Fout bij laden slotenmakers per bedrijfs type:', error);
     return [];
   }
 }
 
-// ===== INSURANCE FUNCTIONS =====
+// ===== 24-UURS SERVICE FUNCTIONS =====
 
-export async function getFacilitiesByInsurance(insurance: string): Promise<Facility[]> {
+export async function get24uursSlotenmakers(): Promise<Slotenmaker[]> {
+  try {
+    const results = await db.select()
+      .from(facilities)
+      .where(eq(facilities.is24uurs, true));
+
+    return results.map(mapRowToSlotenmaker);
+  } catch (error) {
+    console.error('Fout bij laden 24-uurs slotenmakers:', error);
+    return [];
+  }
+}
+
+export async function get24uursSlotenmakersByCity(city: string): Promise<Slotenmaker[]> {
   try {
     const results = await db.select()
       .from(facilities)
       .where(
-        sql`${insurance} = ANY(${facilities.insuranceAccepted})`
+        and(
+          eq(facilities.is24uurs, true),
+          ilike(facilities.city, city)
+        )
       );
 
-    return results.map(mapRowToFacility);
+    return results.map(mapRowToSlotenmaker);
   } catch (error) {
-    console.error('Error loading facilities by insurance:', error);
+    console.error('Fout bij laden 24-uurs slotenmakers per plaats:', error);
+    return [];
+  }
+}
+
+// ===== BETAALMETHODEN FUNCTIONS (vervangt Insurance) =====
+
+export async function getFacilitiesByInsurance(betaalmethode: string): Promise<Slotenmaker[]> {
+  return getFacilitiesByBetaalmethode(betaalmethode);
+}
+
+export async function getFacilitiesByBetaalmethode(betaalmethode: string): Promise<Slotenmaker[]> {
+  try {
+    const results = await db.select()
+      .from(facilities)
+      .where(
+        sql`${betaalmethode} = ANY(${facilities.betaalmethoden})`
+      );
+
+    return results.map(mapRowToSlotenmaker);
+  } catch (error) {
+    console.error('Fout bij laden slotenmakers per betaalmethode:', error);
     return [];
   }
 }
 
 // ===== SLUG UTILITIES =====
 
-export function createSlug(name: string, city: string, state_abbr?: string): string {
-  const base = state_abbr
-    ? `${name}-${city}-${state_abbr}`
+export function createSlug(name: string, city: string, province_abbr?: string): string {
+  const base = province_abbr
+    ? `${name}-${city}-${province_abbr}`
     : `${name}-${city}`;
 
   return base
@@ -511,15 +635,23 @@ export function createSlug(name: string, city: string, state_abbr?: string): str
     .replace(/^-+|-+$/g, '');
 }
 
-export function createStateSlug(state: string): string {
-  return state
+export function createStateSlug(province: string): string {
+  return createProvinceSlug(province);
+}
+
+export function createProvinceSlug(province: string): string {
+  return province
     .toLowerCase()
     .replace(/\s+/g, '-')
     .replace(/[^a-z0-9-]/g, '');
 }
 
-export function createCountySlug(county: string): string {
-  return county
+export function createCountySlug(municipality: string): string {
+  return createMunicipalitySlug(municipality);
+}
+
+export function createMunicipalitySlug(municipality: string): string {
+  return municipality
     .toLowerCase()
     .replace(/\s+/g, '-')
     .replace(/[^a-z0-9-]/g, '');
@@ -543,43 +675,59 @@ export function createTypeSlug(type: string): string {
 
 export async function getStats() {
   try {
-    const states = await getAllStates();
-    const treatmentTypes = await getAllTreatmentTypes();
-    const facilityTypes = await getAllFacilityTypes();
+    const provinces = await getAllProvinces();
+    const serviceTypes = await getAllServiceTypes();
+    const bedrijfsTypes = await getAllBedrijfsTypes();
 
     // Use SQL aggregations for efficiency
     const [statsResult] = await db.select({
       totalFacilities: count(),
-      statesWithFacilities: sql<number>`COUNT(DISTINCT ${facilities.state})`,
+      provincesWithFacilities: sql<number>`COUNT(DISTINCT ${facilities.province})`,
       citiesWithFacilities: sql<number>`COUNT(DISTINCT ${facilities.city})`,
-      countiesWithFacilities: sql<number>`COUNT(DISTINCT ${facilities.county})`,
+      municipalitiesWithFacilities: sql<number>`COUNT(DISTINCT ${facilities.municipality})`,
       withRatings: sql<number>`COUNT(*) FILTER (WHERE ${facilities.rating} IS NOT NULL)`,
       withPhotos: sql<number>`COUNT(*) FILTER (WHERE ${facilities.photoUrl} IS NOT NULL)`,
+      with24uurs: sql<number>`COUNT(*) FILTER (WHERE ${facilities.is24uurs} = true)`,
     }).from(facilities);
 
     return {
       total_facilities: Number(statsResult.totalFacilities),
-      total_states: states.length,
-      states_with_facilities: Number(statsResult.statesWithFacilities),
+      total_slotenmakers: Number(statsResult.totalFacilities),
+      total_provinces: provinces.length,
+      provinces_with_facilities: Number(statsResult.provincesWithFacilities),
       cities_with_facilities: Number(statsResult.citiesWithFacilities),
-      counties_with_facilities: Number(statsResult.countiesWithFacilities),
-      total_treatment_types: treatmentTypes.length,
-      total_facility_types: facilityTypes.length,
+      municipalities_with_facilities: Number(statsResult.municipalitiesWithFacilities),
+      total_service_types: serviceTypes.length,
+      total_bedrijfs_types: bedrijfsTypes.length,
       with_ratings: Number(statsResult.withRatings),
       with_photos: Number(statsResult.withPhotos),
+      with_24uurs: Number(statsResult.with24uurs),
+      // Legacy aliases
+      total_states: provinces.length,
+      states_with_facilities: Number(statsResult.provincesWithFacilities),
+      counties_with_facilities: Number(statsResult.municipalitiesWithFacilities),
+      total_treatment_types: serviceTypes.length,
+      total_facility_types: bedrijfsTypes.length,
     };
   } catch (error) {
-    console.error('Error loading stats:', error);
+    console.error('Fout bij laden statistieken:', error);
     return {
       total_facilities: 0,
+      total_slotenmakers: 0,
+      total_provinces: 0,
+      provinces_with_facilities: 0,
+      cities_with_facilities: 0,
+      municipalities_with_facilities: 0,
+      total_service_types: 0,
+      total_bedrijfs_types: 0,
+      with_ratings: 0,
+      with_photos: 0,
+      with_24uurs: 0,
       total_states: 0,
       states_with_facilities: 0,
-      cities_with_facilities: 0,
       counties_with_facilities: 0,
       total_treatment_types: 0,
       total_facility_types: 0,
-      with_ratings: 0,
-      with_photos: 0,
     };
   }
 }
@@ -587,23 +735,32 @@ export async function getStats() {
 // ===== SEARCH =====
 
 export async function searchFacilities(query: string, filters?: {
-  state?: string;
+  province?: string;
   type?: string;
   city?: string;
+  municipality?: string;
+  serviceType?: string;
+  bedrijfsType?: string;
+  betaalmethode?: string;
+  is24uurs?: boolean;
+  // Legacy aliases
+  state?: string;
   county?: string;
   treatmentType?: string;
   facilityType?: string;
   insurance?: string;
-}): Promise<Facility[]> {
+}): Promise<Slotenmaker[]> {
   try {
     // Build dynamic where conditions
     const conditions = [];
 
-    if (filters?.state) {
+    // Province filter (also accepts legacy 'state')
+    const provinceFilter = filters?.province || filters?.state;
+    if (provinceFilter) {
       conditions.push(
         or(
-          ilike(facilities.state, filters.state),
-          ilike(facilities.stateAbbr, filters.state)
+          ilike(facilities.province, provinceFilter),
+          ilike(facilities.provinceAbbr, provinceFilter)
         )
       );
     }
@@ -621,26 +778,39 @@ export async function searchFacilities(query: string, filters?: {
       conditions.push(ilike(facilities.city, filters.city));
     }
 
-    if (filters?.county) {
-      conditions.push(ilike(facilities.county, filters.county));
+    // Municipality filter (also accepts legacy 'county')
+    const municipalityFilter = filters?.municipality || filters?.county;
+    if (municipalityFilter) {
+      conditions.push(ilike(facilities.municipality, municipalityFilter));
     }
 
-    if (filters?.treatmentType) {
+    // Service type filter (also accepts legacy 'treatmentType')
+    const serviceTypeFilter = filters?.serviceType || filters?.treatmentType;
+    if (serviceTypeFilter) {
       conditions.push(
-        sql`${filters.treatmentType} = ANY(${facilities.treatmentTypes})`
+        sql`${serviceTypeFilter} = ANY(${facilities.serviceTypes})`
       );
     }
 
-    if (filters?.facilityType) {
+    // Bedrijfs type filter (also accepts legacy 'facilityType')
+    const bedrijfsTypeFilter = filters?.bedrijfsType || filters?.facilityType;
+    if (bedrijfsTypeFilter) {
       conditions.push(
-        sql`${filters.facilityType} = ANY(${facilities.facilityTypes})`
+        sql`${bedrijfsTypeFilter} = ANY(${facilities.bedrijfsTypes})`
       );
     }
 
-    if (filters?.insurance) {
+    // Betaalmethode filter (also accepts legacy 'insurance')
+    const betaalmethodeFilter = filters?.betaalmethode || filters?.insurance;
+    if (betaalmethodeFilter) {
       conditions.push(
-        sql`${filters.insurance} = ANY(${facilities.insuranceAccepted})`
+        sql`${betaalmethodeFilter} = ANY(${facilities.betaalmethoden})`
       );
+    }
+
+    // 24-uurs filter
+    if (filters?.is24uurs) {
+      conditions.push(eq(facilities.is24uurs, true));
     }
 
     // Add search query
@@ -650,8 +820,8 @@ export async function searchFacilities(query: string, filters?: {
         or(
           ilike(facilities.name, q),
           ilike(facilities.city, q),
-          ilike(facilities.county, q),
-          ilike(facilities.state, q),
+          ilike(facilities.municipality, q),
+          ilike(facilities.province, q),
           ilike(facilities.address, q),
           ilike(facilities.zipCode, q)
         )
@@ -668,18 +838,18 @@ export async function searchFacilities(query: string, filters?: {
       .orderBy(desc(facilities.rating))
       .limit(100);
 
-    return results.map(mapRowToFacility);
+    return results.map(mapRowToSlotenmaker);
   } catch (error) {
-    console.error('Error searching facilities:', error);
+    console.error('Fout bij zoeken slotenmakers:', error);
     return [];
   }
 }
 
 // ===== NEARBY FACILITIES =====
 
-// Haversine distance calculation (fallback if no PostGIS)
+// Haversine distance calculation (in kilometers for Netherlands)
 function haversineDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
-  const R = 3959; // Earth's radius in miles
+  const R = 6371; // Earth's radius in kilometers
   const dLat = (lat2 - lat1) * Math.PI / 180;
   const dLon = (lon2 - lon1) * Math.PI / 180;
   const a =
@@ -693,44 +863,42 @@ function haversineDistance(lat1: number, lon1: number, lat2: number, lon2: numbe
 export async function getNearbyFacilities(
   lat: number,
   lon: number,
-  radiusMiles: number = 25,
+  radiusKm: number = 25,
   limit: number = 20
-): Promise<Array<Facility & { distance: number }>> {
+): Promise<Array<Slotenmaker & { distance: number }>> {
   try {
-    // Use database query with Haversine formula in SQL
-    // This is more efficient than loading all facilities
+    // Use database query with basic filtering first
     const results = await db.select()
       .from(facilities)
       .where(
         sql`${facilities.latitude} IS NOT NULL AND ${facilities.longitude} IS NOT NULL`
       )
-      .limit(1000); // Get a reasonable number to filter
+      .limit(1000);
 
     // Calculate distances and filter client-side
-    // TODO: Enable PostGIS for better performance
     const withDistance = results
       .map(row => ({
-        ...mapRowToFacility(row),
+        ...mapRowToSlotenmaker(row),
         distance: haversineDistance(
           lat, lon,
           parseFloat(row.latitude!),
           parseFloat(row.longitude!)
         )
       }))
-      .filter(c => c.distance <= radiusMiles)
+      .filter(s => s.distance <= radiusKm)
       .sort((a, b) => a.distance - b.distance)
       .slice(0, limit);
 
     return withDistance;
   } catch (error) {
-    console.error('Error loading nearby facilities:', error);
+    console.error('Fout bij laden nabije slotenmakers:', error);
     return [];
   }
 }
 
 // ===== FEATURED/POPULAR =====
 
-export async function getFeaturedFacilities(limit: number = 10): Promise<Facility[]> {
+export async function getFeaturedFacilities(limit: number = 10): Promise<Slotenmaker[]> {
   try {
     const results = await db.select()
       .from(facilities)
@@ -746,14 +914,14 @@ export async function getFeaturedFacilities(limit: number = 10): Promise<Facilit
       )
       .limit(limit);
 
-    return results.map(mapRowToFacility);
+    return results.map(mapRowToSlotenmaker);
   } catch (error) {
-    console.error('Error loading featured facilities:', error);
+    console.error('Fout bij laden uitgelichte slotenmakers:', error);
     return [];
   }
 }
 
-export async function getRecentlyUpdated(limit: number = 10): Promise<Facility[]> {
+export async function getRecentlyUpdated(limit: number = 10): Promise<Slotenmaker[]> {
   try {
     const results = await db.select()
       .from(facilities)
@@ -761,9 +929,9 @@ export async function getRecentlyUpdated(limit: number = 10): Promise<Facility[]
       .orderBy(desc(facilities.updatedAt))
       .limit(limit);
 
-    return results.map(mapRowToFacility);
+    return results.map(mapRowToSlotenmaker);
   } catch (error) {
-    console.error('Error loading recently updated facilities:', error);
+    console.error('Fout bij laden recent bijgewerkte slotenmakers:', error);
     return [];
   }
 }

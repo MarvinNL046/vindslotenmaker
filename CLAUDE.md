@@ -1,10 +1,10 @@
-# CLAUDE.md - RehabNearByMe.com Project Guide
+# CLAUDE.md - VindSlotenmaker.nl Project Guide
 
-This file provides guidance to Claude Code when working with the RehabNearByMe.com project.
+This file provides guidance to Claude Code when working with the VindSlotenmaker.nl project.
 
 ## Project Overview
 
-RehabNearByMe.com is a comprehensive directory of rehabilitation and addiction treatment centers in the United States.
+VindSlotenmaker.nl is a comprehensive directory of locksmiths (slotenmakers) in the Netherlands. The site helps users find reliable locksmiths for emergency services, home security, car locks, safes, and more.
 
 ### Tech Stack
 - **Framework**: Next.js 16 with App Router
@@ -17,36 +17,30 @@ RehabNearByMe.com is a comprehensive directory of rehabilitation and addiction t
 ## Key Features
 
 ### 1. Geographic Structure
-- `/state/[state]` - State-level listings (e.g., California)
-- `/county/[county]` - County-level listings
-- `/city/[city]` - City-level listings
-- `/facility/[slug]` - Individual facility detail pages
+- `/provincie/[provincie]` - Province-level listings (e.g., Noord-Holland)
+- `/gemeente/[gemeente]` - Municipality-level listings
+- `/plaats/[stad]` - City-level listings
+- `/slotenmaker/[slug]` - Individual locksmith detail pages
 
-### 2. Facility Types
-- Inpatient Rehabilitation Centers
-- Outpatient Treatment Programs
-- Detox Centers
-- Sober Living Homes
-- Dual Diagnosis Treatment
-- Luxury Rehab Centers
+### 2. Service Types (Diensten)
+- 24-uurs Spoedservice (24-hour emergency service)
+- Woningbeveiliging (Home security)
+- Autosloten (Car locks)
+- Kluizen (Safes)
+- Inbraakschade herstel (Break-in damage repair)
+- Sleutelservice (Key service)
+- Cilindersloten (Cylinder locks)
+- Elektronische sloten (Electronic locks)
 
-### 3. Treatment Specializations
-- Alcohol Addiction
-- Drug Addiction (Opioids, Cocaine, Meth, etc.)
-- Prescription Drug Abuse
-- Mental Health & Co-occurring Disorders
-- Adolescent Programs
-- Veterans Programs
-
-### 4. Search & Filter
-- Search by location, facility name
-- Filter by treatment type
-- Filter by insurance accepted
-- Filter by amenities
+### 3. Search & Filter
+- Search by location (city, postal code)
+- Filter by service type
+- Filter by 24-hour availability
+- Filter by ratings
 
 ## Data Structure
 
-### Facility Data Format
+### Locksmith Data Format
 ```typescript
 {
   id: string;
@@ -54,10 +48,10 @@ RehabNearByMe.com is a comprehensive directory of rehabilitation and addiction t
   slug: string;
   address: string;
   city: string;
-  state: string;
-  state_abbr: string;
-  county: string;
-  zip: string;
+  province: string;
+  province_abbr: string;
+  municipality: string;
+  postal_code: string;
   phone?: string;
   website?: string;
   lat?: number;
@@ -65,10 +59,11 @@ RehabNearByMe.com is a comprehensive directory of rehabilitation and addiction t
   rating?: number;
   review_count?: number;
   photo?: string;
-  facility_types: string[];
-  treatment_types: string[];
-  insurance_accepted: string[];
-  amenities: string[];
+  service_types: string[];  // Types of services offered
+  brands: string[];         // Lock brands serviced
+  certifications: string[]; // Professional certifications
+  is_24_hour: boolean;      // 24-hour emergency availability
+  response_time?: string;   // Average response time
   description?: string;
 }
 ```
@@ -77,20 +72,20 @@ RehabNearByMe.com is a comprehensive directory of rehabilitation and addiction t
 
 ### Public Pages
 - `/` - Homepage with search
-- `/search` - Search results page
-- `/state/[state]` - State listings
-- `/county/[county]` - County listings
-- `/city/[city]` - City listings
-- `/facility/[slug]` - Facility detail page
-- `/compare` - Compare facilities
-- `/guide` - Treatment guides
-- `/about` - About page
+- `/zoeken` - Search results page
+- `/provincie/[provincie]` - Province listings
+- `/gemeente/[gemeente]` - Municipality listings
+- `/plaats/[stad]` - City listings
+- `/slotenmaker/[slug]` - Locksmith detail page
+- `/vergelijk` - Compare locksmiths
+- `/gids` - Service guides
+- `/over-ons` - About page
 - `/contact` - Contact page
 
 ### API Routes
-- `/api/search` - Search facilities
-- `/api/facility/[slug]` - Get facility data
-- `/api/facilities/nearby` - Get nearby facilities
+- `/api/zoeken` - Search locksmiths
+- `/api/slotenmaker/[slug]` - Get locksmith data
+- `/api/slotenmakers/dichtbij` - Get nearby locksmiths
 
 ## Development Commands
 
@@ -104,9 +99,9 @@ npm run build
 # Type checking
 npm run typecheck
 
-# Discover facilities (scraping)
+# Discover locksmiths (scraping)
 npm run discover:test
-npm run discover:state
+npm run discover:province
 npm run discover:full
 ```
 
@@ -123,29 +118,53 @@ GOOGLE_PLACES_API_KEY=
 ## Content Guidelines
 
 ### Target Audience
-- People seeking addiction treatment
-- Family members looking for help
-- Healthcare professionals
-- Insurance providers
+- People locked out of their home or car
+- Homeowners seeking security upgrades
+- Businesses needing commercial security
+- People who lost their keys
 
 ### Tone
-- Compassionate and supportive
-- Professional and informative
-- Non-judgmental
-- Hopeful
+- Professional and trustworthy
+- Urgent and helpful (for emergencies)
+- Informative about security
+- Clear pricing transparency
 
-### SEO Focus Keywords
-- rehab near me
-- addiction treatment centers
-- drug rehab [city]
-- alcohol rehab [state]
-- inpatient rehab
-- outpatient treatment
-- detox centers near me
+### SEO Focus Keywords (Dutch)
+- slotenmaker bij mij in de buurt
+- slotenmaker spoed
+- slotenmaker [stad]
+- slot vervangen
+- inbraakbeveiliging
+- autosleutel bijmaken
+- 24 uur slotenmaker
+- noodopening deur
+
+## Color Theme
+
+- **Primary**: Orange (#F97316) - Emergency/urgent service color
+- **Secondary**: Dark Gray (#1F2937) - Professional, trustworthy
+- **Accent**: White/Light Gray - Clean, modern
+
+## Dutch Provinces (Provincies)
+
+1. Groningen
+2. Friesland
+3. Drenthe
+4. Overijssel
+5. Flevoland
+6. Gelderland
+7. Utrecht
+8. Noord-Holland
+9. Zuid-Holland
+10. Zeeland
+11. Noord-Brabant
+12. Limburg
 
 ## Notes
 
 - This project follows a directory website architecture
-- Facility data will be scraped from Google Places API
-- Focus on US market initially
-- HIPAA compliance considerations for any user data
+- Locksmith data will be scraped from Google Places API
+- Focus on Netherlands market
+- All user-facing content must be in Dutch
+- Emergency phone number prominently displayed
+- Price transparency is important for trust

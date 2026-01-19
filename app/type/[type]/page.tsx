@@ -150,7 +150,7 @@ export default async function TypePage({ params }: PageProps) {
                             </h3>
                             <div className="space-y-1 text-sm text-muted-foreground">
                               <p className="flex items-center gap-2">
-                                <Building className="w-4 h-4 text-teal-600" />
+                                <Building className="w-4 h-4 text-orange-600" />
                                 <span>{facility.city}{facility.county ? `, ${facility.county}` : ''}</span>
                               </p>
                               {facility.phone && (
@@ -186,8 +186,8 @@ export default async function TypePage({ params }: PageProps) {
           {/* Info Cards */}
           <div className="mt-16 grid gap-6 md:grid-cols-3">
             <Card className="p-6 shadow-soft">
-              <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center mb-4">
-                <Clock className="w-5 h-5 text-teal-700" />
+              <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
+                <Clock className="w-5 h-5 text-orange-700" />
               </div>
               <h3 className="font-serif text-lg font-semibold mb-2">24/7 Support</h3>
               <p className="text-sm text-muted-foreground">
@@ -196,8 +196,8 @@ export default async function TypePage({ params }: PageProps) {
               </p>
             </Card>
             <Card className="p-6 shadow-soft">
-              <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center mb-4">
-                <Info className="w-5 h-5 text-teal-700" />
+              <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
+                <Info className="w-5 h-5 text-orange-700" />
               </div>
               <h3 className="font-serif text-lg font-semibold mb-2">Insurance Coverage</h3>
               <p className="text-sm text-muted-foreground">
@@ -206,8 +206,8 @@ export default async function TypePage({ params }: PageProps) {
               </p>
             </Card>
             <Card className="p-6 shadow-soft">
-              <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center mb-4">
-                <Shield className="w-5 h-5 text-teal-700" />
+              <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
+                <Shield className="w-5 h-5 text-orange-700" />
               </div>
               <h3 className="font-serif text-lg font-semibold mb-2">Confidential Care</h3>
               <p className="text-sm text-muted-foreground">

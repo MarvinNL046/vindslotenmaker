@@ -110,7 +110,7 @@ export default function BlogPage() {
                     <li key={category.name}>
                       <button className="text-sm text-muted-foreground hover:text-accent transition-colors flex justify-between w-full group">
                         <span className="group-hover:translate-x-1 transition-transform">{category.name}</span>
-                        <span className="text-xs bg-teal-100 text-teal-700 px-2 py-0.5 rounded-full">
+                        <span className="text-xs bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full">
                           {category.count}
                         </span>
                       </button>
@@ -224,7 +224,7 @@ export default function BlogPage() {
               <PremiumContentBanner />
 
               {/* Newsletter signup */}
-              <Card className="p-8 shadow-soft bg-gradient-to-r from-teal-50 to-coral-50/30 dark:from-teal-900/20 dark:to-coral-900/10 border-teal-100 dark:border-teal-800 text-center">
+              <Card className="p-8 shadow-soft bg-gradient-to-r from-orange-50 to-coral-50/30 dark:from-orange-900/20 dark:to-coral-900/10 border-orange-100 dark:border-orange-800 text-center">
                 <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <BookOpen className="w-6 h-6 text-accent" />
                 </div>

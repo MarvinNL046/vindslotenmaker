@@ -28,7 +28,7 @@ export default function SearchBar({
     const params = new URLSearchParams();
     if (location) params.set('location', location);
     if (query) params.set('q', query);
-    router.push(`/search?${params.toString()}`);
+    router.push(`/zoeken?${params.toString()}`);
   };
 
   if (variant === 'hero') {
@@ -42,12 +42,12 @@ export default function SearchBar({
       >
         {/* Location Input */}
         <div className="flex-1 flex items-center gap-3 px-4 py-3 border-b sm:border-b-0 sm:border-r border-border/50">
-          <MapPin className="w-5 h-5 text-accent shrink-0" />
+          <MapPin className="w-5 h-5 text-orange-500 shrink-0" />
           <input
             type="text"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-            placeholder="City or ZIP code"
+            placeholder="Stad of postcode"
             className="flex-1 bg-transparent outline-none text-foreground placeholder:text-muted-foreground min-w-0"
           />
         </div>
@@ -59,20 +59,20 @@ export default function SearchBar({
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Name (optional)"
+            placeholder="Naam (optioneel)"
             className="flex-1 bg-transparent outline-none text-foreground placeholder:text-muted-foreground min-w-0"
           />
         </div>
 
         {/* Search Button - integrated in the bar */}
         <Button
-          variant="accent"
+          variant="default"
           size="lg"
           type="submit"
-          className="rounded-none sm:rounded-r-xl m-0 px-6 py-3 shrink-0"
+          className="rounded-none sm:rounded-r-xl m-0 px-6 py-3 shrink-0 bg-orange-500 hover:bg-orange-600"
         >
           <Search className="w-5 h-5 md:mr-2" />
-          <span className="hidden md:inline">Search</span>
+          <span className="hidden md:inline">Zoeken</span>
         </Button>
       </form>
     );
@@ -88,16 +88,16 @@ export default function SearchBar({
         )}
       >
         <div className="flex-1 flex items-center gap-2 px-3">
-          <MapPin className="w-4 h-4 text-accent shrink-0" />
+          <MapPin className="w-4 h-4 text-orange-500 shrink-0" />
           <input
             type="text"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-            placeholder="Search by location..."
+            placeholder="Zoek op locatie..."
             className="flex-1 bg-transparent outline-none text-sm text-foreground placeholder:text-muted-foreground"
           />
         </div>
-        <Button variant="accent" size="sm" type="submit">
+        <Button variant="default" size="sm" type="submit" className="bg-orange-500 hover:bg-orange-600">
           <Search className="w-4 h-4" />
         </Button>
       </form>
@@ -115,12 +115,12 @@ export default function SearchBar({
     >
       {/* Location Input */}
       <div className="flex-1 flex items-center gap-3 px-4 py-2.5 bg-background rounded-lg">
-        <MapPin className="w-5 h-5 text-accent shrink-0" />
+        <MapPin className="w-5 h-5 text-orange-500 shrink-0" />
         <input
           type="text"
           value={location}
           onChange={(e) => setLocation(e.target.value)}
-          placeholder="City or ZIP code"
+          placeholder="Stad of postcode"
           className="flex-1 bg-transparent outline-none text-foreground placeholder:text-muted-foreground"
         />
       </div>
@@ -132,15 +132,15 @@ export default function SearchBar({
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Name (optional)"
+          placeholder="Naam (optioneel)"
           className="flex-1 bg-transparent outline-none text-foreground placeholder:text-muted-foreground"
         />
       </div>
 
       {/* Search Button */}
-      <Button variant="accent" size="lg" type="submit">
+      <Button variant="default" size="lg" type="submit" className="bg-orange-500 hover:bg-orange-600">
         <Search className="w-5 h-5 sm:mr-2" />
-        <span className="hidden sm:inline">Search</span>
+        <span className="hidden sm:inline">Zoeken</span>
       </Button>
     </form>
   );

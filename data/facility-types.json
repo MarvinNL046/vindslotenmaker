@@ -1,124 +1,94 @@
 {
   "types": [
     {
-      "slug": "inpatient-rehab",
-      "name": "Inpatient Rehabilitation Center",
-      "description": "Residential treatment facilities providing 24-hour care in a structured environment for addiction recovery.",
-      "search_terms": ["inpatient rehab", "residential treatment", "24 hour care", "live-in rehab"]
+      "slug": "24-uur-slotenmaker",
+      "name": "24 Uur Slotenmaker",
+      "description": "Slotenmakers die 24 uur per dag, 7 dagen per week beschikbaar zijn voor noodgevallen zoals buitensluiting of inbraakschade.",
+      "search_terms": ["24 uur slotenmaker", "noodslotenmaker", "spoed slotenmaker", "dag en nacht slotenmaker", "nachtelijke slotenmaker"]
     },
     {
-      "slug": "outpatient-treatment",
-      "name": "Outpatient Treatment Program",
-      "description": "Flexible treatment programs that allow patients to live at home while attending scheduled therapy sessions.",
-      "search_terms": ["outpatient treatment", "outpatient rehab", "day program", "evening program"]
+      "slug": "slot-openen",
+      "name": "Slot Openen Service",
+      "description": "Professionele dienstverlening voor het openen van sloten zonder schade bij buitensluiting of verloren sleutels.",
+      "search_terms": ["slot openen", "deur openen", "buitengesloten", "sleutel vergeten", "deur slot openen"]
     },
     {
-      "slug": "detox-center",
-      "name": "Detoxification Center",
-      "description": "Medical facilities providing supervised withdrawal management and detox services.",
-      "search_terms": ["detox center", "medical detox", "withdrawal management", "detoxification"]
+      "slug": "slot-vervangen",
+      "name": "Slot Vervangen Service",
+      "description": "Complete service voor het vervangen van oude, beschadigde of onveilige sloten door nieuwe, gecertificeerde sloten.",
+      "search_terms": ["slot vervangen", "nieuw slot plaatsen", "slot monteren", "slot installeren", "deurslot vervangen"]
     },
     {
-      "slug": "sober-living",
-      "name": "Sober Living Home",
-      "description": "Transitional housing providing a substance-free living environment for those in recovery.",
-      "search_terms": ["sober living", "halfway house", "recovery housing", "transitional housing"]
+      "slug": "cilinder-vervangen",
+      "name": "Cilinder Vervangen Service",
+      "description": "Specialistische service voor het vervangen van cilinders in bestaande sloten voor verbeterde beveiliging.",
+      "search_terms": ["cilinder vervangen", "deurcilinder", "cilinderslot", "cilinder monteren", "skg cilinder"]
     },
     {
-      "slug": "dual-diagnosis",
-      "name": "Dual Diagnosis Treatment Center",
-      "description": "Facilities specializing in treating co-occurring addiction and mental health disorders.",
-      "search_terms": ["dual diagnosis", "co-occurring disorders", "mental health and addiction", "integrated treatment"]
+      "slug": "inbraakpreventie",
+      "name": "Inbraakpreventie Specialist",
+      "description": "Deskundige advisering en installatie van inbraakwerende maatregelen volgens Politiekeurmerk Veilig Wonen (PKVW).",
+      "search_terms": ["inbraakpreventie", "inbraakbeveiliging", "huis beveiligen", "anti-inbraak", "pkvw", "politiekeurmerk"]
     },
     {
-      "slug": "luxury-rehab",
-      "name": "Luxury Rehabilitation Center",
-      "description": "Premium treatment facilities offering upscale amenities and highly personalized care.",
-      "search_terms": ["luxury rehab", "executive rehab", "private rehab", "upscale treatment"]
+      "slug": "auto-slotenmaker",
+      "name": "Auto Slotenmaker",
+      "description": "Gespecialiseerde slotenmaker voor het openen van auto's en het programmeren of vervangen van autosleutels.",
+      "search_terms": ["auto slotenmaker", "auto openen", "autosleutel kwijt", "auto slot", "auto buitengesloten"]
     },
     {
-      "slug": "intensive-outpatient",
-      "name": "Intensive Outpatient Program (IOP)",
-      "description": "Structured outpatient programs with multiple sessions per week while maintaining daily responsibilities.",
-      "search_terms": ["IOP", "intensive outpatient", "intensive outpatient program"]
+      "slug": "kluis-slotenmaker",
+      "name": "Kluis Slotenmaker",
+      "description": "Expert in het openen van kluizen en brandkasten bij vergeten combinaties of defecte sloten.",
+      "search_terms": ["kluis openen", "kluis slot", "brandkast openen", "safe openen", "kluis slotenmaker"]
     },
     {
-      "slug": "partial-hospitalization",
-      "name": "Partial Hospitalization Program (PHP)",
-      "description": "Day treatment programs providing structured care during the day with evenings at home.",
-      "search_terms": ["PHP", "partial hospitalization", "day treatment", "day program"]
+      "slug": "sleutel-service",
+      "name": "Sleutel Service",
+      "description": "Professionele service voor het bijmaken van sleutels, inclusief beveiligde en gecodeerde sleutels.",
+      "search_terms": ["sleutel bijmaken", "sleutel kopieren", "reserve sleutel", "sleutel namaken", "sleutelservice"]
     },
     {
-      "slug": "alcohol-rehab",
-      "name": "Alcohol Rehabilitation Center",
-      "description": "Treatment centers specializing in alcohol addiction and alcoholism recovery.",
-      "search_terms": ["alcohol rehab", "alcoholism treatment", "alcohol addiction treatment"]
+      "slug": "elektronische-sloten",
+      "name": "Elektronische Sloten Specialist",
+      "description": "Installatie en onderhoud van elektronische en smart sloten, codesloten en toegangscontrolesystemen.",
+      "search_terms": ["elektronisch slot", "smart lock", "digitaal slot", "codeslot", "toegangscontrole"]
     },
     {
-      "slug": "drug-rehab",
-      "name": "Drug Rehabilitation Center",
-      "description": "Treatment facilities specializing in drug addiction recovery.",
-      "search_terms": ["drug rehab", "drug treatment", "drug addiction treatment"]
+      "slug": "hang-en-sluitwerk",
+      "name": "Hang- en Sluitwerk Specialist",
+      "description": "Complete service voor hang- en sluitwerk inclusief SKG-gecertificeerde sloten en deurbeslag.",
+      "search_terms": ["hang en sluitwerk", "deurbeslag", "raambeveiliging", "skg sloten", "deur hang en sluitwerk"]
     },
     {
-      "slug": "opioid-treatment",
-      "name": "Opioid Treatment Program",
-      "description": "Specialized facilities for treating opioid and heroin addiction, often including medication-assisted treatment.",
-      "search_terms": ["opioid treatment", "heroin rehab", "MAT program", "methadone clinic", "suboxone clinic"]
+      "slug": "bedrijfssloten",
+      "name": "Bedrijfssloten Service",
+      "description": "Zakelijke slotenmaker voor bedrijven, kantoren en commerciele panden met master key systemen.",
+      "search_terms": ["bedrijfssloten", "kantoorsloten", "masterkey", "bedrijfsbeveiliging", "commercieel slotenmaker"]
     },
     {
-      "slug": "veterans-program",
-      "name": "Veterans Treatment Program",
-      "description": "Addiction treatment programs designed specifically for military veterans.",
-      "search_terms": ["veterans rehab", "VA treatment", "military addiction treatment", "veteran program"]
+      "slug": "raam-deurbeveiliging",
+      "name": "Raam- en Deurbeveiliging",
+      "description": "Specialistische beveiliging van ramen en deuren met inbraakwerende oplossingen en certificering.",
+      "search_terms": ["raambeveiliging", "deurbeveiliging", "inbraakwerend", "raamsloten", "deursloten"]
     },
     {
-      "slug": "womens-rehab",
-      "name": "Women's Rehabilitation Center",
-      "description": "Treatment facilities designed specifically for women's unique recovery needs.",
-      "search_terms": ["women's rehab", "female only treatment", "women's treatment center"]
+      "slug": "noodopening",
+      "name": "Noodopening Service",
+      "description": "Snelle hulp bij noodgevallen zoals buitensluiting, vastgelopen sloten of ingeklemde sleutels.",
+      "search_terms": ["noodopening", "spoedhulp", "nooddienst slotenmaker", "acute hulp slot", "slotenmaker spoed"]
     },
     {
-      "slug": "mens-rehab",
-      "name": "Men's Rehabilitation Center",
-      "description": "Treatment facilities designed specifically for men's recovery needs.",
-      "search_terms": ["men's rehab", "male only treatment", "men's treatment center"]
+      "slug": "slot-reparatie",
+      "name": "Slot Reparatie Service",
+      "description": "Reparatie van defecte, klemmende of beschadigde sloten en cilinders.",
+      "search_terms": ["slot reparatie", "slot kapot", "slot klemt", "slot repareren", "deurslot reparatie"]
     },
     {
-      "slug": "teen-rehab",
-      "name": "Adolescent Treatment Program",
-      "description": "Treatment programs designed for teenagers and young adults struggling with addiction.",
-      "search_terms": ["teen rehab", "adolescent treatment", "youth rehab", "young adult program"]
-    },
-    {
-      "slug": "christian-rehab",
-      "name": "Christian Rehabilitation Center",
-      "description": "Faith-based treatment centers incorporating Christian principles into recovery.",
-      "search_terms": ["christian rehab", "faith-based treatment", "religious rehab"]
-    },
-    {
-      "slug": "holistic-rehab",
-      "name": "Holistic Treatment Center",
-      "description": "Treatment facilities using holistic and alternative therapies alongside traditional treatment.",
-      "search_terms": ["holistic rehab", "alternative treatment", "natural recovery", "holistic addiction treatment"]
-    },
-    {
-      "slug": "behavioral-health",
-      "name": "Behavioral Health Center",
-      "description": "Facilities specializing in mental health and behavioral treatment services.",
-      "search_terms": ["behavioral health", "mental health center", "psychiatric services"]
-    },
-    {
-      "slug": "addiction-counseling",
-      "name": "Addiction Counseling Center",
-      "description": "Facilities providing professional addiction counseling and therapy services.",
-      "search_terms": ["addiction counseling", "substance abuse counseling", "recovery counseling"]
-    },
-    {
-      "slug": "eating-disorder-treatment",
-      "name": "Eating Disorder Treatment Center",
-      "description": "Specialized facilities for treating eating disorders and related addictions.",
-      "search_terms": ["eating disorder treatment", "anorexia treatment", "bulimia treatment"]
+      "slug": "inbraakschade-herstel",
+      "name": "Inbraakschade Herstel",
+      "description": "Herstel van schade na inbraak inclusief vervanging van sloten en versterking van beveiliging.",
+      "search_terms": ["inbraakschade", "na inbraak", "inbraak herstel", "inbraak reparatie", "schade inbraak"]
     }
   ]
 }
