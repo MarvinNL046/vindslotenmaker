@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Contact | Rehab Near Me',
-  description: 'Contact Rehab Near Me for questions, suggestions or collaborations.',
+  title: 'Contact | Vind Slotenmaker',
+  description: 'Neem contact op met Vind Slotenmaker voor vragen, suggesties of samenwerkingen.',
 };
 
 export default function ContactLayout({

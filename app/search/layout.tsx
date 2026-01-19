@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Search Treatment Centers | RehabNearMe.com',
-  description: 'Search our database of addiction treatment centers across the United States. Find rehab facilities by name, city, state, or zip code.',
+  title: 'Zoek Slotenmaker | Vind Slotenmaker',
+  description: 'Doorzoek onze database van slotenmakers in heel Nederland. Vind slotenmakers op naam, stad, provincie of postcode.',
   robots: {
     index: false,
     follow: true,

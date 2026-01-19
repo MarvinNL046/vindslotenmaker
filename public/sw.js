@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rehab-v1';
+const CACHE_NAME = 'slotenmaker-v1';
 const OFFLINE_URL = '/offline';
 
 // Assets to cache immediately on install

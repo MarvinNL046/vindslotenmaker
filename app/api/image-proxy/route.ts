@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
     // Fetch the image from the source
     const response = await fetch(imageUrl, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (compatible; RehabNearMe/1.0)',
+        'User-Agent': 'Mozilla/5.0 (compatible; VindSlotenmaker/1.0)',
         'Accept': 'image/*',
       },
     });

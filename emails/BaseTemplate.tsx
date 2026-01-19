@@ -15,14 +15,14 @@ interface BaseTemplateProps {
   children: React.ReactNode;
 }
 
-// Brand colors - Teal/Coral Healing Theme
+// Brand colors - Orange / Dark Gray Theme
 const colors = {
-  primary: '#0D9488',      // Teal
-  primaryLight: '#14B8A6',
-  accent: '#F97316',       // Coral/Orange
-  accentLight: '#FB923C',
+  primary: '#F97316',      // Orange
+  primaryLight: '#FB923C',
+  accent: '#F97316',       // Orange
+  accentLight: '#FDBA74',
   background: '#F8FAFC',   // Clean white
-  foreground: '#334155',   // Dark slate gray
+  foreground: '#1F2937',   // Dark gray
   muted: '#64748B',
   border: '#E2E8F0',
   white: '#FFFFFF',
@@ -38,8 +38,8 @@ export const BaseTemplate = ({ preview, children }: BaseTemplateProps) => {
           {/* Header */}
           <Section style={header}>
             <Text style={logoText}>
-              <span style={{ color: colors.white }}>Rehab</span>
-              <span style={{ color: colors.accent }}>NearMe</span>
+              <span style={{ color: colors.white }}>Vind</span>
+              <span style={{ color: colors.foreground }}>Slotenmaker</span>
             </Text>
           </Section>
 
@@ -51,23 +51,23 @@ export const BaseTemplate = ({ preview, children }: BaseTemplateProps) => {
           {/* Footer */}
           <Section style={footer}>
             <Text style={footerText}>
-              &copy; {new Date().getFullYear()} Rehab Near Me
+              &copy; {new Date().getFullYear()} VindSlotenmaker
             </Text>
             <Text style={footerLinks}>
-              <Link href="https://www.rehabnearbyme.com" style={link}>
+              <Link href="https://www.vindslotenmaker.nl" style={link}>
                 Website
               </Link>
               {' • '}
-              <Link href="https://www.rehabnearbyme.com/contact" style={link}>
+              <Link href="https://www.vindslotenmaker.nl/contact" style={link}>
                 Contact
               </Link>
               {' • '}
-              <Link href="https://www.rehabnearbyme.com/privacy" style={link}>
+              <Link href="https://www.vindslotenmaker.nl/privacy" style={link}>
                 Privacy
               </Link>
             </Text>
             <Text style={footerDisclaimer}>
-              This is an automated message from rehabnearbyme.com
+              Dit is een automatisch bericht van vindslotenmaker.nl
             </Text>
           </Section>
         </Container>
@@ -90,7 +90,7 @@ const container = {
   maxWidth: '600px',
   borderRadius: '12px',
   overflow: 'hidden' as const,
-  boxShadow: '0 4px 20px rgba(13, 148, 136, 0.08)',
+  boxShadow: '0 4px 20px rgba(249, 115, 22, 0.08)',
 };
 
 const header = {

@@ -2,10 +2,10 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Rehab Near Me Guides',
-    default: 'Treatment Guides & Resources | Rehab Near Me',
+    template: '%s | Vind Slotenmaker Gidsen',
+    default: 'Slotenmaker Gidsen & Tips | Vind Slotenmaker',
   },
-  description: 'Expert guides on addiction treatment types, rehab options, insurance coverage, and recovery resources across America.',
+  description: 'Praktische gidsen over slotenmakers, woningbeveiliging, sloten kiezen en wat te doen bij noodgevallen.',
 };
 
 export default function GuideLayout({

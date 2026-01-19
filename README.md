@@ -1,10 +1,10 @@
-# RehabNearByMe.com
+# VindSlotenmaker.nl
 
-A comprehensive online directory for finding rehabilitation and addiction treatment centers in the United States.
+Een uitgebreide online gids voor het vinden van slotenmakers in Nederland.
 
 ## Project Status
 
-Active development - building a comprehensive database of treatment facilities.
+Actieve ontwikkeling - bouwen aan een uitgebreide database van slotenmakers.
 
 ## Tech Stack
 
@@ -34,19 +34,18 @@ npm run start
 
 ```
 ├── app/                    # Next.js app directory
-│   ├── facility/          # Facility detail pages
-│   ├── city/              # City overview pages
-│   ├── county/            # County overview pages
-│   ├── state/             # State overview pages
-│   └── search/            # Search functionality
+│   ├── slotenmaker/       # Slotenmaker detail pages
+│   ├── plaats/            # City overview pages
+│   ├── gemeente/          # Municipality overview pages
+│   ├── provincie/         # Province overview pages
+│   └── zoeken/            # Search functionality
 ├── components/            # React components
 ├── data/                  # Database files
 ├── public/               # Static assets
 └── docs/                 # Documentation
-    └── archive/          # Archived documentation
 ```
 
 ## Contact
 
-- Website: https://rehabnearbyme.com
-- Email: info@rehabnearbyme.com
+- Website: https://vindslotenmaker.nl
+- Email: info@vindslotenmaker.nl

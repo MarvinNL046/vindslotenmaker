@@ -2,8 +2,9 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { getAllStates, getStateBySlug, getFacilitiesByState, createCountySlug, createCitySlug, Facility } from '@/lib/data';
 import { notFound } from 'next/navigation';
-import { ChevronRight, Building2, ArrowRight, Heart, MapPin } from 'lucide-react';
+import { ChevronRight, Building2, ArrowRight, Key, MapPin } from 'lucide-react';
 import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import LeaderboardAd from '@/components/ads/LeaderboardAd';
 import InlineAd from '@/components/ads/InlineAd';
 import { AD_SLOTS } from '@/lib/ad-config';
@@ -29,15 +30,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const state = await getStateBySlug(stateSlug);
 
   if (!state) {
-    return { title: 'State Not Found' };
+    return { title: 'Provincie Niet Gevonden | Vind Slotenmaker' };
   }
 
   return {
-    title: `Rehab Centers in ${state.name} | Treatment Centers Near You`,
-    description: `Find addiction treatment centers and rehab facilities in ${state.name}. View locations, treatment types, insurance accepted, and reviews of rehab centers near you.`,
+    title: `Slotenmakers in ${state.name} | Vind Slotenmaker`,
+    description: `Vind slotenmakers in ${state.name}. Bekijk locaties, diensten, reviews en contactgegevens van slotenmakers bij jou in de buurt.`,
     openGraph: {
-      title: `Rehab & Treatment Centers in ${state.name}`,
-      description: `Directory of all addiction treatment and rehabilitation centers in ${state.name}`,
+      title: `Slotenmakers in ${state.name}`,
+      description: `Overzicht van alle slotenmakers in ${state.name}`,
       type: 'website',
     },
   };
@@ -53,17 +54,17 @@ export default async function StatePage({ params }: PageProps) {
 
   const facilities = await getFacilitiesByState(state.name);
 
-  // Get unique counties with counts
-  const countyCounts = facilities.reduce((acc: Record<string, number>, facility: Facility) => {
+  // Get unique municipalities (counties) with counts
+  const municipalityCounts = facilities.reduce((acc: Record<string, number>, facility: Facility) => {
     if (facility.county) {
       acc[facility.county] = (acc[facility.county] || 0) + 1;
     }
     return acc;
   }, {} as Record<string, number>);
 
-  const counties = Object.entries(countyCounts)
-    .map(([county, count]) => ({ county, count }))
-    .sort((a, b) => a.county.localeCompare(b.county));
+  const municipalities = Object.entries(municipalityCounts)
+    .map(([municipality, count]) => ({ municipality, count }))
+    .sort((a, b) => a.municipality.localeCompare(b.municipality));
 
   // Get unique cities with counts
   const cityCounts = facilities.reduce((acc: Record<string, number>, facility: Facility) => {
@@ -88,28 +89,34 @@ export default async function StatePage({ params }: PageProps) {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://www.rehabnearbyme.com'
+        item: 'https://www.vindslotenmaker.nl'
       },
       {
         '@type': 'ListItem',
         position: 2,
+        name: 'Provincies',
+        item: 'https://www.vindslotenmaker.nl/state'
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
         name: state.name,
-        item: `https://www.rehabnearbyme.com/state/${stateSlug}`
+        item: `https://www.vindslotenmaker.nl/state/${stateSlug}`
       }
     ]
   };
 
-  // Group counties by first letter
-  const countiesByLetter = counties.reduce((acc, { county, count }) => {
-    const firstLetter = county[0].toUpperCase();
+  // Group municipalities by first letter
+  const municipalitiesByLetter = municipalities.reduce((acc, { municipality, count }) => {
+    const firstLetter = municipality[0].toUpperCase();
     if (!acc[firstLetter]) {
       acc[firstLetter] = [];
     }
-    acc[firstLetter].push({ county, count });
+    acc[firstLetter].push({ municipality, count });
     return acc;
-  }, {} as Record<string, Array<{ county: string; count: number }>>);
+  }, {} as Record<string, Array<{ municipality: string; count: number }>>);
 
-  // Group cities by first letter (fallback when no county data)
+  // Group cities by first letter (fallback when no municipality data)
   const citiesByLetter = cities.reduce((acc, { city, count }) => {
     const firstLetter = city[0].toUpperCase();
     if (!acc[firstLetter]) {
@@ -119,8 +126,8 @@ export default async function StatePage({ params }: PageProps) {
     return acc;
   }, {} as Record<string, Array<{ city: string; count: number }>>);
 
-  // Determine if we should show cities instead of counties
-  const showCities = counties.length === 0 && cities.length > 0;
+  // Determine if we should show cities instead of municipalities
+  const showCities = municipalities.length === 0 && cities.length > 0;
 
   return (
     <>
@@ -131,39 +138,44 @@ export default async function StatePage({ params }: PageProps) {
 
       <div className="min-h-screen bg-background">
         {/* Hero Section */}
-        <div className="bg-primary text-primary-foreground py-16">
+        <div className="bg-gradient-to-br from-orange-600 via-orange-700 to-orange-800 text-white py-16">
           <div className="container mx-auto px-4">
             {/* Breadcrumb */}
             <nav className="mb-6">
-              <ol className="flex items-center space-x-2 text-sm text-primary-foreground/70">
+              <ol className="flex items-center space-x-2 text-sm text-white/70">
                 <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
                 <li>/</li>
-                <li><Link href="/state" className="hover:text-white transition-colors">States</Link></li>
+                <li><Link href="/state" className="hover:text-white transition-colors">Provincies</Link></li>
                 <li>/</li>
                 <li className="text-white">{state.name}</li>
               </ol>
             </nav>
 
-            <h1 className="font-serif text-4xl sm:text-5xl font-bold mb-4">
-              Rehab Centers in {state.name}
-            </h1>
-            <p className="text-primary-foreground/80 text-lg max-w-2xl mb-8">
-              Find addiction treatment centers and rehabilitation facilities in {state.name}. Select a county to view treatment centers in that area.
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
+                <MapPin className="w-6 h-6" />
+              </div>
+              <h1 className="font-serif text-4xl sm:text-5xl font-bold">
+                Slotenmakers in {state.name}
+              </h1>
+            </div>
+            <p className="text-white/80 text-lg max-w-2xl mb-8">
+              Vind slotenmakers in {state.name}. Selecteer een gemeente of stad om slotenmakers in jouw buurt te bekijken.
             </p>
 
             {/* Stats */}
             <div className="flex flex-wrap gap-8">
               <div>
-                <div className="text-3xl font-bold text-coral-300">{facilities.length}</div>
-                <div className="text-primary-foreground/70 text-sm">Treatment Centers</div>
+                <div className="text-3xl font-bold text-orange-300">{facilities.length}</div>
+                <div className="text-white/70 text-sm">Slotenmakers</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-coral-300">{counties.length}</div>
-                <div className="text-primary-foreground/70 text-sm">Counties</div>
+                <div className="text-3xl font-bold text-orange-300">{municipalities.length}</div>
+                <div className="text-white/70 text-sm">Gemeenten</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-coral-300">{cities.length}</div>
-                <div className="text-primary-foreground/70 text-sm">Cities</div>
+                <div className="text-3xl font-bold text-orange-300">{cities.length}</div>
+                <div className="text-white/70 text-sm">Steden</div>
               </div>
             </div>
           </div>
@@ -179,48 +191,48 @@ export default async function StatePage({ params }: PageProps) {
             {/* Section Header */}
             <div className="mb-8">
               <h2 className="font-serif text-2xl font-bold mb-2">
-                {showCities ? `Cities in ${state.name}` : `Counties in ${state.name}`}
+                {showCities ? `Steden in ${state.name}` : `Gemeenten in ${state.name}`}
               </h2>
               <p className="text-muted-foreground">
                 {showCities
-                  ? 'Click on a city to view all treatment centers in that area.'
-                  : 'Click on a county to view all treatment centers in that area.'}
+                  ? 'Klik op een stad om alle slotenmakers in die stad te bekijken.'
+                  : 'Klik op een gemeente om alle slotenmakers in die gemeente te bekijken.'}
               </p>
             </div>
 
-            {counties.length > 0 ? (
+            {municipalities.length > 0 ? (
               <div className="space-y-10">
-                {Object.entries(countiesByLetter).map(([letter, countiesInLetter]) => (
+                {Object.entries(municipalitiesByLetter).map(([letter, municipalitiesInLetter]) => (
                   <div key={letter}>
                     <div className="flex items-center gap-3 mb-4">
-                      <span className="w-10 h-10 rounded-lg bg-accent text-accent-foreground flex items-center justify-center font-serif font-bold text-xl">
+                      <span className="w-10 h-10 rounded-lg bg-orange-600 text-white flex items-center justify-center font-serif font-bold text-xl">
                         {letter}
                       </span>
                       <span className="text-sm text-muted-foreground">
-                        {countiesInLetter.length} count{countiesInLetter.length !== 1 ? 'ies' : 'y'}
+                        {municipalitiesInLetter.length} gemeente{municipalitiesInLetter.length !== 1 ? 'n' : ''}
                       </span>
                     </div>
                     <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-                      {countiesInLetter.map(({ county, count }) => (
+                      {municipalitiesInLetter.map(({ municipality, count }) => (
                         <Link
-                          key={county}
-                          href={`/county/${createCountySlug(county)}`}
+                          key={municipality}
+                          href={`/county/${createCountySlug(municipality)}`}
                           className="group"
                         >
-                          <Card className="h-full p-4 flex items-center justify-between border-2 border-transparent hover:border-accent/30 transition-all duration-300">
+                          <Card className="h-full p-4 flex items-center justify-between border-2 border-transparent hover:border-orange-300 transition-all duration-300">
                             <div className="flex items-center gap-3">
-                              <div className="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center group-hover:bg-accent transition-colors">
+                              <div className="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center group-hover:bg-orange-600 transition-colors">
                                 <Building2 className="w-5 h-5 text-orange-700 group-hover:text-white transition-colors" />
                               </div>
-                              <span className="font-medium group-hover:text-accent transition-colors">
-                                {county}
+                              <span className="font-medium group-hover:text-orange-600 transition-colors">
+                                {municipality}
                               </span>
                             </div>
                             <div className="flex items-center gap-2">
-                              <span className="text-sm font-semibold text-accent">
+                              <span className="text-sm font-semibold text-orange-600">
                                 {count}
                               </span>
-                              <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-accent transition-colors" />
+                              <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-orange-600 transition-colors" />
                             </div>
                           </Card>
                         </Link>
@@ -234,11 +246,11 @@ export default async function StatePage({ params }: PageProps) {
                 {Object.entries(citiesByLetter).map(([letter, citiesInLetter]) => (
                   <div key={letter}>
                     <div className="flex items-center gap-3 mb-4">
-                      <span className="w-10 h-10 rounded-lg bg-accent text-accent-foreground flex items-center justify-center font-serif font-bold text-xl">
+                      <span className="w-10 h-10 rounded-lg bg-orange-600 text-white flex items-center justify-center font-serif font-bold text-xl">
                         {letter}
                       </span>
                       <span className="text-sm text-muted-foreground">
-                        {citiesInLetter.length} cit{citiesInLetter.length !== 1 ? 'ies' : 'y'}
+                        {citiesInLetter.length} stad{citiesInLetter.length !== 1 ? 'en' : ''}
                       </span>
                     </div>
                     <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
@@ -248,20 +260,20 @@ export default async function StatePage({ params }: PageProps) {
                           href={`/city/${createCitySlug(city)}`}
                           className="group"
                         >
-                          <Card className="h-full p-4 flex items-center justify-between border-2 border-transparent hover:border-accent/30 transition-all duration-300">
+                          <Card className="h-full p-4 flex items-center justify-between border-2 border-transparent hover:border-orange-300 transition-all duration-300">
                             <div className="flex items-center gap-3">
-                              <div className="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center group-hover:bg-accent transition-colors">
+                              <div className="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center group-hover:bg-orange-600 transition-colors">
                                 <MapPin className="w-5 h-5 text-orange-700 group-hover:text-white transition-colors" />
                               </div>
-                              <span className="font-medium group-hover:text-accent transition-colors">
+                              <span className="font-medium group-hover:text-orange-600 transition-colors">
                                 {city}
                               </span>
                             </div>
                             <div className="flex items-center gap-2">
-                              <span className="text-sm font-semibold text-accent">
+                              <span className="text-sm font-semibold text-orange-600">
                                 {count}
                               </span>
-                              <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-accent transition-colors" />
+                              <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-orange-600 transition-colors" />
                             </div>
                           </Card>
                         </Link>
@@ -273,14 +285,13 @@ export default async function StatePage({ params }: PageProps) {
             ) : (
               <Card className="p-8 text-center">
                 <p className="text-muted-foreground mb-4">
-                  No treatment centers found in {state.name} yet. We are continuously adding new facilities.
+                  Nog geen slotenmakers gevonden in {state.name}. We voegen continu nieuwe locaties toe.
                 </p>
-                <Link
-                  href="/search"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-accent-foreground rounded-lg font-medium hover:bg-accent/90 transition-colors"
-                >
-                  Search All Treatment Centers
-                  <ArrowRight className="w-4 h-4" />
+                <Link href="/search">
+                  <Button className="bg-orange-600 hover:bg-orange-700">
+                    Zoek Alle Slotenmakers
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
                 </Link>
               </Card>
             )}
@@ -291,18 +302,18 @@ export default async function StatePage({ params }: PageProps) {
             </div>
 
             {/* About Section */}
-            <Card className="mt-16 p-8 bg-gradient-to-r from-orange-50 to-coral-50/30 dark:from-orange-900/20 dark:to-coral-900/10 border-orange-100 dark:border-orange-800">
+            <Card className="mt-16 p-8 bg-gradient-to-r from-orange-50 to-orange-50/30 border-orange-100">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-orange-100 dark:bg-orange-900/50 flex items-center justify-center shrink-0">
-                  <Heart className="w-6 h-6 text-orange-700 dark:text-orange-400" />
+                <div className="w-12 h-12 rounded-xl bg-orange-100 flex items-center justify-center shrink-0">
+                  <Key className="w-6 h-6 text-orange-700" />
                 </div>
                 <div>
-                  <h2 className="font-serif text-xl font-semibold mb-3">About addiction treatment in {state.name}</h2>
+                  <h2 className="font-serif text-xl font-semibold mb-3">Over slotenmakers in {state.name}</h2>
                   <p className="text-muted-foreground leading-relaxed">
-                    The state of {state.name} offers comprehensive addiction treatment services and rehabilitation facilities.
-                    From inpatient detox centers to outpatient counseling programs, each facility provides specialized care
-                    and evidence-based treatment approaches. Many centers accept various insurance plans and offer programs
-                    tailored to specific needs including dual diagnosis, adolescent care, and luxury treatment options. {state.capital && `The state capital is ${state.capital}.`}
+                    In {state.name} vind je een breed aanbod aan slotenmakers voor uiteenlopende diensten.
+                    Van noodopeningen en sloten vervangen tot complete woningbeveiliging en inbraakpreventie.
+                    Veel slotenmakers zijn 24/7 bereikbaar voor spoedsituaties. Vergelijk reviews en diensten
+                    om de juiste slotenmaker te vinden voor jouw situatie. {state.capital && `De hoofdstad van ${state.name} is ${state.capital}.`}
                   </p>
                 </div>
               </div>
@@ -311,18 +322,24 @@ export default async function StatePage({ params }: PageProps) {
             {/* CTA Section */}
             <div className="mt-16 text-center">
               <h2 className="font-serif text-2xl font-semibold mb-4">
-                Looking for a specific treatment center?
+                Op zoek naar een specifieke slotenmaker?
               </h2>
               <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
-                Use our search feature to find rehab centers by name, city, treatment type, or insurance accepted.
+                Gebruik onze zoekfunctie om slotenmakers te vinden op naam, stad, postcode of dienst.
               </p>
-              <Link
-                href="/search"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-accent-foreground rounded-lg font-medium hover:bg-accent/90 transition-colors"
-              >
-                Search Treatment Centers
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+              <div className="flex flex-wrap justify-center gap-4">
+                <Link href="/search">
+                  <Button className="bg-orange-600 hover:bg-orange-700">
+                    Zoek Slotenmaker
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </Link>
+                <Link href="/type/noodopening">
+                  <Button variant="outline" className="border-orange-200 text-orange-700 hover:bg-orange-50">
+                    24/7 Noodopening
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
     if (source === 'all' || source === 'google') {
       try {
         // Fetch from public folder via HTTP
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || origin || 'https://www.rehabnearbyme.com';
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || origin || 'https://www.vindslotenmaker.nl';
         const reviewsUrl = `${baseUrl}/data/reviews/${slug}.json`;
 
         const response = await fetch(reviewsUrl, {

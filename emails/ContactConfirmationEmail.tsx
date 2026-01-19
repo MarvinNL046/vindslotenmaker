@@ -13,13 +13,13 @@ interface ContactConfirmationEmailProps {
   message: string;
 }
 
-// Brand colors - Teal/Coral Healing Theme
+// Brand colors - Orange / Dark Gray Theme
 const colors = {
-  primary: '#0D9488',
-  primaryLight: '#14B8A6',
+  primary: '#F97316',
+  primaryLight: '#FB923C',
   accent: '#F97316',
   background: '#F8FAFC',
-  foreground: '#334155',
+  foreground: '#1F2937',
   muted: '#64748B',
   border: '#E2E8F0',
 };
@@ -30,39 +30,39 @@ export const ContactConfirmationEmail = ({
   message,
 }: ContactConfirmationEmailProps) => {
   return (
-    <BaseTemplate preview="Thank you for your message - RehabNearMe">
-      <Heading style={heading}>Thank you for your message!</Heading>
+    <BaseTemplate preview="Bedankt voor uw bericht - VindSlotenmaker">
+      <Heading style={heading}>Bedankt voor uw bericht!</Heading>
 
-      <Text style={greeting}>Dear {name},</Text>
+      <Text style={greeting}>Beste {name},</Text>
 
       <Text style={paragraph}>
-        We have received your message. Our team will review your inquiry and
-        aims to respond within <strong>1-2 business days</strong>.
+        We hebben uw bericht ontvangen. Ons team zal uw vraag bekijken en
+        streeft ernaar om binnen <strong>1-2 werkdagen</strong> te reageren.
       </Text>
 
       <Section style={summaryBox}>
-        <Text style={summaryTitle}>Summary of your message</Text>
+        <Text style={summaryTitle}>Samenvatting van uw bericht</Text>
 
-        <Text style={summaryLabel}>Subject</Text>
+        <Text style={summaryLabel}>Onderwerp</Text>
         <Text style={summaryValue}>{subjectLabel}</Text>
 
         <Hr style={divider} />
 
-        <Text style={summaryLabel}>Your message</Text>
+        <Text style={summaryLabel}>Uw bericht</Text>
         <Text style={summaryMessage}>{message}</Text>
       </Section>
 
       <Hr style={hr} />
 
       <Text style={paragraph}>
-        Have any questions in the meantime? Visit our website for more information
-        about treatment centers in the USA.
+        Heeft u in de tussentijd vragen? Bezoek onze website voor meer informatie
+        over slotenmakers in Nederland.
       </Text>
 
       <Text style={signature}>
-        Best regards,
+        Met vriendelijke groet,
         <br />
-        <strong>Team RehabNearMe</strong>
+        <strong>Team VindSlotenmaker</strong>
       </Text>
     </BaseTemplate>
   );

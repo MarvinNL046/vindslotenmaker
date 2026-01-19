@@ -5,26 +5,22 @@ import { blogPosts } from '@/lib/blog-data'
 // Maximum URLs per sitemap file (Google limit is 50k, we use 10k for better performance)
 const MAX_URLS_PER_SITEMAP = 10000
 
-const baseUrl = 'https://www.rehabnearbyme.com'
+const baseUrl = 'https://www.vindslotenmaker.nl'
 
-// Treatment facility types for type pages
-const facilityTypes = [
-  'inpatient-rehab',
-  'outpatient-treatment',
-  'detox-center',
-  'residential-treatment',
-  'partial-hospitalization',
-  'intensive-outpatient',
-  'sober-living',
-  'dual-diagnosis',
-  'luxury-rehab',
-  'holistic-treatment',
-  'faith-based-rehab',
-  'gender-specific',
-  'adolescent-treatment',
-  'executive-rehab',
-  'medication-assisted',
-  'aftercare-program',
+// Locksmith service types for type pages
+const serviceTypes = [
+  'noodopening',
+  'sloten-vervangen',
+  'inbraakbeveiliging',
+  'autosloten',
+  '24-uurs-service',
+  'woningbeveiliging',
+  'cilindersloten',
+  'elektronische-sloten',
+  'bedrijfsbeveiliging',
+  'kluizen',
+  'sleutelservice',
+  'meerpuntssluitingen',
 ]
 
 // Static pages that don't change often
@@ -40,46 +36,14 @@ const staticPages = [
   { path: '/terms', priority: 0.3, changeFreq: 'yearly' as const },
   // Guide pages
   { path: '/guide', priority: 0.9, changeFreq: 'weekly' as const },
-  { path: '/guide/types', priority: 0.9, changeFreq: 'weekly' as const },
-  { path: '/guide/treatment-options', priority: 0.9, changeFreq: 'weekly' as const },
-  { path: '/guide/insurance', priority: 0.9, changeFreq: 'weekly' as const },
-  { path: '/guide/veterans', priority: 0.9, changeFreq: 'weekly' as const },
-  { path: '/guide/family-support', priority: 0.9, changeFreq: 'weekly' as const },
-]
-
-// Guide type pages
-const guideTypes = [
-  'inpatient-rehab',
-  'outpatient-treatment',
-  'detox-center',
-  'residential-treatment',
-  'dual-diagnosis',
-  'medication-assisted',
-  'holistic-treatment',
-]
-
-// Guide state pages (top 10 states by population)
-const guideStates = [
-  'california',
-  'texas',
-  'florida',
-  'new-york',
-  'pennsylvania',
-  'illinois',
-  'ohio',
-  'georgia',
-  'north-carolina',
-  'michigan',
-]
-
-// Guide topic pages
-const guideTopics = [
-  'choosing-rehab',
-  'treatment-costs',
-  'insurance-coverage',
-  'intervention-tips',
-  'family-support',
-  'aftercare-planning',
+  { path: '/guide/buitengesloten-wat-nu', priority: 0.9, changeFreq: 'weekly' as const },
+  { path: '/guide/skg-keurmerk-uitgelegd', priority: 0.9, changeFreq: 'weekly' as const },
+  { path: '/guide/woningbeveiliging-tips', priority: 0.9, changeFreq: 'weekly' as const },
+  { path: '/guide/juiste-slotenmaker-kiezen', priority: 0.9, changeFreq: 'weekly' as const },
+  { path: '/guide/autosleutel-kwijt-kapot', priority: 0.9, changeFreq: 'weekly' as const },
+  { path: '/guide/sloten-vervangen-verhuizing', priority: 0.9, changeFreq: 'weekly' as const },
+  { path: '/guide/prijzen-slotenmaker', priority: 0.9, changeFreq: 'weekly' as const },
+  { path: '/guide/slotenmaker-oplichters-herkennen', priority: 0.9, changeFreq: 'weekly' as const },
 ]
 
 interface SitemapEntry {
@@ -109,8 +73,8 @@ async function getAllSitemapEntries(): Promise<SitemapEntry[]> {
     })
   })
 
-  // Type pages
-  facilityTypes.forEach(type => {
+  // Service type pages
+  serviceTypes.forEach(type => {
     entries.push({
       url: `${baseUrl}/type/${type}`,
       lastModified: now,
@@ -119,37 +83,7 @@ async function getAllSitemapEntries(): Promise<SitemapEntry[]> {
     })
   })
 
-  // Guide type pages
-  guideTypes.forEach(type => {
-    entries.push({
-      url: `${baseUrl}/guide/types/${type}`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    })
-  })
-
-  // Guide state pages
-  guideStates.forEach(state => {
-    entries.push({
-      url: `${baseUrl}/guide/state/${state}`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    })
-  })
-
-  // Guide topic pages
-  guideTopics.forEach(topic => {
-    entries.push({
-      url: `${baseUrl}/guide/topics/${topic}`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    })
-  })
-
-  // State pages
+  // Province/State pages
   states.forEach(state => {
     entries.push({
       url: `${baseUrl}/state/${state.slug}`,
@@ -159,7 +93,7 @@ async function getAllSitemapEntries(): Promise<SitemapEntry[]> {
     })
   })
 
-  // County pages
+  // Municipality/County pages
   counties.forEach(county => {
     entries.push({
       url: `${baseUrl}/county/${createCountySlug(county)}`,
@@ -179,7 +113,7 @@ async function getAllSitemapEntries(): Promise<SitemapEntry[]> {
     })
   })
 
-  // Facility pages (largest portion)
+  // Locksmith/Facility pages (largest portion)
   facilities.forEach(facility => {
     entries.push({
       url: `${baseUrl}/facility/${facility.slug}`,

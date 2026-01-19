@@ -88,7 +88,7 @@ export default function AdminSettingsPage() {
               </div>
               <div className="flex justify-between items-center py-2 border-b">
                 <span className="text-sm text-muted-foreground">Sender</span>
-                <span className="text-sm font-medium">noreply@rehabnearbyme.com</span>
+                <span className="text-sm font-medium">noreply@vindslotenmaker.nl</span>
               </div>
               <div className="flex justify-between items-center py-2">
                 <span className="text-sm text-muted-foreground">Status</span>

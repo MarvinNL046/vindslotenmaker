@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = 'https://www.rehabnearbyme.com';
+  const baseUrl = 'https://www.vindslotenmaker.nl';
 
   // Common disallowed paths
   const commonDisallow = [

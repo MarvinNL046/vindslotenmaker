@@ -18,11 +18,11 @@ interface ContactFormData {
 
 // Subject label mapping
 const subjectLabels: Record<string, string> = {
-  general: 'General inquiry',
-  information: 'Add/update information',
-  partnership: 'Partnership',
-  technical: 'Technical issue',
-  other: 'Other',
+  general: 'Algemene vraag',
+  information: 'Informatie toevoegen/wijzigen',
+  partnership: 'Samenwerking',
+  technical: 'Technisch probleem',
+  other: 'Overig',
 };
 
 export async function POST(request: Request) {
@@ -33,7 +33,7 @@ export async function POST(request: Request) {
     // Validate required fields
     if (!name || !email || !subject || !message) {
       return NextResponse.json(
-        { error: 'All fields are required' },
+        { error: 'Alle velden zijn verplicht' },
         { status: 400 }
       );
     }
@@ -42,7 +42,7 @@ export async function POST(request: Request) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return NextResponse.json(
-        { error: 'Invalid email address' },
+        { error: 'Ongeldig e-mailadres' },
         { status: 400 }
       );
     }
@@ -70,41 +70,41 @@ export async function POST(request: Request) {
 
     // Plain text version for better deliverability
     const adminEmailText = `
-New contact message via Rehab Near Me
+Nieuw contactbericht via VindSlotenmaker.nl
 
-From: ${name}
-Email: ${email}
-Subject: ${subjectLabel}
+Van: ${name}
+E-mail: ${email}
+Onderwerp: ${subjectLabel}
 
-Message:
+Bericht:
 ${message}
 
 ---
-This message was sent via the contact form on rehabnearbyme.com
+Dit bericht is verzonden via het contactformulier op vindslotenmaker.nl
     `.trim();
 
     // Check if Resend is configured
     if (!resend) {
       console.warn('Resend API key not configured');
       return NextResponse.json(
-        { error: 'Email service not configured' },
+        { error: 'E-mailservice niet geconfigureerd' },
         { status: 500 }
       );
     }
 
     // Send email to site owner with tags
     const { error } = await resend.emails.send({
-      from: 'Rehab Near Me <noreply@rehabnearbyme.com>',
-      to: ['info@rehabnearbyme.com'],
+      from: 'VindSlotenmaker <noreply@vindslotenmaker.nl>',
+      to: ['info@vindslotenmaker.nl'],
       replyTo: email,
       subject: `[Contact] ${subjectLabel} - ${name}`,
       html: adminEmailHtml,
       text: adminEmailText,
       headers: {
-        'List-Unsubscribe': '<https://www.rehabnearbyme.com/unsubscribe>',
+        'List-Unsubscribe': '<https://www.vindslotenmaker.nl/unsubscribe>',
       },
       tags: [
-        { name: 'platform', value: 'rehabnearbyme' },
+        { name: 'platform', value: 'vindslotenmaker' },
         { name: 'type', value: 'contact-form' },
         { name: 'category', value: subject },
       ],
@@ -113,42 +113,42 @@ This message was sent via the contact form on rehabnearbyme.com
     if (error) {
       console.error('Resend error:', error);
       return NextResponse.json(
-        { error: 'Something went wrong while sending your message' },
+        { error: 'Er ging iets mis bij het verzenden van uw bericht' },
         { status: 500 }
       );
     }
 
     // Plain text confirmation
     const confirmationEmailText = `
-Dear ${name},
+Beste ${name},
 
-Thank you for your message. We have received your message and will respond as soon as possible.
+Bedankt voor uw bericht. We hebben uw bericht ontvangen en zullen zo snel mogelijk reageren.
 
-Subject: ${subjectLabel}
+Onderwerp: ${subjectLabel}
 
-Your message:
+Uw bericht:
 ${message}
 
-Best regards,
-Rehab Near Me
+Met vriendelijke groet,
+VindSlotenmaker
 
 ---
-This is an automated confirmation. Do not reply to this email.
-https://www.rehabnearbyme.com
+Dit is een automatische bevestiging. Reageer niet op deze e-mail.
+https://www.vindslotenmaker.nl
     `.trim();
 
     // Send confirmation email to the sender with tags
     await resend.emails.send({
-      from: 'Rehab Near Me <noreply@rehabnearbyme.com>',
+      from: 'VindSlotenmaker <noreply@vindslotenmaker.nl>',
       to: [email],
-      subject: 'Confirmation: Your message has been received',
+      subject: 'Bevestiging: Uw bericht is ontvangen',
       html: confirmationEmailHtml,
       text: confirmationEmailText,
       headers: {
-        'List-Unsubscribe': '<https://www.rehabnearbyme.com/unsubscribe>',
+        'List-Unsubscribe': '<https://www.vindslotenmaker.nl/unsubscribe>',
       },
       tags: [
-        { name: 'platform', value: 'rehabnearbyme' },
+        { name: 'platform', value: 'vindslotenmaker' },
         { name: 'type', value: 'contact-confirmation' },
         { name: 'category', value: subject },
       ],
@@ -158,7 +158,7 @@ https://www.rehabnearbyme.com
   } catch (error) {
     console.error('Contact API error:', error);
     return NextResponse.json(
-      { error: 'Something went wrong while processing your message' },
+      { error: 'Er ging iets mis bij het verwerken van uw bericht' },
       { status: 500 }
     );
   }

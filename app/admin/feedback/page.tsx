@@ -262,7 +262,7 @@ export default function AdminFeedbackPage() {
                       )}
                       {item.page_url && (
                         <a
-                          href={`https://www.rehabnearbyme.com${item.page_url}`}
+                          href={`https://www.vindslotenmaker.nl${item.page_url}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center text-primary hover:underline"

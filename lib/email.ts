@@ -5,16 +5,16 @@ const resend = process.env.RESEND_API_KEY
   ? new Resend(process.env.RESEND_API_KEY)
   : null;
 
-const FROM_EMAIL = 'Rehab Near Me <noreply@rehabnearbyme.com>';
+const FROM_EMAIL = 'VindSlotenmaker <noreply@vindslotenmaker.nl>';
 
-// Brand colors
+// Brand colors (Orange / Dark Gray theme)
 const colors = {
-  primary: '#1E40AF',
-  primaryLight: '#3B82F6',
-  accent: '#10B981',
-  accentLight: '#34D399',
+  primary: '#F97316',
+  primaryLight: '#FB923C',
+  accent: '#F97316',
+  accentLight: '#FDBA74',
   background: '#F8FAFC',
-  foreground: '#1E293B',
+  foreground: '#1F2937',
   muted: '#64748B',
   border: '#E2E8F0',
   white: '#FFFFFF',
@@ -26,21 +26,21 @@ export async function sendVerificationEmail(
   type: 'register' | 'login' | 'claim'
 ): Promise<{ success: boolean; error?: string }> {
   const subjects = {
-    register: 'Verify your email address - Rehab Near Me',
-    login: 'Your login code - Rehab Near Me',
-    claim: 'Verification code for your claim - Rehab Near Me',
+    register: 'Verifieer uw e-mailadres - VindSlotenmaker',
+    login: 'Uw inlogcode - VindSlotenmaker',
+    claim: 'Verificatiecode voor uw claim - VindSlotenmaker',
   };
 
   const titles = {
-    register: 'Welcome to Rehab Near Me',
-    login: 'Your login code',
-    claim: 'Verify your claim',
+    register: 'Welkom bij VindSlotenmaker',
+    login: 'Uw inlogcode',
+    claim: 'Verifieer uw claim',
   };
 
   const descriptions = {
-    register: 'Thank you for registering. Use the code below to verify your email address.',
-    login: 'Use the code below to log in to your account.',
-    claim: 'Use the code below to verify your claim.',
+    register: 'Bedankt voor uw registratie. Gebruik onderstaande code om uw e-mailadres te verifieren.',
+    login: 'Gebruik onderstaande code om in te loggen op uw account.',
+    claim: 'Gebruik onderstaande code om uw claim te verifieren.',
   };
 
   try {
@@ -61,10 +61,10 @@ export async function sendVerificationEmail(
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: ${colors.foreground}; max-width: 600px; margin: 0 auto; padding: 20px; background-color: ${colors.background};">
-  <div style="background-color: ${colors.white}; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(30, 64, 175, 0.08);">
+  <div style="background-color: ${colors.white}; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(249, 115, 22, 0.08);">
     <div style="background: linear-gradient(135deg, ${colors.primary} 0%, ${colors.primaryLight} 100%); padding: 32px; text-align: center;">
       <h1 style="color: white; margin: 0; font-size: 24px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-        <span style="color: ${colors.white};">Rehab</span><span style="color: ${colors.accent};">NearMe</span>
+        <span style="color: ${colors.white};">Vind</span><span style="color: ${colors.foreground};">Slotenmaker</span>
       </h1>
     </div>
 
@@ -73,27 +73,27 @@ export async function sendVerificationEmail(
       <p style="color: ${colors.muted};">${descriptions[type]}</p>
 
       <div style="background: ${colors.background}; border: 2px dashed ${colors.accent}; border-radius: 8px; padding: 24px; text-align: center; margin: 24px 0;">
-        <p style="margin: 0 0 10px 0; color: ${colors.muted}; font-size: 14px;">Your verification code:</p>
+        <p style="margin: 0 0 10px 0; color: ${colors.muted}; font-size: 14px;">Uw verificatiecode:</p>
         <div style="font-size: 36px; font-weight: bold; letter-spacing: 8px; color: ${colors.primary};">
           ${code}
         </div>
       </div>
 
       <p style="color: ${colors.muted}; font-size: 14px;">
-        This code is valid for 15 minutes. Do not share this code with anyone.
+        Deze code is 15 minuten geldig. Deel deze code met niemand.
       </p>
 
       <hr style="border: none; border-top: 1px solid ${colors.border}; margin: 24px 0;">
 
       <p style="color: ${colors.muted}; font-size: 12px; text-align: center;">
-        If you did not request this email, you can safely ignore it.
+        Als u deze e-mail niet heeft aangevraagd, kunt u deze veilig negeren.
       </p>
     </div>
 
     <div style="text-align: center; padding: 24px; color: ${colors.muted}; font-size: 12px; background-color: ${colors.background}; border-top: 1px solid ${colors.border};">
-      <p style="margin: 0;">&copy; ${new Date().getFullYear()} Rehab Near Me</p>
+      <p style="margin: 0;">&copy; ${new Date().getFullYear()} VindSlotenmaker</p>
       <p style="margin: 5px 0 0 0;">
-        <a href="https://www.rehabnearbyme.com" style="color: ${colors.accent};">rehabnearbyme.com</a>
+        <a href="https://www.vindslotenmaker.nl" style="color: ${colors.accent};">vindslotenmaker.nl</a>
       </p>
     </div>
   </div>
@@ -122,7 +122,7 @@ export async function sendWelcomeEmail(
     await resend.emails.send({
       from: FROM_EMAIL,
       to: [to],
-      subject: 'Welcome to Rehab Near Me!',
+      subject: 'Welkom bij VindSlotenmaker!',
       html: `
 <!DOCTYPE html>
 <html>
@@ -131,55 +131,55 @@ export async function sendWelcomeEmail(
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: ${colors.foreground}; max-width: 600px; margin: 0 auto; padding: 20px; background-color: ${colors.background};">
-  <div style="background-color: ${colors.white}; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(30, 64, 175, 0.08);">
+  <div style="background-color: ${colors.white}; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(249, 115, 22, 0.08);">
     <div style="background: linear-gradient(135deg, ${colors.primary} 0%, ${colors.primaryLight} 100%); padding: 32px; text-align: center;">
       <h1 style="color: white; margin: 0; font-size: 24px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-        <span style="color: ${colors.white};">Rehab</span><span style="color: ${colors.accent};">NearMe</span>
+        <span style="color: ${colors.white};">Vind</span><span style="color: ${colors.foreground};">Slotenmaker</span>
       </h1>
     </div>
 
     <div style="padding: 32px;">
-      <h2 style="color: ${colors.foreground}; margin-top: 0;">Welcome, ${name}!</h2>
+      <h2 style="color: ${colors.foreground}; margin-top: 0;">Welkom, ${name}!</h2>
 
       <p style="color: ${colors.muted}; font-size: 16px;">
-        Thank you for creating an account at Rehab Near Me.
-        We're glad to have you as part of our community!
+        Bedankt voor het aanmaken van een account bij VindSlotenmaker.
+        We zijn blij dat u deel uitmaakt van onze community!
       </p>
 
       <div style="background: ${colors.background}; border-radius: 8px; padding: 20px; margin: 24px 0; border: 1px solid ${colors.border};">
-        <h3 style="color: ${colors.primary}; margin-top: 0; font-size: 16px;">What can you do with your account?</h3>
+        <h3 style="color: ${colors.primary}; margin-top: 0; font-size: 16px;">Wat kunt u doen met uw account?</h3>
         <ul style="color: ${colors.muted}; padding-left: 20px; margin: 0;">
-          <li style="margin-bottom: 8px;">Claim and manage treatment center listings</li>
-          <li style="margin-bottom: 8px;">Update your contact information and services</li>
-          <li style="margin-bottom: 8px;">Add photos to your listing</li>
-          <li style="margin-bottom: 8px;">Receive inquiries from people seeking treatment</li>
+          <li style="margin-bottom: 8px;">Vermeldingen claimen en beheren</li>
+          <li style="margin-bottom: 8px;">Uw contactgegevens en diensten bijwerken</li>
+          <li style="margin-bottom: 8px;">Fotos toevoegen aan uw vermelding</li>
+          <li style="margin-bottom: 8px;">Aanvragen ontvangen van potentiele klanten</li>
         </ul>
       </div>
 
       <div style="text-align: center; margin: 32px 0;">
-        <a href="https://www.rehabnearbyme.com/dashboard"
+        <a href="https://www.vindslotenmaker.nl/dashboard"
            style="background: ${colors.accent}; color: ${colors.white}; padding: 14px 35px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block; font-size: 16px;">
-          Go to your Dashboard
+          Ga naar uw Dashboard
         </a>
       </div>
 
       <p style="color: ${colors.muted}; font-size: 14px;">
-        Do you manage a treatment facility? Search for your location and click "Claim this listing"
-        to manage the information.
+        Bent u slotenmaker? Zoek naar uw bedrijf en klik op "Claim deze vermelding"
+        om de informatie te beheren.
       </p>
 
       <hr style="border: none; border-top: 1px solid ${colors.border}; margin: 24px 0;">
 
       <p style="color: ${colors.muted}; font-size: 14px;">
-        Questions? Feel free to contact us via
-        <a href="https://www.rehabnearbyme.com/contact" style="color: ${colors.accent};">our contact form</a>.
+        Vragen? Neem gerust contact met ons op via
+        <a href="https://www.vindslotenmaker.nl/contact" style="color: ${colors.accent};">ons contactformulier</a>.
       </p>
     </div>
 
     <div style="text-align: center; padding: 24px; color: ${colors.muted}; font-size: 12px; background-color: ${colors.background}; border-top: 1px solid ${colors.border};">
-      <p style="margin: 0;">&copy; ${new Date().getFullYear()} Rehab Near Me</p>
+      <p style="margin: 0;">&copy; ${new Date().getFullYear()} VindSlotenmaker</p>
       <p style="margin: 5px 0 0 0;">
-        <a href="https://www.rehabnearbyme.com" style="color: ${colors.accent};">rehabnearbyme.com</a>
+        <a href="https://www.vindslotenmaker.nl" style="color: ${colors.accent};">vindslotenmaker.nl</a>
       </p>
     </div>
   </div>
@@ -208,7 +208,7 @@ export async function sendClaimApprovedEmail(
     await resend.emails.send({
       from: FROM_EMAIL,
       to: [to],
-      subject: `Your claim has been approved - ${facilityName}`,
+      subject: `Uw claim is goedgekeurd - ${facilityName}`,
       html: `
 <!DOCTYPE html>
 <html>
@@ -217,35 +217,35 @@ export async function sendClaimApprovedEmail(
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: ${colors.foreground}; max-width: 600px; margin: 0 auto; padding: 20px; background-color: ${colors.background};">
-  <div style="background-color: ${colors.white}; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(30, 64, 175, 0.08);">
+  <div style="background-color: ${colors.white}; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(249, 115, 22, 0.08);">
     <div style="background: linear-gradient(135deg, ${colors.primary} 0%, ${colors.primaryLight} 100%); padding: 32px; text-align: center;">
       <h1 style="color: white; margin: 0; font-size: 24px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-        <span style="color: ${colors.white};">Rehab</span><span style="color: ${colors.accent};">NearMe</span>
+        <span style="color: ${colors.white};">Vind</span><span style="color: ${colors.foreground};">Slotenmaker</span>
       </h1>
     </div>
 
     <div style="padding: 32px;">
-      <h2 style="color: ${colors.foreground}; margin-top: 0;">Your claim has been approved!</h2>
+      <h2 style="color: ${colors.foreground}; margin-top: 0;">Uw claim is goedgekeurd!</h2>
       <p style="color: ${colors.muted};">
-        Great news! Your claim for <strong style="color: ${colors.foreground};">${facilityName}</strong> has been approved.
+        Goed nieuws! Uw claim voor <strong style="color: ${colors.foreground};">${facilityName}</strong> is goedgekeurd.
       </p>
 
       <p style="color: ${colors.muted};">
-        You can now log in to your dashboard to manage your facility's information.
+        U kunt nu inloggen op uw dashboard om de informatie van uw bedrijf te beheren.
       </p>
 
       <div style="text-align: center; margin: 32px 0;">
-        <a href="https://www.rehabnearbyme.com/dashboard"
+        <a href="https://www.vindslotenmaker.nl/dashboard"
            style="background: ${colors.accent}; color: ${colors.white}; padding: 14px 35px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block; font-size: 16px;">
-          Go to Dashboard
+          Ga naar Dashboard
         </a>
       </div>
     </div>
 
     <div style="text-align: center; padding: 24px; color: ${colors.muted}; font-size: 12px; background-color: ${colors.background}; border-top: 1px solid ${colors.border};">
-      <p style="margin: 0;">&copy; ${new Date().getFullYear()} Rehab Near Me</p>
+      <p style="margin: 0;">&copy; ${new Date().getFullYear()} VindSlotenmaker</p>
       <p style="margin: 5px 0 0 0;">
-        <a href="https://www.rehabnearbyme.com" style="color: ${colors.accent};">rehabnearbyme.com</a>
+        <a href="https://www.vindslotenmaker.nl" style="color: ${colors.accent};">vindslotenmaker.nl</a>
       </p>
     </div>
   </div>

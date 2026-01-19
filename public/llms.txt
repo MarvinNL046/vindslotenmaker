@@ -1,30 +1,30 @@
-# RehabNearByMe.com
+# VindSlotenmaker.nl
 
-> The most comprehensive guide to rehabilitation and addiction treatment centers in the United States
+> De meest uitgebreide gids voor slotenmakers in Nederland
 
-## Summary
+## Samenvatting
 
-RehabNearByMe.com is an extensive directory of rehabilitation facilities and addiction treatment centers across all 50 US states. The site helps visitors find information about treatment options for addiction recovery, mental health support, and substance abuse treatment.
+VindSlotenmaker.nl is een uitgebreide gids voor slotenmakers in heel Nederland. De website helpt bezoekers een betrouwbare slotenmaker te vinden voor noodopeningen, sloten vervangen, inbraakbeveiliging en autosleutels.
 
-## Key Data
+## Belangrijke Gegevens
 
-- Thousands of treatment facilities
-- All 50 states covered
-- Multiple facility types: Inpatient, Outpatient, Detox, Sober Living
-- Includes reviews, ratings, and contact information
+- Honderden slotenmakers
+- Alle 12 provincies gedekt
+- Meerdere diensten: Noodopening, Slotvervanging, Beveiliging, Autosleutels
+- Inclusief beoordelingen, ratings en contactgegevens
 
-## Main Pages
+## Hoofdpaginas
 
-- /search - Search by location, facility name, or treatment type
-- /compare - Compare up to 3 facilities
-- /state/[name] - Browse by state
-- /facility/[slug] - Facility detail pages
+- /zoeken - Zoek op locatie of naam
+- /vergelijk - Vergelijk tot 3 slotenmakers
+- /provincie/[naam] - Blader per provincie
+- /slotenmaker/[slug] - Detailpaginas slotenmakers
 
 ## Contact
 
-- Website: https://rehabnearbyme.com
-- Email: info@rehabnearbyme.com
+- Website: https://vindslotenmaker.nl
+- Email: info@vindslotenmaker.nl
 
-## More Information
+## Meer Informatie
 
-See /llms-full.txt for comprehensive documentation.
+Zie /llms-full.txt voor uitgebreide documentatie.
