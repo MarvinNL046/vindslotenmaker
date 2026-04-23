@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme {
+  --color-accent-50: #eff6ff;
+  --color-accent-600: #2563eb;
+  --color-accent-700: #1d4ed8;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #ffffff;
+  color: #0f172a;
+  font-family: var(--font-sans);
+}
+
+/* Hide scrollbar but preserve scroll (user preference) */
+html { scrollbar-width: none; }
+html::-webkit-scrollbar { display: none; }
+
+.accent-bg { background: var(--color-accent-600); }
+.accent-bg:hover { background: var(--color-accent-700); }
+.accent-text { color: var(--color-accent-600); }
+.accent-border { border-color: var(--color-accent-600); }
+.accent-soft { background: var(--color-accent-50); }
