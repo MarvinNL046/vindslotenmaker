@@ -22,7 +22,7 @@ export function Hero() {
           <div className="mt-8 flex flex-wrap gap-3">
             <a
               href="#aanvragen"
-              className="accent-bg text-white font-medium px-5 py-3 rounded-md"
+              className="shiny-btn accent-bg text-white font-medium px-5 py-3 rounded-md"
             >
               {siteConfig.ctaVariants.primary}
             </a>

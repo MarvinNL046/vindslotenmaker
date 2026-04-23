@@ -274,7 +274,7 @@ export function LeadForm() {
                   type="button"
                   disabled={!canStep3 || submitting}
                   onClick={submit}
-                  className="accent-bg text-white font-medium flex-1 py-3 rounded-md disabled:opacity-40"
+                  className="shiny-btn accent-bg text-white font-medium flex-1 py-3 rounded-md disabled:opacity-40"
                 >
                   {submitting ? "Even geduld..." : siteConfig.ctaVariants.primary}
                 </button>

@@ -26,3 +26,41 @@ html::-webkit-scrollbar { display: none; }
 .accent-text { color: var(--color-accent-600); }
 .accent-border { border-color: var(--color-accent-600); }
 .accent-soft { background: var(--color-accent-50); }
+
+/* Shiny CTA effect — diagonal shimmer sweeps across ~every 3.4s.
+   Apply .shiny-btn to primary conversion buttons. */
+.shiny-btn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.shiny-btn::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  left: -120%;
+  z-index: 1;
+  width: 80%;
+  pointer-events: none;
+  background: linear-gradient(
+    120deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.18) 40%,
+    rgba(255, 255, 255, 0.58) 50%,
+    rgba(255, 255, 255, 0.18) 60%,
+    transparent 80%
+  );
+  transform: translate3d(0, 0, 0) skewX(-20deg);
+  animation: shiny-btn-shimmer 3.4s ease-in-out infinite;
+}
+
+@keyframes shiny-btn-shimmer {
+  0% { transform: translate3d(0, 0, 0) skewX(-20deg); }
+  45%, 100% { transform: translate3d(320%, 0, 0) skewX(-20deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shiny-btn::before { animation: none; }
+}

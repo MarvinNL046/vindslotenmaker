@@ -20,6 +20,35 @@ export interface FaqItem {
   answer: string;
 }
 
+/** Airco-Limburg sites have pricing tables, factor cards, checklists etc. —
+ * content that doesn't fit the generic vind-* finder template. Optional
+ * `pricingPreview` block on SiteConfig carries that data for sites that
+ * opt into the pricing-focused page layout. */
+export interface PricingPreviewRow {
+  title: string;
+  subtitle: string;
+  priceRange: string;
+  bullets: string[];
+  highlight?: boolean;
+}
+
+export interface FactorCard {
+  title: string;
+  body: string;
+}
+
+export interface ChecklistItem {
+  title: string;
+  body: string;
+}
+
+export interface OutboundLink {
+  href: string;
+  title: string;
+  description: string;
+  label: string;
+}
+
 export interface SiteConfig {
   domain: string;
   siteName: string;
@@ -43,4 +72,28 @@ export interface SiteConfig {
   /** Regional / national positioning */
   region: "national" | string;
   privacyContactEmail: string;
+  /** Optional — only for pricing-focused hub sites (e.g. aircooffertelimburg) */
+  pricingPreview?: {
+    intro: string;
+    rows: PricingPreviewRow[];
+    footnote?: string;
+  };
+  /** Optional — factor cards explaining what drives the price */
+  priceFactors?: {
+    intro: string;
+    cards: FactorCard[];
+  };
+  /** Optional — offerte-checklist block */
+  offerteChecklist?: {
+    intro: string;
+    items: ChecklistItem[];
+  };
+  /** Optional — outbound portfolio link block (cross-domain) */
+  outboundLinks?: {
+    heading: string;
+    intro: string;
+    links: OutboundLink[];
+  };
+  /** Optional — hero ranges array, if rendering the pricing hero variant */
+  heroPriceRanges?: Array<{ label: string; range: string }>;
 }

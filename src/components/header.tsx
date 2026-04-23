@@ -10,7 +10,7 @@ export function Header() {
         </Link>
         <Link
           href="#aanvragen"
-          className="accent-bg text-white text-sm font-medium px-4 py-2 rounded-md"
+          className="shiny-btn accent-bg text-white text-sm font-medium px-4 py-2 rounded-md"
         >
           {siteConfig.ctaVariants.primary}
         </Link>
